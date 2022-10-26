@@ -4,6 +4,8 @@ package rohon
 #cgo CFLAGS: -I./include
 
 #include "cRHMonitorApi.h"
+
+void cgoOnFrontConnected(CRHMonitorInstance);
 */
 import "C"
 
@@ -17,9 +19,13 @@ var (
 	instanceCache = make(map[C.CRHMonitorInstance]*RHMonitorApi)
 
 	ErrInstanceNotExist = origin_error.New("api instance not found")
+
+	callbacks = C.callback_t{
+		cOnFrontConnected: C.CbOnFrontConnected(C.cgoOnFrontConnected),
+	}
 )
 
-// export
+//export cgoOnFrontConnected
 func cgoOnFrontConnected(instance C.CRHMonitorInstance) {
 	var (
 		api   *RHMonitorApi

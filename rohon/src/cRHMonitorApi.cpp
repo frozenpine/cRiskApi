@@ -23,12 +23,7 @@ public:
 protected:
     ~cRHMonitorApi()
     {
-        memset(&vtCallbacks, 0, sizeof(callback_t));
-
-        if (NULL != pApi)
-        {
-            pApi->Release();
-        }
+        Release();
     }
 
 private:
@@ -214,6 +209,16 @@ public:
 
     ///账户某合约持仓回报
     void OnRtnInvestorPosition(CRHMonitorPositionField *pRohonMonitorPositionField){};
+
+    void Release()
+    {
+        memset(&vtCallbacks, 0, sizeof(callback_t));
+
+        if (NULL != pApi)
+        {
+            pApi->Release();
+        }
+    }
 };
 
 #ifdef __cplusplus
@@ -230,7 +235,7 @@ extern "C"
 
     C_API void Release(CRHMonitorInstance instance)
     {
-        delete ((cRHMonitorApi *)instance);
+        ((cRHMonitorApi *)instance)->Release();
     }
 
     C_API void Init(CRHMonitorInstance instance, const char *ip, unsigned int port)

@@ -2,7 +2,7 @@ package rohon
 
 /*
 #cgo CFLAGS: -I./include
-#cgo LDFLAGS: -L./libs -lRHMonitorApi
+#cgo LDFLAGS: -L./libs -lcRHMonitorApi -lRHMonitorApi
 
 #include "cRHMonitorApi.h"
 */
@@ -54,6 +54,10 @@ func NewRHMonitorApi() *RHMonitorApi {
 	cApi := C.CreateRHMonitorApi()
 
 	api := RHMonitorApi{
-		cInstance: _Ctype_CRHMonitorInstance(&cApi),
+		cInstance: cApi,
 	}
+
+	instanceCache[cApi] = &api
+
+	return &api
 }
