@@ -50,9 +50,71 @@ public:
     {
         memcpy(&vtCallbacks, vt, sizeof(callback_t));
     }
+
+    void SetCbOnFrontConnected(CbOnFrontConnected handler)
+    {
+        vtCallbacks.cOnFrontConnected = handler;
+    }
+
+    void SetCbOnFrontDisconnected(CbOnFrontDisconnected handler)
+    {
+        vtCallbacks.cOnFrontDisconnected = handler;
+    }
+
+    void SetCbOnRspUserLogin(CbOnRspUserLogin handler)
+    {
+        vtCallbacks.cOnRspUserLogin = handler;
+    }
+
+    void SetCbOnRspUserLogout(CbOnRspUserLogout handler)
+    {
+        vtCallbacks.cOnRspUserLogout = handler;
+    }
+
+    void SetCbOnRspQryMonitorAccounts(CbOnRspQryMonitorAccounts handler)
+    {
+        vtCallbacks.cOnRspQryMonitorAccounts = handler;
+    }
+
+    void SetCbOnRspQryInvestorMoney(CbOnRspQryInvestorMoney handler)
+    {
+        vtCallbacks.cOnRspQryInvestorMoney = handler;
+    }
+
+    void SetCbOnRspQryInvestorPosition(CbOnRspQryInvestorPosition handler)
+    {
+        vtCallbacks.cOnRspQryInvestorPosition = handler;
+    }
+
+    void SetCbOnRspOffsetOrder(CbOnRspOffsetOrder handler)
+    {
+        vtCallbacks.cOnRspOffsetOrder = handler;
+    }
+
+    void SetCbOnRtnOrder(CbOnRtnOrder handler)
+    {
+        vtCallbacks.cOnRtnOrder = handler;
+    }
+
+    void SetCbOnRtnTrade(CbOnRtnTrade handler)
+    {
+        vtCallbacks.cOnRtnTrade = handler;
+    }
+
+    void SetCbOnRtnInvestorMoney(CbOnRtnInvestorMoney handler)
+    {
+        vtCallbacks.cOnRtnInvestorMoney = handler;
+    }
+
+    void SetCbOnRtnInvestorPosition(CbOnRtnInvestorPosition handler)
+    {
+        vtCallbacks.cOnRtnInvestorPosition = handler;
+    }
+
     ///初始化
     ///@remark 初始化运行环境,只有调用后,接口才开始工作
-    void Init(const char *ip, unsigned int port)
+    void
+    Init(const char *ip, unsigned int port)
     {
         pApi->Init(ip, port);
     };
@@ -166,9 +228,114 @@ extern "C"
         return instance;
     }
 
+    C_API void Release(CRHMonitorInstance instance)
+    {
+        delete instance;
+    }
+
+    C_API void Init(CRHMonitorInstance instance, const char *ip, unsigned int port)
+    {
+        ((cRHMonitorApi *)instance)->Init(ip, port);
+    }
+
+    C_API int ReqUserLogin(CRHMonitorInstance instance, CRHMonitorReqUserLoginField *pUserLoginField, int nRequestID)
+    {
+        ((cRHMonitorApi *)instance)->ReqUserLogin(pUserLoginField, nRequestID);
+    }
+
+    C_API int ReqUserLogout(CRHMonitorInstance instance, CRHMonitorUserLogoutField *pUserLogoutField, int nRequestID)
+    {
+        ((cRHMonitorApi *)instance)->ReqUserLogout(pUserLogoutField, nRequestID);
+    }
+
+    C_API int ReqQryMonitorAccounts(CRHMonitorInstance instance, CRHMonitorQryMonitorUser *pQryMonitorUser, int nRequestID)
+    {
+        ((cRHMonitorApi *)instance)->ReqQryMonitorAccounts(pQryMonitorUser, nRequestID);
+    }
+
+    C_API int ReqQryInvestorMoney(CRHMonitorInstance instance, CRHMonitorQryInvestorMoneyField *pQryInvestorMoneyField, int nRequestID)
+    {
+        ((cRHMonitorApi *)instance)->ReqQryInvestorMoney(pQryInvestorMoneyField, nRequestID);
+    }
+
+    C_API int ReqQryInvestorPosition(CRHMonitorInstance instance, CRHMonitorQryInvestorPositionField *pQryInvestorPositionField, int nRequestID)
+    {
+        ((cRHMonitorApi *)instance)->ReqQryInvestorPosition(pQryInvestorPositionField, nRequestID);
+    }
+
+    C_API int ReqOffsetOrder(CRHMonitorInstance instance, CRHMonitorOffsetOrderField *pMonitorOrderField, int nRequestID)
+    {
+        ((cRHMonitorApi *)instance)->ReqOffsetOrder(pMonitorOrderField, nRequestID);
+    }
+
+    C_API int ReqSubPushInfo(CRHMonitorInstance instance, CRHMonitorSubPushInfo *pInfo, int nRequestID)
+    {
+        ((cRHMonitorApi *)instance)->ReqSubPushInfo(pInfo, nRequestID);
+    }
+
     C_API void SetCallbacks(CRHMonitorInstance instance, callback_t *vt)
     {
         ((cRHMonitorApi *)instance)->SetCallback(vt);
+    }
+
+    C_API void SetCbOnFrontConnected(CRHMonitorInstance instance, CbOnFrontConnected handler)
+    {
+        ((cRHMonitorApi *)instance)->SetCbOnFrontConnected(handler);
+    }
+
+    C_API void SetCbOnFrontDisconnected(CRHMonitorInstance instance, CbOnFrontDisconnected handler)
+    {
+        ((cRHMonitorApi *)instance)->SetCbOnFrontDisconnected(handler);
+    }
+
+    C_API void SetCbOnRspUserLogin(CRHMonitorInstance instance, CbOnRspUserLogin handler)
+    {
+        ((cRHMonitorApi *)instance)->SetCbOnRspUserLogin(handler);
+    }
+
+    C_API void SetCbOnRspUserLogout(CRHMonitorInstance instance, CbOnRspUserLogout handler)
+    {
+        ((cRHMonitorApi *)instance)->SetCbOnRspUserLogout(handler);
+    }
+
+    C_API void SetCbOnRspQryMonitorAccounts(CRHMonitorInstance instance, CbOnRspQryMonitorAccounts handler)
+    {
+        ((cRHMonitorApi *)instance)->SetCbOnRspQryMonitorAccounts(handler);
+    }
+
+    C_API void SetCbOnRspQryInvestorMoney(CRHMonitorInstance instance, CbOnRspQryInvestorMoney handler)
+    {
+        ((cRHMonitorApi *)instance)->SetCbOnRspQryInvestorMoney(handler);
+    }
+
+    C_API void SetCbOnRspQryInvestorPosition(CRHMonitorInstance instance, CbOnRspQryInvestorPosition handler)
+    {
+        ((cRHMonitorApi *)instance)->SetCbOnRspQryInvestorPosition(handler);
+    }
+
+    C_API void SetCbOnRspOffsetOrder(CRHMonitorInstance instance, CbOnRspOffsetOrder handler)
+    {
+        ((cRHMonitorApi *)instance)->SetCbOnRspOffsetOrder(handler);
+    }
+
+    C_API void SetCbOnRtnOrder(CRHMonitorInstance instance, CbOnRtnOrder handler)
+    {
+        ((cRHMonitorApi *)instance)->SetCbOnRtnOrder(handler);
+    }
+
+    C_API void SetCbOnRtnTrade(CRHMonitorInstance instance, CbOnRtnTrade handler)
+    {
+        ((cRHMonitorApi *)instance)->SetCbOnRtnTrade(handler);
+    }
+
+    C_API void SetCbOnRtnInvestorMoney(CRHMonitorInstance instance, CbOnRtnInvestorMoney handler)
+    {
+        ((cRHMonitorApi *)instance)->SetCbOnRtnInvestorMoney(handler);
+    }
+
+    C_API void SetCbOnRtnInvestorPosition(CRHMonitorInstance instance, CbOnRtnInvestorPosition handler)
+    {
+        ((cRHMonitorApi *)instance)->SetCbOnRtnInvestorPosition(handler);
     }
 
 #ifdef __cplusplus
