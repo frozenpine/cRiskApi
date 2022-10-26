@@ -25,16 +25,17 @@ var (
 	}
 )
 
-//export cgoOnFrontConnected
-func cgoOnFrontConnected(instance C.CRHMonitorInstance) {
-	var (
-		api   *RHMonitorApi
-		exist bool
-	)
+func getApiInstance(instance C.CRHMonitorInstance) (api *RHMonitorApi) {
+	var exist bool
 
-	if api, exist = instanceCache[instance]; !exist {
+	if api, exist = instanceCache[instance]; !exist || api == nil {
 		panic(errors.WithStack(ErrInstanceNotExist))
 	}
 
-	api.OnFrontConnected()
+	return
+}
+
+//export cgoOnFrontConnected
+func cgoOnFrontConnected(instance C.CRHMonitorInstance) {
+	getApiInstance(instance).OnFrontConnected()
 }

@@ -57,6 +57,8 @@ func NewRHMonitorApi() *RHMonitorApi {
 		cInstance: cApi,
 	}
 
+	C.SetCallbacks(cApi, &callbacks)
+
 	instanceCache[cApi] = &api
 
 	return &api
