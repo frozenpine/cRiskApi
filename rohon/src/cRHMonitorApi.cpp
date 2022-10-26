@@ -2,7 +2,7 @@
 #include <assert.h>
 
 #include "RHMonitorApi.h"
-#include "cMonitorApi.h"
+#include "cRHMonitorApi.h"
 
 C_API class cRHMonitorApi : CRHMonitorSpi
 {
@@ -122,43 +122,43 @@ public:
     ///账户登陆
     int ReqUserLogin(CRHMonitorReqUserLoginField *pUserLoginField, int nRequestID)
     {
-        pApi->ReqUserLogin(pUserLoginField, nRequestID);
+        return pApi->ReqUserLogin(pUserLoginField, nRequestID);
     };
 
     //账户登出
     int ReqUserLogout(CRHMonitorUserLogoutField *pUserLogoutField, int nRequestID)
     {
-        pApi->ReqUserLogout(pUserLogoutField, nRequestID);
+        return pApi->ReqUserLogout(pUserLogoutField, nRequestID);
     };
 
     //查询所有管理的账户
     int ReqQryMonitorAccounts(CRHMonitorQryMonitorUser *pQryMonitorUser, int nRequestID)
     {
-        pApi->ReqQryMonitorAccounts(pQryMonitorUser, nRequestID);
+        return pApi->ReqQryMonitorAccounts(pQryMonitorUser, nRequestID);
     };
 
     ///查询账户资金
     int ReqQryInvestorMoney(CRHMonitorQryInvestorMoneyField *pQryInvestorMoneyField, int nRequestID)
     {
-        pApi->ReqQryInvestorMoney(pQryInvestorMoneyField, nRequestID);
+        return pApi->ReqQryInvestorMoney(pQryInvestorMoneyField, nRequestID);
     };
 
     ///查询账户持仓
     int ReqQryInvestorPosition(CRHMonitorQryInvestorPositionField *pQryInvestorPositionField, int nRequestID)
     {
-        pApi->ReqQryInvestorPosition(pQryInvestorPositionField, nRequestID);
+        return pApi->ReqQryInvestorPosition(pQryInvestorPositionField, nRequestID);
     };
 
     //给Server发送强平请求
     int ReqOffsetOrder(CRHMonitorOffsetOrderField *pMonitorOrderField, int nRequestID)
     {
-        pApi->ReqOffsetOrder(pMonitorOrderField, nRequestID);
+        return pApi->ReqOffsetOrder(pMonitorOrderField, nRequestID);
     };
 
     //订阅主动推送信息
     int ReqSubPushInfo(CRHMonitorSubPushInfo *pInfo, int nRequestID)
     {
-        pApi->ReqSubPushInfo(pInfo, nRequestID);
+        return pApi->ReqSubPushInfo(pInfo, nRequestID);
     };
 
     ///当客户端与交易后台建立起通信连接时（还未登录前），该方法被调用。
@@ -167,7 +167,7 @@ public:
         if (!vtCallbacks.cOnFrontConnected)
             return;
 
-        vtCallbacks.cOnFrontConnected(this);
+        vtCallbacks.cOnFrontConnected(CRHMonitorInstance(this));
     };
 
     ///当客户端与交易后台通信连接断开时，该方法被调用。当发生这个情况后，API会自动重新连接，客户端可不做处理。
@@ -182,7 +182,7 @@ public:
         if (!vtCallbacks.cOnFrontDisconnected)
             return;
 
-        vtCallbacks.cOnFrontDisconnected(this, nReason);
+        vtCallbacks.cOnFrontDisconnected(CRHMonitorInstance(this), nReason);
     };
 
     ///风控账户登陆响应
@@ -225,12 +225,12 @@ extern "C"
     {
         cRHMonitorApi *instance = new (cRHMonitorApi);
 
-        return instance;
+        return CRHMonitorInstance(instance);
     }
 
     C_API void Release(CRHMonitorInstance instance)
     {
-        delete instance;
+        delete ((cRHMonitorApi *)instance);
     }
 
     C_API void Init(CRHMonitorInstance instance, const char *ip, unsigned int port)
@@ -238,39 +238,39 @@ extern "C"
         ((cRHMonitorApi *)instance)->Init(ip, port);
     }
 
-    C_API int ReqUserLogin(CRHMonitorInstance instance, CRHMonitorReqUserLoginField *pUserLoginField, int nRequestID)
+    C_API int ReqUserLogin(CRHMonitorInstance instance, struct CRHMonitorReqUserLoginField *pUserLoginField, int nRequestID)
     {
-        ((cRHMonitorApi *)instance)->ReqUserLogin(pUserLoginField, nRequestID);
+        return ((cRHMonitorApi *)instance)->ReqUserLogin(pUserLoginField, nRequestID);
     }
 
-    C_API int ReqUserLogout(CRHMonitorInstance instance, CRHMonitorUserLogoutField *pUserLogoutField, int nRequestID)
+    C_API int ReqUserLogout(CRHMonitorInstance instance, struct CRHMonitorUserLogoutField *pUserLogoutField, int nRequestID)
     {
-        ((cRHMonitorApi *)instance)->ReqUserLogout(pUserLogoutField, nRequestID);
+        return ((cRHMonitorApi *)instance)->ReqUserLogout(pUserLogoutField, nRequestID);
     }
 
-    C_API int ReqQryMonitorAccounts(CRHMonitorInstance instance, CRHMonitorQryMonitorUser *pQryMonitorUser, int nRequestID)
+    C_API int ReqQryMonitorAccounts(CRHMonitorInstance instance, struct CRHMonitorQryMonitorUser *pQryMonitorUser, int nRequestID)
     {
-        ((cRHMonitorApi *)instance)->ReqQryMonitorAccounts(pQryMonitorUser, nRequestID);
+        return ((cRHMonitorApi *)instance)->ReqQryMonitorAccounts(pQryMonitorUser, nRequestID);
     }
 
-    C_API int ReqQryInvestorMoney(CRHMonitorInstance instance, CRHMonitorQryInvestorMoneyField *pQryInvestorMoneyField, int nRequestID)
+    C_API int ReqQryInvestorMoney(CRHMonitorInstance instance, struct CRHMonitorQryInvestorMoneyField *pQryInvestorMoneyField, int nRequestID)
     {
-        ((cRHMonitorApi *)instance)->ReqQryInvestorMoney(pQryInvestorMoneyField, nRequestID);
+        return ((cRHMonitorApi *)instance)->ReqQryInvestorMoney(pQryInvestorMoneyField, nRequestID);
     }
 
-    C_API int ReqQryInvestorPosition(CRHMonitorInstance instance, CRHMonitorQryInvestorPositionField *pQryInvestorPositionField, int nRequestID)
+    C_API int ReqQryInvestorPosition(CRHMonitorInstance instance, struct CRHMonitorQryInvestorPositionField *pQryInvestorPositionField, int nRequestID)
     {
-        ((cRHMonitorApi *)instance)->ReqQryInvestorPosition(pQryInvestorPositionField, nRequestID);
+        return ((cRHMonitorApi *)instance)->ReqQryInvestorPosition(pQryInvestorPositionField, nRequestID);
     }
 
-    C_API int ReqOffsetOrder(CRHMonitorInstance instance, CRHMonitorOffsetOrderField *pMonitorOrderField, int nRequestID)
+    C_API int ReqOffsetOrder(CRHMonitorInstance instance, struct CRHMonitorOffsetOrderField *pMonitorOrderField, int nRequestID)
     {
-        ((cRHMonitorApi *)instance)->ReqOffsetOrder(pMonitorOrderField, nRequestID);
+        return ((cRHMonitorApi *)instance)->ReqOffsetOrder(pMonitorOrderField, nRequestID);
     }
 
-    C_API int ReqSubPushInfo(CRHMonitorInstance instance, CRHMonitorSubPushInfo *pInfo, int nRequestID)
+    C_API int ReqSubPushInfo(CRHMonitorInstance instance, struct CRHMonitorSubPushInfo *pInfo, int nRequestID)
     {
-        ((cRHMonitorApi *)instance)->ReqSubPushInfo(pInfo, nRequestID);
+        return ((cRHMonitorApi *)instance)->ReqSubPushInfo(pInfo, nRequestID);
     }
 
     C_API void SetCallbacks(CRHMonitorInstance instance, callback_t *vt)

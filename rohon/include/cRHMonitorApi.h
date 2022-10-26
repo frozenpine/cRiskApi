@@ -3,13 +3,13 @@
 #define C_MONITOR_API_H
 
 #ifdef __GNUC__
-#ifdef CTRADERAPI_EXPORTS
+#ifdef CMONITORAPI_EXPORTS
 #define C_API __attribute__((dllexport))
 #else
 #define C_API __attribute__((dllimport))
 #endif
 #else
-#ifdef CTRADERAPI_EXPORTS
+#ifdef CMONITORAPI_EXPORTS
 #define C_API __declspec(dllexport)
 #else
 #define C_API __declspec(dllimport)
@@ -22,7 +22,9 @@
 #define APPWINAPI __cdecl
 
 #ifdef __cplusplus
+#ifndef NULL
 #define NULL 0
+#endif
 extern "C"
 {
 #else
@@ -37,7 +39,7 @@ extern "C"
 #include "RHUserApiStruct.h"
 
     // C API 实例
-    typedef void *CRHMonitorInstance;
+    typedef uintptr_t CRHMonitorInstance;
 
     ///当客户端与交易后台建立起通信连接时（还未登录前），该方法被调用。
     typedef void(APPWINAPI *CbOnFrontConnected)(CRHMonitorInstance instance);
@@ -54,43 +56,67 @@ extern "C"
     C_API void SetCbOnFrontDisconnected(CRHMonitorInstance instance, CbOnFrontDisconnected handler);
 
     ///风控账户登陆响应
-    typedef void(APPWINAPI *CbOnRspUserLogin)(CRHMonitorInstance instance, CRHMonitorRspUserLoginField *pRspUserLoginField, CRHRspInfoField *pRHRspInfoField, int nRequestID);
+    typedef void(APPWINAPI *CbOnRspUserLogin)(
+        CRHMonitorInstance instance,
+        struct CRHMonitorRspUserLoginField *pRspUserLoginField,
+        struct CRHRspInfoField *pRHRspInfoField,
+        int nRequestID);
     C_API void SetCbOnRspUserLogin(CRHMonitorInstance instance, CbOnRspUserLogin handler);
 
     ///风控账户登出响应
-    typedef void(APPWINAPI *CbOnRspUserLogout)(CRHMonitorInstance instance, CRHMonitorUserLogoutField *pRspUserLoginField, CRHRspInfoField *pRHRspInfoField, int nRequestID);
+    typedef void(APPWINAPI *CbOnRspUserLogout)(
+        CRHMonitorInstance instance,
+        struct CRHMonitorUserLogoutField *pRspUserLoginField,
+        struct CRHRspInfoField *pRHRspInfoField,
+        int nRequestID);
     C_API void SetCbOnRspUserLogout(CRHMonitorInstance instance, CbOnRspUserLogout handler);
 
     ///查询监控账户响应
-    typedef void(APPWINAPI *CbOnRspQryMonitorAccounts)(CRHMonitorInstance instance, CRHQryInvestorField *pRspMonitorUser, CRHRspInfoField *pRHRspInfoField, int nRequestID, bool isLast);
+    typedef void(APPWINAPI *CbOnRspQryMonitorAccounts)(
+        CRHMonitorInstance instance,
+        struct CRHQryInvestorField *pRspMonitorUser,
+        struct CRHRspInfoField *pRHRspInfoField,
+        int nRequestID, bool isLast);
     C_API void SetCbOnRspQryMonitorAccounts(CRHMonitorInstance instance, CbOnRspQryMonitorAccounts handler);
 
     ///查询账户资金响应
-    typedef void(APPWINAPI *CbOnRspQryInvestorMoney)(CRHMonitorInstance instance, CRHTradingAccountField *pRHTradingAccountField, CRHRspInfoField *pRHRspInfoField, int nRequestID, bool isLast);
+    typedef void(APPWINAPI *CbOnRspQryInvestorMoney)(
+        CRHMonitorInstance instance,
+        struct CRHTradingAccountField *pRHTradingAccountField,
+        struct CRHRspInfoField *pRHRspInfoField,
+        int nRequestID, bool isLast);
     C_API void SetCbOnRspQryInvestorMoney(CRHMonitorInstance instance, CbOnRspQryInvestorMoney handler);
 
     ///查询账户持仓信息响应
-    typedef void(APPWINAPI *CbOnRspQryInvestorPosition)(CRHMonitorInstance instance, CRHMonitorPositionField *pRHMonitorPositionField, CRHRspInfoField *pRHRspInfoField, int nRequestID, bool isLast);
+    typedef void(APPWINAPI *CbOnRspQryInvestorPosition)(
+        CRHMonitorInstance instance,
+        struct CRHMonitorPositionField *pRHMonitorPositionField,
+        struct CRHRspInfoField *pRHRspInfoField,
+        int nRequestID, bool isLast);
     C_API void SetCbOnRspQryInvestorPosition(CRHMonitorInstance instance, CbOnRspQryInvestorPosition handler);
 
     ///平仓指令发送失败时的响应
-    typedef void(APPWINAPI *CbOnRspOffsetOrder)(CRHMonitorInstance instance, CRHMonitorOffsetOrderField *pMonitorOrderField, CRHRspInfoField *pRHRspInfoField, int nRequestID, bool isLast);
+    typedef void(APPWINAPI *CbOnRspOffsetOrder)(
+        CRHMonitorInstance instance,
+        struct CRHMonitorOffsetOrderField *pMonitorOrderField,
+        struct CRHRspInfoField *pRHRspInfoField,
+        int nRequestID, bool isLast);
     C_API void SetCbOnRspOffsetOrder(CRHMonitorInstance instance, CbOnRspOffsetOrder handler);
 
     ///报单通知
-    typedef void(APPWINAPI *CbOnRtnOrder)(CRHMonitorInstance instance, CRHOrderField *pOrder);
+    typedef void(APPWINAPI *CbOnRtnOrder)(CRHMonitorInstance instance, struct CRHOrderField *pOrder);
     C_API void SetCbOnRtnOrder(CRHMonitorInstance instance, CbOnRtnOrder handler);
 
     ///成交通知
-    typedef void(APPWINAPI *CbOnRtnTrade)(CRHMonitorInstance instance, CRHTradeField *pTrade);
+    typedef void(APPWINAPI *CbOnRtnTrade)(CRHMonitorInstance instance, struct CRHTradeField *pTrade);
     C_API void SetCbOnRtnTrade(CRHMonitorInstance instance, CbOnRtnTrade handler);
 
     ///账户资金发生变化回报
-    typedef void(APPWINAPI *CbOnRtnInvestorMoney)(CRHMonitorInstance instance, CRHTradingAccountField *pRohonTradingAccountField);
+    typedef void(APPWINAPI *CbOnRtnInvestorMoney)(CRHMonitorInstance instance, struct CRHTradingAccountField *pRohonTradingAccountField);
     C_API void SetCbOnRtnInvestorMoney(CRHMonitorInstance instance, CbOnRtnInvestorMoney handler);
 
     ///账户某合约持仓回报
-    typedef void(APPWINAPI *CbOnRtnInvestorPosition)(CRHMonitorInstance instance, CRHMonitorPositionField *pRohonMonitorPositionField);
+    typedef void(APPWINAPI *CbOnRtnInvestorPosition)(CRHMonitorInstance instance, struct CRHMonitorPositionField *pRohonMonitorPositionField);
     C_API void SetCbOnRtnInvestorPosition(CRHMonitorInstance instance, CbOnRtnInvestorPosition handler);
 
     typedef struct CbVirtualTable
@@ -122,25 +148,25 @@ extern "C"
     C_API void Init(CRHMonitorInstance instance, const char *ip, unsigned int port);
 
     ///账户登陆
-    C_API int ReqUserLogin(CRHMonitorInstance instance, CRHMonitorReqUserLoginField *pUserLoginField, int nRequestID);
+    C_API int ReqUserLogin(CRHMonitorInstance instance, struct CRHMonitorReqUserLoginField *pUserLoginField, int nRequestID);
 
     //账户登出
-    C_API int ReqUserLogout(CRHMonitorInstance instance, CRHMonitorUserLogoutField *pUserLogoutField, int nRequestID);
+    C_API int ReqUserLogout(CRHMonitorInstance instance, struct CRHMonitorUserLogoutField *pUserLogoutField, int nRequestID);
 
     //查询所有管理的账户
-    C_API int ReqQryMonitorAccounts(CRHMonitorInstance instance, CRHMonitorQryMonitorUser *pQryMonitorUser, int nRequestID);
+    C_API int ReqQryMonitorAccounts(CRHMonitorInstance instance, struct CRHMonitorQryMonitorUser *pQryMonitorUser, int nRequestID);
 
     ///查询账户资金
-    C_API int ReqQryInvestorMoney(CRHMonitorInstance instance, CRHMonitorQryInvestorMoneyField *pQryInvestorMoneyField, int nRequestID);
+    C_API int ReqQryInvestorMoney(CRHMonitorInstance instance, struct CRHMonitorQryInvestorMoneyField *pQryInvestorMoneyField, int nRequestID);
 
     ///查询账户持仓
-    C_API int ReqQryInvestorPosition(CRHMonitorInstance instance, CRHMonitorQryInvestorPositionField *pQryInvestorPositionField, int nRequestID);
+    C_API int ReqQryInvestorPosition(CRHMonitorInstance instance, struct CRHMonitorQryInvestorPositionField *pQryInvestorPositionField, int nRequestID);
 
     //给Server发送强平请求
-    C_API int ReqOffsetOrder(CRHMonitorInstance instance, CRHMonitorOffsetOrderField *pMonitorOrderField, int nRequestID);
+    C_API int ReqOffsetOrder(CRHMonitorInstance instance, struct CRHMonitorOffsetOrderField *pMonitorOrderField, int nRequestID);
 
     //订阅主动推送信息
-    C_API int ReqSubPushInfo(CRHMonitorInstance instance, CRHMonitorSubPushInfo *pInfo, int nRequestID);
+    C_API int ReqSubPushInfo(CRHMonitorInstance instance, struct CRHMonitorSubPushInfo *pInfo, int nRequestID);
 
 #ifdef __cplusplus
 }

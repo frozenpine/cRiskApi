@@ -1,0 +1,31 @@
+# cmake最低版本需求，不加入此行会受到警告信息
+CMAKE_MINIMUM_REQUIRED(VERSION 3.10)
+add_definitions(-DCMONITORAPI_EXPORTS -DISLIB -DWIN32)
+PROJECT(cRHMonitorApi) # 项目名称
+
+# C++11 support
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+
+# GDB调试
+# SET(CMAKE_BUILD_TYPE "Debug")
+# SET(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -g2 -ggdb")
+# SET(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")
+set(
+	INCLUDE_DIRS
+	${PROJECT_SOURCE_DIR}/../include
+)
+
+set(SRC_DIR ${PROJECT_SOURCE_DIR})
+set(
+	RHMONITOR_PROJECT
+
+	${SRC_DIR}/cRHMonitorApi.cpp
+	${INCLUDE_DIRS}/cRHMonitorApi.h
+	${INCLUDE_DIRS}/RHMonitorApi.h
+	${INCLUDE_DIRS}/RHUserApiDataType.h
+	${INCLUDE_DIRS}/RHUserApiStruct.h
+)
+
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/../libs)
+ADD_LIBRARY(cRHMonitorApi ${RHMONITOR_PROJECT})
+target_include_directories(cRHMonitorApi PUBLIC ${INCLUDE_DIRS})
