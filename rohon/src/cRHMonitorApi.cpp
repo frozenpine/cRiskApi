@@ -4,7 +4,7 @@
 #include "RHMonitorApi.h"
 #include "cRHMonitorApi.h"
 
-C_API class cRHMonitorApi : CRHMonitorSpi
+class C_API cRHMonitorApi : CRHMonitorSpi
 {
 public:
     cRHMonitorApi()

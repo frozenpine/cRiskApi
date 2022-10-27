@@ -1,6 +1,11 @@
 # cmake最低版本需求，不加入此行会受到警告信息
 CMAKE_MINIMUM_REQUIRED(VERSION 3.10)
-add_definitions(-DCMONITORAPI_EXPORTS -DISLIB -DWIN32)
+
+if(CMAKE_SYSTEM_NAME MATCHES "Windows")
+add_definitions(-DISLIB -DWIN32)
+endif()
+add_definitions(-DCMONITORAPI_EXPORTS)
+
 PROJECT(cRHMonitorApi) # 项目名称
 
 # C++11 support

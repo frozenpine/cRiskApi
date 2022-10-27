@@ -4,9 +4,9 @@
 
 #ifdef __GNUC__
 #ifdef CMONITORAPI_EXPORTS
-#define C_API __attribute__((dllexport))
+#define C_API __attribute__((visibility("default")))
 #else
-#define C_API __attribute__((dllimport))
+#define C_API __attribute__((visibility("default")))
 #endif
 #else
 #ifdef CMONITORAPI_EXPORTS
