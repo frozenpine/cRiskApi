@@ -8,6 +8,7 @@ package rohon
 import "C"
 import (
 	"sync"
+	"unsafe"
 )
 
 type RspInfo struct {
@@ -21,7 +22,7 @@ func NewFromCRHRspInfoField(pRHRspInfoField *C.struct_CRHRspInfoField) *RspInfo 
 	rsp := rspInfoCache.Get().(*RspInfo)
 
 	rsp.ErrorID = int(pRHRspInfoField.ErrorID)
-	rsp.ErrorMsg = CStr2GoStr(&pRHRspInfoField.ErrorMsg)
+	rsp.ErrorMsg = CStr2GoStr(unsafe.Pointer(&pRHRspInfoField.ErrorMsg))
 
 	return rsp
 }
@@ -36,11 +37,11 @@ type RspUserLogin struct {
 
 func NewFromCRHMonitorRspUserLoginField(pRspUserLoginField *C.struct_CRHMonitorRspUserLoginField) *RspUserLogin {
 	return &RspUserLogin{
-		UserID:            CStr2GoStr(&pRspUserLoginField.UserID),
+		UserID:            CStr2GoStr(unsafe.Pointer(&pRspUserLoginField.UserID)),
 		PrivilegeType:     PrivilegeType(pRspUserLoginField.PrivilegeType),
-		InfoPrivilegeType: CStr2GoStr(&pRspUserLoginField.InfoPrivilegeType),
-		TradingDay:        CStr2GoStr(&pRspUserLoginField.TradingDay),
-		LoginTime:         CStr2GoStr(&pRspUserLoginField.LoginTime),
+		InfoPrivilegeType: CStr2GoStr(unsafe.Pointer(&pRspUserLoginField.InfoPrivilegeType)),
+		TradingDay:        CStr2GoStr(unsafe.Pointer(&pRspUserLoginField.TradingDay)),
+		LoginTime:         CStr2GoStr(unsafe.Pointer(&pRspUserLoginField.LoginTime)),
 	}
 }
 
@@ -50,7 +51,7 @@ type RspUserLogout struct {
 
 func NewFromCRHMonitorUserLogoutField(pRspUserLoginField *C.struct_CRHMonitorUserLogoutField) *RspUserLogout {
 	return &RspUserLogout{
-		UserID: CStr2GoStr(&pRspUserLoginField.UserID),
+		UserID: CStr2GoStr(unsafe.Pointer(&pRspUserLoginField.UserID)),
 	}
 }
 
@@ -64,8 +65,8 @@ var investorCache = sync.Pool{New: func() any { return &Investor{} }}
 func NewFromCRHQryInvestorField(pRspMonitorUser *C.struct_CRHQryInvestorField) *Investor {
 	investor := investorCache.Get().(*Investor)
 
-	investor.BrokerID = CStr2GoStr(&pRspMonitorUser.BrokerID)
-	investor.InvestorID = CStr2GoStr(&pRspMonitorUser.InvestorID)
+	investor.BrokerID = CStr2GoStr(unsafe.Pointer(&pRspMonitorUser.BrokerID))
+	investor.InvestorID = CStr2GoStr(unsafe.Pointer(&pRspMonitorUser.InvestorID))
 
 	return investor
 }
@@ -185,8 +186,8 @@ var accountCache = sync.Pool{New: func() any { return &Account{} }}
 
 func NewFromCRHTradingAccountField(pRHTradingAccountField *C.struct_CRHTradingAccountField) *Account {
 	account := accountCache.Get().(*Account)
-	account.BrokerID = CStr2GoStr(&pRHTradingAccountField.BrokerID)
-	account.AccountID = CStr2GoStr(&pRHTradingAccountField.AccountID)
+	account.BrokerID = CStr2GoStr(unsafe.Pointer(&pRHTradingAccountField.BrokerID))
+	account.AccountID = CStr2GoStr(unsafe.Pointer(&pRHTradingAccountField.AccountID))
 	account.PreMortgage = float64(pRHTradingAccountField.PreMortgage)
 	account.PreCredit = float64(pRHTradingAccountField.PreCredit)
 	account.PreDeposit = float64(pRHTradingAccountField.PreDeposit)
@@ -208,7 +209,7 @@ func NewFromCRHTradingAccountField(pRHTradingAccountField *C.struct_CRHTradingAc
 	account.Available = float64(pRHTradingAccountField.Available)
 	account.WithdrawQuota = float64(pRHTradingAccountField.WithdrawQuota)
 	account.Reserve = float64(pRHTradingAccountField.Reserve)
-	account.TradingDay = CStr2GoStr(&pRHTradingAccountField.TradingDay)
+	account.TradingDay = CStr2GoStr(unsafe.Pointer(&pRHTradingAccountField.TradingDay))
 	account.SettlementID = int(pRHTradingAccountField.SettlementID)
 	account.Credit = float64(pRHTradingAccountField.Credit)
 	account.Mortgage = float64(pRHTradingAccountField.Mortgage)
@@ -216,7 +217,7 @@ func NewFromCRHTradingAccountField(pRHTradingAccountField *C.struct_CRHTradingAc
 	account.DeliveryMargin = float64(pRHTradingAccountField.DeliveryMargin)
 	account.ExchangeDeliveryMargin = float64(pRHTradingAccountField.ExchangeDeliveryMargin)
 	account.ReserveBalance = float64(pRHTradingAccountField.ReserveBalance)
-	account.CurrencyID = CStr2GoStr(&pRHTradingAccountField.CurrencyID)
+	account.CurrencyID = CStr2GoStr(unsafe.Pointer(&pRHTradingAccountField.CurrencyID))
 	account.PreFundMortgageIn = float64(pRHTradingAccountField.PreFundMortgageIn)
 	account.PreFundMortgageOut = float64(pRHTradingAccountField.PreFundMortgageOut)
 	account.FundMortgageIn = float64(pRHTradingAccountField.FundMortgageIn)
@@ -277,10 +278,10 @@ var positionCache = sync.Pool{New: func() any { return &Position{} }}
 func NewFromCRHMonitorPositionField(pRHMonitorPositionField *C.struct_CRHMonitorPositionField) *Position {
 	pos := positionCache.Get().(*Position)
 
-	pos.InvestorID = CStr2GoStr(&pRHMonitorPositionField.InvestorID)
-	pos.BrokerID = CStr2GoStr(&pRHMonitorPositionField.BrokerID)
-	pos.ProductID = CStr2GoStr(&pRHMonitorPositionField.ProductID)
-	pos.InstrumentID = CStr2GoStr(&pRHMonitorPositionField.InstrumentID)
+	pos.InvestorID = CStr2GoStr(unsafe.Pointer(&pRHMonitorPositionField.InvestorID))
+	pos.BrokerID = CStr2GoStr(unsafe.Pointer(&pRHMonitorPositionField.BrokerID))
+	pos.ProductID = CStr2GoStr(unsafe.Pointer(&pRHMonitorPositionField.ProductID))
+	pos.InstrumentID = CStr2GoStr(unsafe.Pointer(&pRHMonitorPositionField.InstrumentID))
 	pos.HedgeFlag = HedgeFlag(pRHMonitorPositionField.HedgeFlag)
 	pos.Direction = Direction(pRHMonitorPositionField.Direction)
 	pos.Volume = int(pRHMonitorPositionField.Volume)
@@ -318,16 +319,16 @@ var offsetOrderCache = sync.Pool{New: func() any { return &OffsetOrder{} }}
 func NewFromCRHMonitorOffsetOrderField(pMonitorOrderField *C.struct_CRHMonitorOffsetOrderField) *OffsetOrder {
 	offsetOrd := offsetOrderCache.Get().(*OffsetOrder)
 
-	offsetOrd.InvestorID = CStr2GoStr(&pMonitorOrderField.InvestorID)
-	offsetOrd.BrokerID = CStr2GoStr(&pMonitorOrderField.BrokerID)
-	offsetOrd.InstrumentID = CStr2GoStr(&pMonitorOrderField.InstrumentID)
+	offsetOrd.InvestorID = CStr2GoStr(unsafe.Pointer(&pMonitorOrderField.InvestorID))
+	offsetOrd.BrokerID = CStr2GoStr(unsafe.Pointer(&pMonitorOrderField.BrokerID))
+	offsetOrd.InstrumentID = CStr2GoStr(unsafe.Pointer(&pMonitorOrderField.InstrumentID))
 	offsetOrd.Direction = Direction(pMonitorOrderField.Direction)
 	offsetOrd.Volume = int(pMonitorOrderField.volume)
 	offsetOrd.Price = float64(pMonitorOrderField.Price)
 
-	CopyN(offsetOrd.ComboOffsetFlag[:], &pMonitorOrderField.CombOffsetFlag, 5)
+	CopyN(offsetOrd.ComboOffsetFlag[:], unsafe.Pointer(&pMonitorOrderField.CombOffsetFlag), 5)
 
-	CopyN(offsetOrd.ComboHedgeFlag[:], &pMonitorOrderField.CombHedgeFlag, 5)
+	CopyN(offsetOrd.ComboHedgeFlag[:], unsafe.Pointer(&pMonitorOrderField.CombHedgeFlag), 5)
 
 	return offsetOrd
 }
@@ -403,69 +404,69 @@ var orderCache = sync.Pool{New: func() any { return &Order{} }}
 func NewFromCRHOrderField(pOrder *C.struct_CRHOrderField) *Order {
 	ord := orderCache.Get().(*Order)
 
-	ord.BrokerID = CStr2GoStr(&pOrder.BrokerID)
-	ord.InvestorID = CStr2GoStr(&pOrder.InvestorID)
-	ord.InstrumentID = CStr2GoStr(&pOrder.InstrumentID)
-	ord.OrderRef = CStr2GoStr(&pOrder.OrderRef)
-	ord.UserID = CStr2GoStr(&pOrder.UserID)
+	ord.BrokerID = CStr2GoStr(unsafe.Pointer(&pOrder.BrokerID))
+	ord.InvestorID = CStr2GoStr(unsafe.Pointer(&pOrder.InvestorID))
+	ord.InstrumentID = CStr2GoStr(unsafe.Pointer(&pOrder.InstrumentID))
+	ord.OrderRef = CStr2GoStr(unsafe.Pointer(&pOrder.OrderRef))
+	ord.UserID = CStr2GoStr(unsafe.Pointer(&pOrder.UserID))
 	ord.PriceType = OrderPriceType(pOrder.OrderPriceType)
 	ord.Direction = Direction(pOrder.Direction)
-	CopyN(ord.ComboOffsetFlag[:], &pOrder.CombOffsetFlag, 5)
-	CopyN(ord.ComboHedgeFlag[:], &pOrder.CombHedgeFlag, 5)
+	CopyN(ord.ComboOffsetFlag[:], unsafe.Pointer(&pOrder.CombOffsetFlag), 5)
+	CopyN(ord.ComboHedgeFlag[:], unsafe.Pointer(&pOrder.CombHedgeFlag), 5)
 	ord.LimitPrice = float64(pOrder.LimitPrice)
 	ord.VolumeTotalOriginal = int(pOrder.VolumeTotalOriginal)
 	ord.TimeCondition = TimeCondition(pOrder.TimeCondition)
-	ord.GTDDate = CStr2GoStr(&pOrder.GTDDate)
+	ord.GTDDate = CStr2GoStr(unsafe.Pointer(&pOrder.GTDDate))
 	ord.VolumeCondition = VolumeCondition(pOrder.VolumeCondition)
 	ord.MinVolume = int(pOrder.MinVolume)
 	ord.ContingentCondition = ContingentCondition(pOrder.ContingentCondition)
 	ord.StopPrice = float64(pOrder.StopPrice)
 	ord.ForceCloseReason = ForceCloseReason(pOrder.ForceCloseReason)
 	ord.IsAutoSuspend = pOrder.IsAutoSuspend != 0
-	ord.BusinessUnit = CStr2GoStr(&pOrder.BusinessUnit)
+	ord.BusinessUnit = CStr2GoStr(unsafe.Pointer(&pOrder.BusinessUnit))
 	ord.RequestID = int(pOrder.RequestID)
-	ord.OrderLocalID = CStr2GoStr(&pOrder.OrderLocalID)
-	ord.ExchangeID = CStr2GoStr(&pOrder.ExchangeID)
-	ord.ParticipantID = CStr2GoStr(&pOrder.ParticipantID)
-	ord.ClientID = CStr2GoStr(&pOrder.ClientID)
-	ord.ExchangeInstID = CStr2GoStr(&pOrder.ExchangeInstID)
-	ord.TraderID = CStr2GoStr(&pOrder.TraderID)
+	ord.OrderLocalID = CStr2GoStr(unsafe.Pointer(&pOrder.OrderLocalID))
+	ord.ExchangeID = CStr2GoStr(unsafe.Pointer(&pOrder.ExchangeID))
+	ord.ParticipantID = CStr2GoStr(unsafe.Pointer(&pOrder.ParticipantID))
+	ord.ClientID = CStr2GoStr(unsafe.Pointer(&pOrder.ClientID))
+	ord.ExchangeInstID = CStr2GoStr(unsafe.Pointer(&pOrder.ExchangeInstID))
+	ord.TraderID = CStr2GoStr(unsafe.Pointer(&pOrder.TraderID))
 	ord.InstallID = int(pOrder.InstallID)
 	ord.OrderSubmitStatus = OrderSubmitStatus(pOrder.OrderSubmitStatus)
 	ord.NotifySequence = int(pOrder.NotifySequence)
-	ord.TradingDay = CStr2GoStr(&pOrder.TradingDay)
+	ord.TradingDay = CStr2GoStr(unsafe.Pointer(&pOrder.TradingDay))
 	ord.SettlementID = int(pOrder.SettlementID)
-	ord.OrderSysID = CStr2GoStr(&pOrder.OrderSysID)
+	ord.OrderSysID = CStr2GoStr(unsafe.Pointer(&pOrder.OrderSysID))
 	ord.OrderSource = OrderSource(pOrder.OrderSource)
 	ord.OrderStatus = OrderStatus(pOrder.OrderStatus)
 	ord.OrderType = OrderType(pOrder.OrderType)
 	ord.VolumeTraded = int(pOrder.VolumeTraded)
 	ord.VolumeTotal = int(pOrder.VolumeTotal)
-	ord.InsertDate = CStr2GoStr(&pOrder.InsertDate)
-	ord.InsertTime = CStr2GoStr(&pOrder.InsertTime)
-	ord.ActiveTime = CStr2GoStr(&pOrder.ActiveTime)
-	ord.SuspendTime = CStr2GoStr(&pOrder.SuspendTime)
-	ord.UpdateTime = CStr2GoStr(&pOrder.UpdateTime)
-	ord.CancelTime = CStr2GoStr(&pOrder.CancelTime)
-	ord.ActiveTraderID = CStr2GoStr(&pOrder.ActiveTraderID)
-	ord.ClearingPartID = CStr2GoStr(&pOrder.ClearingPartID)
+	ord.InsertDate = CStr2GoStr(unsafe.Pointer(&pOrder.InsertDate))
+	ord.InsertTime = CStr2GoStr(unsafe.Pointer(&pOrder.InsertTime))
+	ord.ActiveTime = CStr2GoStr(unsafe.Pointer(&pOrder.ActiveTime))
+	ord.SuspendTime = CStr2GoStr(unsafe.Pointer(&pOrder.SuspendTime))
+	ord.UpdateTime = CStr2GoStr(unsafe.Pointer(&pOrder.UpdateTime))
+	ord.CancelTime = CStr2GoStr(unsafe.Pointer(&pOrder.CancelTime))
+	ord.ActiveTraderID = CStr2GoStr(unsafe.Pointer(&pOrder.ActiveTraderID))
+	ord.ClearingPartID = CStr2GoStr(unsafe.Pointer(&pOrder.ClearingPartID))
 	ord.SequenceNo = int(pOrder.SequenceNo)
 	ord.FrontID = int(pOrder.FrontID)
 	ord.SessionID = int(pOrder.SessionID)
-	ord.UserProductInfo = CStr2GoStr(&pOrder.UserProductInfo)
-	ord.StatusMsg = CStr2GoStr(&pOrder.StatusMsg)
+	ord.UserProductInfo = CStr2GoStr(unsafe.Pointer(&pOrder.UserProductInfo))
+	ord.StatusMsg = CStr2GoStr(unsafe.Pointer(&pOrder.StatusMsg))
 	ord.UserForceClose = pOrder.UserForceClose != 0
-	ord.ActiveUserID = CStr2GoStr(&pOrder.ActiveUserID)
+	ord.ActiveUserID = CStr2GoStr(unsafe.Pointer(&pOrder.ActiveUserID))
 	ord.BrokerOrderSeq = int(pOrder.BrokerOrderSeq)
-	ord.RelativeOrderSysID = CStr2GoStr(&pOrder.RelativeOrderSysID)
+	ord.RelativeOrderSysID = CStr2GoStr(unsafe.Pointer(&pOrder.RelativeOrderSysID))
 	ord.ZCETotalTradedVolume = int(pOrder.ZCETotalTradedVolume)
 	ord.IsSwapOrder = pOrder.IsSwapOrder != 0
-	ord.BranchID = CStr2GoStr(&pOrder.BranchID)
-	ord.InvestUnitID = CStr2GoStr(&pOrder.InvestUnitID)
-	ord.AccountID = CStr2GoStr(&pOrder.AccountID)
-	ord.CurrencyID = CStr2GoStr(&pOrder.CurrencyID)
-	ord.IPAddress = CStr2GoStr(&pOrder.IPAddress)
-	ord.MACAddress = CStr2GoStr(&pOrder.MacAddress)
+	ord.BranchID = CStr2GoStr(unsafe.Pointer(&pOrder.BranchID))
+	ord.InvestUnitID = CStr2GoStr(unsafe.Pointer(&pOrder.InvestUnitID))
+	ord.AccountID = CStr2GoStr(unsafe.Pointer(&pOrder.AccountID))
+	ord.CurrencyID = CStr2GoStr(unsafe.Pointer(&pOrder.CurrencyID))
+	ord.IPAddress = CStr2GoStr(unsafe.Pointer(&pOrder.IPAddress))
+	ord.MACAddress = CStr2GoStr(unsafe.Pointer(&pOrder.MacAddress))
 
 	return ord
 }
@@ -509,37 +510,37 @@ var tradeCache = sync.Pool{New: func() any { return &Trade{} }}
 func NewFromCRHTradeField(pTrade *C.struct_CRHTradeField) *Trade {
 	td := tradeCache.Get().(*Trade)
 
-	td.BrokerID = CStr2GoStr(&pTrade.BrokerID)
-	td.InvestorID = CStr2GoStr(&pTrade.InvestorID)
-	td.InstrumentID = CStr2GoStr(&pTrade.InstrumentID)
-	td.OrderRef = CStr2GoStr(&pTrade.OrderRef)
-	td.UserID = CStr2GoStr(&pTrade.UserID)
-	td.ExchangeID = CStr2GoStr(&pTrade.ExchangeID)
-	td.TradeID = CStr2GoStr(&pTrade.TradeID)
+	td.BrokerID = CStr2GoStr(unsafe.Pointer(&pTrade.BrokerID))
+	td.InvestorID = CStr2GoStr(unsafe.Pointer(&pTrade.InvestorID))
+	td.InstrumentID = CStr2GoStr(unsafe.Pointer(&pTrade.InstrumentID))
+	td.OrderRef = CStr2GoStr(unsafe.Pointer(&pTrade.OrderRef))
+	td.UserID = CStr2GoStr(unsafe.Pointer(&pTrade.UserID))
+	td.ExchangeID = CStr2GoStr(unsafe.Pointer(&pTrade.ExchangeID))
+	td.TradeID = CStr2GoStr(unsafe.Pointer(&pTrade.TradeID))
 	td.Direction = Direction(pTrade.Direction)
-	td.OrderSysID = CStr2GoStr(&pTrade.OrderSysID)
-	td.ParticipantID = CStr2GoStr(&pTrade.ParticipantID)
-	td.ClientID = CStr2GoStr(&pTrade.ClientID)
+	td.OrderSysID = CStr2GoStr(unsafe.Pointer(&pTrade.OrderSysID))
+	td.ParticipantID = CStr2GoStr(unsafe.Pointer(&pTrade.ParticipantID))
+	td.ClientID = CStr2GoStr(unsafe.Pointer(&pTrade.ClientID))
 	td.TradingRole = TradingRole(pTrade.TradingRole)
-	td.ExchangeInstID = CStr2GoStr(&pTrade.ExchangeInstID)
+	td.ExchangeInstID = CStr2GoStr(unsafe.Pointer(&pTrade.ExchangeInstID))
 	td.OffsetFlag = OffsetFlag(pTrade.OffsetFlag)
 	td.HedgeFlag = HedgeFlag(pTrade.HedgeFlag)
 	td.Price = float64(pTrade.Price)
 	td.Volume = int(pTrade.Volume)
-	td.TradeDate = CStr2GoStr(&pTrade.TradeDate)
-	td.TradeTime = CStr2GoStr(&pTrade.TradeTime)
+	td.TradeDate = CStr2GoStr(unsafe.Pointer(&pTrade.TradeDate))
+	td.TradeTime = CStr2GoStr(unsafe.Pointer(&pTrade.TradeTime))
 	td.TradeType = TradeType(pTrade.TradeType)
 	td.PriceSource = PriceSource(pTrade.PriceSource)
-	td.TraderID = CStr2GoStr(&pTrade.TraderID)
-	td.OrderLocalID = CStr2GoStr(&pTrade.OrderLocalID)
-	td.ClearingPartID = CStr2GoStr(&pTrade.ClearingPartID)
-	td.BusinessUnit = CStr2GoStr(&pTrade.BusinessUnit)
+	td.TraderID = CStr2GoStr(unsafe.Pointer(&pTrade.TraderID))
+	td.OrderLocalID = CStr2GoStr(unsafe.Pointer(&pTrade.OrderLocalID))
+	td.ClearingPartID = CStr2GoStr(unsafe.Pointer(&pTrade.ClearingPartID))
+	td.BusinessUnit = CStr2GoStr(unsafe.Pointer(&pTrade.BusinessUnit))
 	td.SequenceNo = int(pTrade.SequenceNo)
-	td.TradingDay = CStr2GoStr(&pTrade.TradingDay)
+	td.TradingDay = CStr2GoStr(unsafe.Pointer(&pTrade.TradingDay))
 	td.SettlementID = int(pTrade.SettlementID)
 	td.BrokerOrderSeq = int(pTrade.BrokerOrderSeq)
 	td.TradeSource = TradeSource(pTrade.TradeSource)
-	td.InvestUnitID = CStr2GoStr(&pTrade.InvestUnitID)
+	td.InvestUnitID = CStr2GoStr(unsafe.Pointer(&pTrade.InvestUnitID))
 
 	return td
 }
