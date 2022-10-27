@@ -27,6 +27,12 @@ func NewFromCRHRspInfoField(pRHRspInfoField *C.struct_CRHRspInfoField) *RspInfo 
 	return rsp
 }
 
+type ReqUserLogin struct {
+	UserID     string
+	Password   string
+	MACAddress string
+}
+
 type RspUserLogin struct {
 	UserID            string
 	PrivilegeType     PrivilegeType

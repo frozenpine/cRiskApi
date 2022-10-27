@@ -12,6 +12,7 @@ import (
 	"net"
 	"sync"
 	"sync/atomic"
+	"unsafe"
 
 	"github.com/pkg/errors"
 )
@@ -42,12 +43,36 @@ type RHMonitorApi struct {
 	cInstance   C.CRHMonitorInstance
 	remoteAddr  net.IP
 	remotePort  int
+	login       ReqUserLogin
 	investors   []*Investor
 	requestID   int64
 }
 
 func (api *RHMonitorApi) nextRequestID() int {
 	return int(atomic.AddInt64(&api.requestID, 1))
+}
+
+func (api *RHMonitorApi) RequestUserLogin(login *ReqUserLogin) int {
+	if login != nil {
+		api.login = *login
+	}
+
+	cLogin := C.struct_CRHMonitorReqUserLoginField{}
+	C.memcpy(
+		unsafe.Pointer(&cLogin.UserID[0]),
+		unsafe.Pointer(C.CString(api.login.UserID)),
+		C.sizeof_TRHUserIDType-1,
+	)
+	C.memcpy(
+		unsafe.Pointer(&cLogin.Password[0]),
+		unsafe.Pointer(C.CString(api.login.Password)),
+		C.sizeof_TRHPasswordType-1,
+	)
+
+	return int(C.ReqUserLogin(
+		api.cInstance, &cLogin,
+		C.int(api.nextRequestID()),
+	))
 }
 
 func (api *RHMonitorApi) OnFrontConnected() {
@@ -60,7 +85,7 @@ func (api *RHMonitorApi) OnFrontDisconnected(reason Reason) {
 
 func (api *RHMonitorApi) OnRspUserLogin(login *RspUserLogin, info *RspInfo, requestID int) {
 	if err := CheckRspInfo(info); err != nil {
-		log.Printf("User login failed: %v", err)
+		log.Printf("User[%s] login failed: %v", api.login.UserID, err)
 	}
 
 	log.Printf("User[%s] logged in: %s %s", login.UserID, login.TradingDay, login.LoginTime)
