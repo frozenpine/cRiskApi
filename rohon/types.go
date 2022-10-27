@@ -18,11 +18,9 @@ const (
 	RH_MONITOR_NOMAL
 )
 
-type InfoPrivilegeType uint8
-
 type BusinessType uint8
 
-//go:generate stringer -type BussinessType -linecomment
+//go:generate stringer -type BusinessType -linecomment
 const (
 	RH_TRADE_BZTP_Future BusinessType = '1' + iota // 期货
 	RH_TRADE_BZTP_Stock                            // 证券
@@ -146,4 +144,69 @@ const (
 	RH_TRADE_FCC_Violation                                             // 违规
 	RH_TRADE_FCC_Other                                                 // 其它
 	RH_TRADE_FCC_PersonDeliv                                           // 自然人临近交割
+)
+
+type OrderSubmitStatus uint8
+
+//go:generate stringer -type OrderSubmitStatus -linecomment
+const (
+	RH_TRADE_OSS_InsertSubmitted OrderSubmitStatus = '0' + iota // 已经提交
+	RH_TRADE_OSS_CancelSubmitted                                // 撤单已经提交
+	RH_TRADE_OSS_ModifySubmitted                                // 修改已经提交
+	RH_TRADE_OSS_Accepted                                       // 已经接受
+	RH_TRADE_OSS_InsertRejected                                 // 报单已拒绝
+	RH_TRADE_OSS_CancelRejected                                 // 撤单已拒绝
+	RH_TRADE_OSS_ModifyRejected                                 // 改单已拒绝
+)
+
+type OrderSource uint8
+
+//go:generate stringer -type OrderSource -linecomment
+const (
+	RH_TRADE_OSRC_Participant             OrderSource = '0' + iota // 来自参与者
+	RH_TRADE_OSRC_Administrator                                    // 来自管理员
+	RH_TRADE_OSRC_QryOrder                                         // 查询报单
+	RH_TRADE_OSRC_MonitorForceOrder                                // 来自于风控的强平单
+	RH_TRADE_OSRC_RiskForceOrder                                   // 触发风险后的强平单
+	RH_TRADE_OSRC_MonitorThirdOrder                                // 风控端第三方报单
+	RH_TRADE_OSRC_RealObjThirdOrder                                // 资金账户外部报单后自动映射的报单
+	RH_TRADE_OSRC_ServerCondiOrder                                 // 服务器条件单
+	RH_TRADE_OSRC_ServerLossOrder                                  // 服务器止损单
+	RH_TRADE_OSRC_ServerProfitOrder                                // 服务器止盈单
+	RH_TRADE_OSRC_ServerLossEnsureOrder   OrderSource = 'a' + iota // 服务器止损追单
+	RH_TRADE_OSRC_ServerProfitEnsureOrder                          // 服务器止盈追单
+	RH_TRADE_OSRC_ServerParkedOrder                                // 服务器预埋单
+)
+
+type OrderStatus uint8
+
+//go:generate stringer -type OrderStatus -linecomment
+const (
+	RH_TRADE_OST_AllTraded             OrderStatus = '0' + iota // 全部成交
+	RH_TRADE_OST_PartTradedQueueing                             // 部分成交还在队列中
+	RH_TRADE_OST_PartTradedNotQueueing                          // 部分成交不在队列中
+	RH_TRADE_OST_NoTradeQueueing                                // 未成交还在队列中
+	RH_TRADE_OST_NoTradeNotQueueing                             // 未成交不在队列中
+	RH_TRADE_OST_Canceled                                       // 撤单
+	RH_TRADE_OST_Unknown               OrderStatus = 'a' + iota // 未知
+	RH_TRADE_OST_NotTouched                                     // 尚未触发
+	RH_TRADE_OST_Touched                                        // 已触发
+	RH_TRADE_OST_Submitted                                      // 已提交
+	RH_TRADE_OST_Amending              OrderStatus = 'm'        // 正在修改
+)
+
+type OrderType uint8
+
+//go:generate stringer -type OrderType -linecomment
+const (
+	RH_TRADE_ORDT_Normal                OrderType = '0' + iota // 正常
+	RH_TRADE_ORDT_DeriveFromQuote                              // 报价衍生
+	RH_TRADE_ORDT_DeriveFromCombination                        // 组合衍生
+	RH_TRADE_ORDT_Combination                                  // 组合报单
+	RH_TRADE_ORDT_ConditionalOrder                             // 条件单
+	RH_TRADE_ORDT_Swap                                         // 互换单
+	RH_TRADE_ORDT_FinancingBuy          OrderType = 'A' + iota // 融资买入单
+	RH_TRADE_ORDT_SellRepayMoney                               // 卖券还款
+	RH_TRADE_ORDT_FinancingSell                                // 融资平仓
+	RH_TRADE_ORDT_RepayStock            OrderType = 'R'        // 现券还券
 )

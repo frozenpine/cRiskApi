@@ -22,7 +22,7 @@ func (api *RHMonitorApi) OnFrontConnected() {
 	log.Printf("Rohon risk[%s:%d] connected.", api.remoteAddr, api.remotePort)
 }
 
-func (api *RHMonitorApi) onFrontDisconnected(reason Reason) {
+func (api *RHMonitorApi) OnFrontDisconnected(reason Reason) {
 	log.Printf("Rohon risk[%s:%d] disconnected: %v", api.remoteAddr, api.remotePort, reason)
 }
 
@@ -30,8 +30,8 @@ func (api *RHMonitorApi) OnRspUserLogin(login *RspUserLogin, info *RspInfo, requ
 	log.Printf("User[%s] logged in: %s %s", login.UserID, login.TradingDay, login.LoginTime)
 }
 
-func (api *RHMonitorApi) OnRspUserLogout(userID string, info *RspInfo, requestID int) {
-	log.Printf("User[%s] logged out.", userID)
+func (api *RHMonitorApi) OnRspUserLogout(logout *RspUserLogout, info *RspInfo, requestID int) {
+	log.Printf("User[%s] logged out.", logout.UserID)
 }
 
 func (api *RHMonitorApi) OnRspQryMonitorAccounts(investor *Investor, info *RspInfo, requestID int, isLast bool) {
@@ -47,6 +47,10 @@ func (api *RHMonitorApi) OnRspQryInvestorPosition(position *Position, info *RspI
 }
 
 func (api *RHMonitorApi) OnRspOffsetOrder(offsetOrd *OffsetOrder, info *RspInfo, requestID int, isLast bool) {
+
+}
+
+func (api *RHMonitorApi) OnRtnOrder(order *Order) {
 
 }
 
