@@ -1,7 +1,7 @@
 # cmake最低版本需求，不加入此行会受到警告信息
 CMAKE_MINIMUM_REQUIRED(VERSION 3.10)
 
-if(CMAKE_SYSTEM_NAME MATCHES "Windows")
+if(WIN32)
 add_definitions(-DISLIB -DWIN32)
 endif()
 add_definitions(-DCMONITORAPI_EXPORTS)
