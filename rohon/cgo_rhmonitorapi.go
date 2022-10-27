@@ -10,12 +10,35 @@ import "C"
 import (
 	"log"
 	"net"
+	"sync"
+	"sync/atomic"
+
+	"github.com/pkg/errors"
 )
 
+func CheckRspInfo(info *RspInfo) error {
+	if info == nil {
+		return nil
+	}
+
+	if info.ErrorID != 0 {
+		return errors.Errorf("ERROR[%d] %s", info.ErrorID, info.ErrorMsg)
+	}
+
+	return nil
+}
+
 type RHMonitorApi struct {
+	once       sync.Once
 	cInstance  C.CRHMonitorInstance
 	remoteAddr net.IP
 	remotePort int
+	investors  []*Investor
+	requestID  int64
+}
+
+func (api *RHMonitorApi) nextRequestID() int {
+	return int(atomic.AddInt64(&api.requestID, 1))
 }
 
 func (api *RHMonitorApi) OnFrontConnected() {
@@ -27,10 +50,18 @@ func (api *RHMonitorApi) OnFrontDisconnected(reason Reason) {
 }
 
 func (api *RHMonitorApi) OnRspUserLogin(login *RspUserLogin, info *RspInfo, requestID int) {
+	if err := CheckRspInfo(info); err != nil {
+		log.Printf("User login failed: %v", err)
+	}
+
 	log.Printf("User[%s] logged in: %s %s", login.UserID, login.TradingDay, login.LoginTime)
 }
 
 func (api *RHMonitorApi) OnRspUserLogout(logout *RspUserLogout, info *RspInfo, requestID int) {
+	if err := CheckRspInfo(info); err != nil {
+		log.Printf("User logout failed: %v", err)
+	}
+
 	log.Printf("User[%s] logged out.", logout.UserID)
 }
 
@@ -66,11 +97,24 @@ func (api *RHMonitorApi) OnRtnInvestorPosition(position *Position) {
 
 }
 
-func NewRHMonitorApi() *RHMonitorApi {
+func NewRHMonitorApi(addr string, port int) *RHMonitorApi {
+	if addr == "" || port <= 1024 {
+		log.Println("Rohon remote config is empty.")
+		return nil
+	}
+
+	ip := net.ParseIP(addr)
+	if ip == nil {
+		log.Printf("Invalid remote addr: %s", addr)
+		return nil
+	}
+
 	cApi := C.CreateRHMonitorApi()
 
 	api := RHMonitorApi{
-		cInstance: cApi,
+		cInstance:  cApi,
+		remoteAddr: ip,
+		remotePort: port,
 	}
 
 	C.SetCallbacks(cApi, &callbacks)
