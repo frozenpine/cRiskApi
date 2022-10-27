@@ -54,6 +54,18 @@ func (api *RHMonitorApi) OnRtnOrder(order *Order) {
 
 }
 
+func (api *RHMonitorApi) OnRtnTrade(trade *Trade) {
+
+}
+
+func (api *RHMonitorApi) OnRtnInvestorMoney(account *Account) {
+
+}
+
+func (api *RHMonitorApi) OnRtnInvestorPosition(position *Position) {
+
+}
+
 func NewRHMonitorApi() *RHMonitorApi {
 	cApi := C.CreateRHMonitorApi()
 

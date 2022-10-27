@@ -62,6 +62,23 @@ void cgoOnRtnOrder
 	CRHMonitorInstance instance, struct CRHOrderField *pOrder
 );
 
+void cgoOnRtnTrade
+(
+	CRHMonitorInstance instance, struct CRHTradeField *pTrade
+);
+
+void cgoOnRtnInvestorMoney
+(
+	CRHMonitorInstance instance,
+	struct CRHTradingAccountField *pRohonTradingAccountField
+);
+
+void cgoOnRtnInvestorPosition
+(
+	CRHMonitorInstance instance,
+	struct CRHMonitorPositionField *pRohonMonitorPositionField
+);
+
 */
 import "C"
 
@@ -193,4 +210,33 @@ func cgoOnRtnOrder(
 	ord := NewFromCRHOrderField(pOrder)
 
 	getApiInstance(instance).OnRtnOrder(ord)
+}
+
+//export cgoOnRtnTrade
+func cgoOnRtnTrade(
+	instance C.CRHMonitorInstance, pTrade *C.struct_CRHTradeField,
+) {
+	td := NewFromCRHTradeField(pTrade)
+
+	getApiInstance(instance).OnRtnTrade(td)
+}
+
+//export cgoOnRtnInvestorMoney
+func cgoOnRtnInvestorMoney(
+	instance C.CRHMonitorInstance,
+	pRohonTradingAccountField *C.struct_CRHTradingAccountField,
+) {
+	acct := NewFromCRHTradingAccountField(pRohonTradingAccountField)
+
+	getApiInstance(instance).OnRtnInvestorMoney(acct)
+}
+
+//export cgoOnRtnInvestorPosition
+func cgoOnRtnInvestorPosition(
+	instance C.CRHMonitorInstance,
+	pRohonMonitorPositionField *C.struct_CRHMonitorPositionField,
+) {
+	pos := NewFromCRHMonitorPositionField(pRohonMonitorPositionField)
+
+	getApiInstance(instance).OnRtnInvestorPosition(pos)
 }

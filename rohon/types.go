@@ -210,3 +210,44 @@ const (
 	RH_TRADE_ORDT_FinancingSell                                // 融资平仓
 	RH_TRADE_ORDT_RepayStock            OrderType = 'R'        // 现券还券
 )
+
+type TradingRole uint8
+
+//go:generate stringer -type TradingRole -linecomment
+const (
+	RH_TRADE_ER_Broker TradingRole = '1' + iota // 代理
+	RH_TRADE_ER_Host                            // 自营
+	RH_TRADE_ER_Maker                           // 做市商
+)
+
+type TradeType uint8
+
+//go:generate stringer -type TradeType -linecomment
+const (
+	RH_TRADE_TRDT_SplitCombination   TradeType = '#'        // 组合持仓拆分为单一持仓
+	RH_TRADE_TRDT_Common             TradeType = '0' + iota // 普通成交
+	RH_TRADE_TRDT_OptionsExecution                          // 期权执行
+	RH_TRADE_TRDT_OTC                                       // OTC成交
+	RH_TRADE_TRDT_EFPDerived                                // 期转现衍生成交
+	RH_TRADE_TRDT_CombinationDerived                        // 组合衍生成交
+	RH_TRADE_TRDT_FinancingBuy       TradeType = 'F'        // 融资买入成交
+	RH_TRADE_TRDT_RepayStock_Auto    TradeType = 'R'        // 卖平今的现券还券
+	RH_TRADE_TRDT_RepayStock_Manual  TradeType = 'S'        // 正常的现券还券指令
+)
+
+type PriceSource uint8
+
+//go:generate stringer -type PriceSource -linecomment
+const (
+	RH_TRADE_PSRC_LastPrice PriceSource = '0' + iota // 前成交价
+	RH_TRADE_PSRC_Buy                                // 买委托价
+	RH_TRADE_PSRC_Sell                               // 卖委托价
+)
+
+type TradeSource uint8
+
+//go:generate stringer -type TradeSource -linecomment
+const (
+	TRH_TSRC_NORMAL TradeSource = '0' + iota // 来自交易所回报
+	TRH_TSRC_QUERY                           // 来自查询
+)

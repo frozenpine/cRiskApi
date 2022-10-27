@@ -469,3 +469,77 @@ func NewFromCRHOrderField(pOrder *C.struct_CRHOrderField) *Order {
 
 	return ord
 }
+
+type Trade struct {
+	BrokerID       string
+	InvestorID     string
+	InstrumentID   string
+	OrderRef       string
+	UserID         string
+	ExchangeID     string
+	TradeID        string
+	Direction      Direction
+	OrderSysID     string
+	ParticipantID  string
+	ClientID       string
+	TradingRole    TradingRole
+	ExchangeInstID string
+	OffsetFlag     OffsetFlag
+	HedgeFlag      HedgeFlag
+	Price          float64
+	Volume         int
+	TradeDate      string
+	TradeTime      string
+	TradeType      TradeType
+	PriceSource    PriceSource
+	TraderID       string
+	OrderLocalID   string
+	ClearingPartID string
+	BusinessUnit   string
+	SequenceNo     int
+	TradingDay     string
+	SettlementID   int
+	BrokerOrderSeq int
+	TradeSource    TradeSource
+	InvestUnitID   string
+}
+
+var tradeCache = sync.Pool{New: func() any { return &Trade{} }}
+
+func NewFromCRHTradeField(pTrade *C.struct_CRHTradeField) *Trade {
+	td := tradeCache.Get().(*Trade)
+
+	td.BrokerID = CStr2GoStr(&pTrade.BrokerID)
+	td.InvestorID = CStr2GoStr(&pTrade.InvestorID)
+	td.InstrumentID = CStr2GoStr(&pTrade.InstrumentID)
+	td.OrderRef = CStr2GoStr(&pTrade.OrderRef)
+	td.UserID = CStr2GoStr(&pTrade.UserID)
+	td.ExchangeID = CStr2GoStr(&pTrade.ExchangeID)
+	td.TradeID = CStr2GoStr(&pTrade.TradeID)
+	td.Direction = Direction(pTrade.Direction)
+	td.OrderSysID = CStr2GoStr(&pTrade.OrderSysID)
+	td.ParticipantID = CStr2GoStr(&pTrade.ParticipantID)
+	td.ClientID = CStr2GoStr(&pTrade.ClientID)
+	td.TradingRole = TradingRole(pTrade.TradingRole)
+	td.ExchangeInstID = CStr2GoStr(&pTrade.ExchangeInstID)
+	td.OffsetFlag = OffsetFlag(pTrade.OffsetFlag)
+	td.HedgeFlag = HedgeFlag(pTrade.HedgeFlag)
+	td.Price = float64(pTrade.Price)
+	td.Volume = int(pTrade.Volume)
+	td.TradeDate = CStr2GoStr(&pTrade.TradeDate)
+	td.TradeTime = CStr2GoStr(&pTrade.TradeTime)
+	td.TradeType = TradeType(pTrade.TradeType)
+	td.PriceSource = PriceSource(pTrade.PriceSource)
+	td.TraderID = CStr2GoStr(&pTrade.TraderID)
+	td.OrderLocalID = CStr2GoStr(&pTrade.OrderLocalID)
+	td.ClearingPartID = CStr2GoStr(&pTrade.ClearingPartID)
+	td.BusinessUnit = CStr2GoStr(&pTrade.BusinessUnit)
+	td.SequenceNo = int(pTrade.SequenceNo)
+	td.TradingDay = CStr2GoStr(&pTrade.TradingDay)
+	td.SettlementID = int(pTrade.SettlementID)
+	td.BrokerOrderSeq = int(pTrade.BrokerOrderSeq)
+	td.TradeSource = TradeSource(pTrade.TradeSource)
+	td.InvestUnitID = CStr2GoStr(&pTrade.InvestUnitID)
+
+	return td
+}
