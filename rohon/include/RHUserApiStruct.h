@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////
+﻿/////////////////////////////////////////////////////////////////////////
 ///@system 融航期货交易平台
 ///@company 上海融航信息技术有限公司
 ///@file RHUserApiStruct.h
@@ -11,6 +11,7 @@
 
 #if _MSC_VER > 1000
 #pragma once
+#pragma execution_character_set("utf-8")
 #endif // _MSC_VER > 1000
 
 #include "RHUserApiDataType.h"

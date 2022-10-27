@@ -1,4 +1,5 @@
-#pragma once
+﻿#pragma once
+#pragma execution_character_set("utf-8")
 #ifndef C_MONITOR_API_H
 #define C_MONITOR_API_H
 
