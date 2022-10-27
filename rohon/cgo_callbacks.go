@@ -94,7 +94,18 @@ var (
 	ErrInstanceNotExist = origin_error.New("api instance not found")
 
 	callbacks = C.callback_t{
-		cOnFrontConnected: C.CbOnFrontConnected(C.cgoOnFrontConnected),
+		cOnFrontConnected:         C.CbOnFrontConnected(C.cgoOnFrontConnected),
+		cOnFrontDisconnected:      C.CbOnFrontDisconnected(C.cgoOnFrontDisconnected),
+		cOnRspUserLogin:           C.CbOnRspUserLogin(C.cgoOnRspUserLogin),
+		cOnRspUserLogout:          C.CbOnRspUserLogout(C.cgoOnRspUserLogout),
+		cOnRspQryMonitorAccounts:  C.CbOnRspQryMonitorAccounts(C.cgoOnRspQryMonitorAccounts),
+		cOnRspQryInvestorMoney:    C.CbOnRspQryInvestorMoney(C.cgoOnRspQryInvestorMoney),
+		cOnRspQryInvestorPosition: C.CbOnRspQryInvestorPosition(C.cgoOnRspQryInvestorPosition),
+		cOnRspOffsetOrder:         C.CbOnRspOffsetOrder(C.cgoOnRspOffsetOrder),
+		cOnRtnOrder:               C.CbOnRtnOrder(C.cgoOnRtnOrder),
+		cOnRtnTrade:               C.CbOnRtnTrade(C.cgoOnRtnTrade),
+		cOnRtnInvestorMoney:       C.CbOnRtnInvestorMoney(C.cgoOnRtnInvestorMoney),
+		cOnRtnInvestorPosition:    C.CbOnRtnInvestorPosition(C.cgoOnRtnInvestorPosition),
 	}
 )
 

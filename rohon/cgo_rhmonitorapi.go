@@ -28,13 +28,22 @@ func CheckRspInfo(info *RspInfo) error {
 	return nil
 }
 
+func printData(info *RspInfo, data interface{}) {
+	if info != nil {
+		log.Printf("RSP: %v %v", info, data)
+	} else {
+		log.Printf("RTN: %v", data)
+	}
+}
+
 type RHMonitorApi struct {
-	once       sync.Once
-	cInstance  C.CRHMonitorInstance
-	remoteAddr net.IP
-	remotePort int
-	investors  []*Investor
-	requestID  int64
+	initOnce    sync.Once
+	releaseOnce sync.Once
+	cInstance   C.CRHMonitorInstance
+	remoteAddr  net.IP
+	remotePort  int
+	investors   []*Investor
+	requestID   int64
 }
 
 func (api *RHMonitorApi) nextRequestID() int {
@@ -66,35 +75,35 @@ func (api *RHMonitorApi) OnRspUserLogout(logout *RspUserLogout, info *RspInfo, r
 }
 
 func (api *RHMonitorApi) OnRspQryMonitorAccounts(investor *Investor, info *RspInfo, requestID int, isLast bool) {
-
+	printData(info, investor)
 }
 
 func (api *RHMonitorApi) OnRspQryInvestorMoney(account *Account, info *RspInfo, requestID int, isLast bool) {
-
+	printData(info, account)
 }
 
 func (api *RHMonitorApi) OnRspQryInvestorPosition(position *Position, info *RspInfo, requestID int, isLast bool) {
-
+	printData(info, position)
 }
 
 func (api *RHMonitorApi) OnRspOffsetOrder(offsetOrd *OffsetOrder, info *RspInfo, requestID int, isLast bool) {
-
+	printData(info, offsetOrd)
 }
 
 func (api *RHMonitorApi) OnRtnOrder(order *Order) {
-
+	printData(nil, order)
 }
 
 func (api *RHMonitorApi) OnRtnTrade(trade *Trade) {
-
+	printData(nil, trade)
 }
 
 func (api *RHMonitorApi) OnRtnInvestorMoney(account *Account) {
-
+	printData(nil, account)
 }
 
 func (api *RHMonitorApi) OnRtnInvestorPosition(position *Position) {
-
+	printData(nil, position)
 }
 
 func NewRHMonitorApi(addr string, port int) *RHMonitorApi {
