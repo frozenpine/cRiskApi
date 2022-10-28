@@ -5,7 +5,7 @@
 #include "RHMonitorApi.h"
 #include "cRHMonitorApi.h"
 
-class C_API cRHMonitorApi : CRHMonitorSpi
+class cRHMonitorApi : CRHMonitorSpi
 {
 public:
     cRHMonitorApi()
@@ -229,7 +229,7 @@ extern "C"
 
     C_API CRHMonitorInstance CreateRHMonitorApi()
     {
-        cRHMonitorApi *instance = new (cRHMonitorApi);
+        cRHMonitorApi *instance = new cRHMonitorApi();
 
         return CRHMonitorInstance(instance);
     }

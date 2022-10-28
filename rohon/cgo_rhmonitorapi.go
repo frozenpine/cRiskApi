@@ -2,7 +2,7 @@ package rohon
 
 /*
 #cgo CFLAGS: -I./include
-#cgo LDFLAGS: -L./libs -lcRHMonitorApi -lRHMonitorApi
+#cgo LDFLAGS: -L./libs -lcRHMonitorApi -lRHMonitorApi -lRHMonitorClientApi -lrohonbase -lDataCollect
 
 #include "cRHMonitorApi.h"
 */
@@ -40,6 +40,7 @@ type RHMonitorApi struct {
 	initOnce    sync.Once
 	releaseOnce sync.Once
 	cInstance   C.CRHMonitorInstance
+	brokerID    string
 	remoteAddr  net.IP
 	remotePort  int
 	riskUser    RiskUser
@@ -53,6 +54,11 @@ func (api *RHMonitorApi) nextRequestID() int {
 	return int(atomic.AddInt64(&api.requestID, 1))
 }
 
+func (api *RHMonitorApi) waitBool(flag *atomic.Bool, v bool) {
+	for !flag.CompareAndSwap(v, v) {
+	}
+}
+
 func (api *RHMonitorApi) ReqUserLogin(login *RiskUser) int {
 	if login != nil {
 		api.riskUser = *login
@@ -61,6 +67,8 @@ func (api *RHMonitorApi) ReqUserLogin(login *RiskUser) int {
 		return -255
 	}
 
+	api.waitBool(&api.isConnected, true)
+
 	return int(C.ReqUserLogin(
 		api.cInstance,
 		api.riskUser.ToCRHMonitorReqUserLoginField(),
@@ -68,7 +76,7 @@ func (api *RHMonitorApi) ReqUserLogin(login *RiskUser) int {
 	))
 }
 
-func (api *RHMonitorApi) ReqtUserLogout() int {
+func (api *RHMonitorApi) ReqUserLogout() int {
 	return int(C.ReqUserLogout(
 		api.cInstance,
 		api.riskUser.ToCRHMonitorUserLogoutField(),
@@ -77,6 +85,8 @@ func (api *RHMonitorApi) ReqtUserLogout() int {
 }
 
 func (api *RHMonitorApi) ReqQryMonitorAccounts() int {
+	api.waitBool(&api.isLogin, true)
+
 	return int(C.ReqQryMonitorAccounts(
 		api.cInstance,
 		api.riskUser.ToCRHMonitorQryMonitorUser(),
@@ -85,6 +95,8 @@ func (api *RHMonitorApi) ReqQryMonitorAccounts() int {
 }
 
 func (api *RHMonitorApi) ReqQryInvestorMoney(investor *Investor) int {
+	api.waitBool(&api.isLogin, true)
+
 	return int(C.ReqQryInvestorMoney(
 		api.cInstance,
 		investor.ToCRHMonitorQryInvestorMoneyField(),
@@ -93,6 +105,8 @@ func (api *RHMonitorApi) ReqQryInvestorMoney(investor *Investor) int {
 }
 
 func (api *RHMonitorApi) ReqQryInvestorPosition(investor *Investor, instrumentID string) int {
+	api.waitBool(&api.isLogin, true)
+
 	return int(C.ReqQryInvestorPosition(
 		api.cInstance,
 		investor.ToCRHMonitorQryInvestorPositionField(instrumentID),
@@ -106,6 +120,8 @@ func (api *RHMonitorApi) ReqOffsetOrder(offsetOrder *OffsetOrder) int {
 }
 
 func (api *RHMonitorApi) ReqSubPushInfo(sub *SubInfo) int {
+	api.waitBool(&api.isLogin, true)
+
 	return int(C.ReqSubPushInfo(
 		api.cInstance,
 		sub.ToCRHMonitorSubPushInfo(),
@@ -115,10 +131,12 @@ func (api *RHMonitorApi) ReqSubPushInfo(sub *SubInfo) int {
 
 func (api *RHMonitorApi) OnFrontConnected() {
 	log.Printf("Rohon risk[%s:%d] connected.", api.remoteAddr, api.remotePort)
+	api.isConnected.CompareAndSwap(false, true)
 }
 
 func (api *RHMonitorApi) OnFrontDisconnected(reason Reason) {
 	log.Printf("Rohon risk[%s:%d] disconnected: %v", api.remoteAddr, api.remotePort, reason)
+	api.isConnected.CompareAndSwap(true, false)
 }
 
 func (api *RHMonitorApi) OnRspUserLogin(login *RspUserLogin, info *RspInfo, requestID int) {
@@ -180,7 +198,7 @@ func (api *RHMonitorApi) OnRtnInvestorPosition(position *Position) {
 	printData(nil, position)
 }
 
-func NewRHMonitorApi(addr string, port int) *RHMonitorApi {
+func NewRHMonitorApi(brokerID, addr string, port int) *RHMonitorApi {
 	if addr == "" || port <= 1024 {
 		log.Println("Rohon remote config is empty.")
 		return nil
@@ -196,6 +214,7 @@ func NewRHMonitorApi(addr string, port int) *RHMonitorApi {
 
 	api := RHMonitorApi{
 		cInstance:  cApi,
+		brokerID:   brokerID,
 		remoteAddr: ip,
 		remotePort: port,
 	}
