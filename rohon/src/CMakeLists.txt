@@ -2,8 +2,9 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.10)
 
 if(WIN32)
-add_definitions(-DISLIB -DWIN32)
+	add_definitions(-DISLIB -DWIN32 -DCMAKE_GNUtoMS:BOOL=ON)
 endif()
+
 add_definitions(-DCMONITORAPI_EXPORTS)
 
 PROJECT(cRHMonitorApi) # 项目名称
