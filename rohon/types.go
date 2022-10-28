@@ -251,3 +251,20 @@ const (
 	TRH_TSRC_NORMAL TradeSource = '0' + iota // 来自交易所回报
 	TRH_TSRC_QUERY                           // 来自查询
 )
+
+type AccountType uint8
+
+//go:generate stringer -type AccountType -linecomment
+const (
+	RH_ACCOUNTTYPE_VIRTUAL   AccountType = '0' + iota // 虚拟账户
+	RH_ACCOUNTTYPE_REAL                               // 真实账户
+	RH_ACCOUNTTYPE_REALGROUP                          // 资金账户组
+)
+
+type SubInfoType int
+
+//go:generate stringer -type SubInfoType -linecomment
+const (
+	RHMonitorSubPushInfoType_Order SubInfoType = 1 << iota // 委托回报
+	RHMonitorSubPushInfoType_Trade                         // 成交回报
+)

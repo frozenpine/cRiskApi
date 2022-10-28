@@ -27,10 +27,51 @@ func NewFromCRHRspInfoField(pRHRspInfoField *C.struct_CRHRspInfoField) *RspInfo 
 	return rsp
 }
 
-type ReqUserLogin struct {
+type RiskUser struct {
 	UserID     string
 	Password   string
 	MACAddress string
+}
+
+func (req RiskUser) ToCRHMonitorReqUserLoginField() *C.struct_CRHMonitorReqUserLoginField {
+	data := C.struct_CRHMonitorReqUserLoginField{}
+
+	C.memcpy(
+		unsafe.Pointer(&data.UserID[0]),
+		unsafe.Pointer(C.CString(req.UserID)),
+		C.sizeof_TRHUserIDType-1,
+	)
+	C.memcpy(
+		unsafe.Pointer(&data.Password[0]),
+		unsafe.Pointer(C.CString(req.Password)),
+		C.sizeof_TRHPasswordType-1,
+	)
+
+	return &data
+}
+
+func (req RiskUser) ToCRHMonitorUserLogoutField() *C.struct_CRHMonitorUserLogoutField {
+	data := C.struct_CRHMonitorUserLogoutField{}
+
+	C.memcpy(
+		unsafe.Pointer(&data.UserID),
+		unsafe.Pointer(C.CString(req.UserID)),
+		C.sizeof_TRHUserIDType-1,
+	)
+
+	return &data
+}
+
+func (req RiskUser) ToCRHMonitorQryMonitorUser() *C.struct_CRHMonitorQryMonitorUser {
+	data := C.struct_CRHMonitorQryMonitorUser{}
+
+	C.memcpy(
+		unsafe.Pointer(&data.UserID),
+		unsafe.Pointer(C.CString(req.UserID)),
+		C.sizeof_TRHUserIDType-1,
+	)
+
+	return &data
 }
 
 type RspUserLogin struct {
@@ -64,6 +105,48 @@ func NewFromCRHMonitorUserLogoutField(pRspUserLoginField *C.struct_CRHMonitorUse
 type Investor struct {
 	BrokerID   string
 	InvestorID string
+}
+
+func (i Investor) ToCRHMonitorQryInvestorMoneyField() *C.struct_CRHMonitorQryInvestorMoneyField {
+	data := C.struct_CRHMonitorQryInvestorMoneyField{}
+
+	C.memcpy(
+		unsafe.Pointer(&data.InvestorID),
+		unsafe.Pointer(C.CString(i.InvestorID)),
+		C.sizeof_TRHInvestorIDType-1,
+	)
+
+	C.memcpy(
+		unsafe.Pointer(&data.BrokerID),
+		unsafe.Pointer(C.CString(i.BrokerID)),
+		C.sizeof_TRHBrokerIDType-1,
+	)
+
+	return &data
+}
+
+func (i Investor) ToCRHMonitorQryInvestorPositionField(instrumentID string) *C.struct_CRHMonitorQryInvestorPositionField {
+	data := C.struct_CRHMonitorQryInvestorPositionField{}
+
+	C.memcpy(
+		unsafe.Pointer(&data.InvestorID),
+		unsafe.Pointer(C.CString(i.InvestorID)),
+		C.sizeof_TRHInvestorIDType-1,
+	)
+
+	C.memcpy(
+		unsafe.Pointer(&data.BrokerID),
+		unsafe.Pointer(C.CString(i.BrokerID)),
+		C.sizeof_TRHBrokerIDType-1,
+	)
+
+	C.memcpy(
+		unsafe.Pointer(&data.InstrumentID),
+		unsafe.Pointer(C.CString(instrumentID)),
+		C.sizeof_TRHInstrumentIDType-1,
+	)
+
+	return &data
 }
 
 var investorCache = sync.Pool{New: func() any { return &Investor{} }}
@@ -549,4 +632,33 @@ func NewFromCRHTradeField(pTrade *C.struct_CRHTradeField) *Trade {
 	td.InvestUnitID = CStr2GoStr(unsafe.Pointer(&pTrade.InvestUnitID))
 
 	return td
+}
+
+type SubInfo struct {
+	InvestorID  string
+	AccountType AccountType
+	BrokerID    string
+	SubInfoType SubInfoType
+}
+
+func (sub SubInfo) ToCRHMonitorSubPushInfo() *C.struct_CRHMonitorSubPushInfo {
+	data := C.struct_CRHMonitorSubPushInfo{}
+
+	C.memcpy(
+		unsafe.Pointer(&data.InvestorID),
+		unsafe.Pointer(C.CString(sub.InvestorID)),
+		C.sizeof_TRHInvestorIDType-1,
+	)
+
+	data.AccountType = (C.TRHAccountType)(sub.AccountType)
+
+	C.memcpy(
+		unsafe.Pointer(&data.BrokerID),
+		unsafe.Pointer(C.CString(sub.BrokerID)),
+		C.sizeof_TRHBrokerIDType-1,
+	)
+
+	data.SubInfoType = (C.RHMonitorSubPushInfoType)(sub.SubInfoType)
+
+	return &data
 }

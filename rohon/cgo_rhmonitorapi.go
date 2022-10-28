@@ -12,7 +12,6 @@ import (
 	"net"
 	"sync"
 	"sync/atomic"
-	"unsafe"
 
 	"github.com/pkg/errors"
 )
@@ -43,7 +42,9 @@ type RHMonitorApi struct {
 	cInstance   C.CRHMonitorInstance
 	remoteAddr  net.IP
 	remotePort  int
-	login       ReqUserLogin
+	riskUser    RiskUser
+	isConnected atomic.Bool
+	isLogin     atomic.Bool
 	investors   []*Investor
 	requestID   int64
 }
@@ -52,25 +53,62 @@ func (api *RHMonitorApi) nextRequestID() int {
 	return int(atomic.AddInt64(&api.requestID, 1))
 }
 
-func (api *RHMonitorApi) RequestUserLogin(login *ReqUserLogin) int {
+func (api *RHMonitorApi) ReqUserLogin(login *RiskUser) int {
 	if login != nil {
-		api.login = *login
+		api.riskUser = *login
+	} else {
+		log.Printf("No risk user info.")
+		return -255
 	}
 
-	cLogin := C.struct_CRHMonitorReqUserLoginField{}
-	C.memcpy(
-		unsafe.Pointer(&cLogin.UserID[0]),
-		unsafe.Pointer(C.CString(api.login.UserID)),
-		C.sizeof_TRHUserIDType-1,
-	)
-	C.memcpy(
-		unsafe.Pointer(&cLogin.Password[0]),
-		unsafe.Pointer(C.CString(api.login.Password)),
-		C.sizeof_TRHPasswordType-1,
-	)
-
 	return int(C.ReqUserLogin(
-		api.cInstance, &cLogin,
+		api.cInstance,
+		api.riskUser.ToCRHMonitorReqUserLoginField(),
+		C.int(api.nextRequestID()),
+	))
+}
+
+func (api *RHMonitorApi) ReqtUserLogout() int {
+	return int(C.ReqUserLogout(
+		api.cInstance,
+		api.riskUser.ToCRHMonitorUserLogoutField(),
+		C.int(api.nextRequestID()),
+	))
+}
+
+func (api *RHMonitorApi) ReqQryMonitorAccounts() int {
+	return int(C.ReqQryMonitorAccounts(
+		api.cInstance,
+		api.riskUser.ToCRHMonitorQryMonitorUser(),
+		C.int(api.nextRequestID()),
+	))
+}
+
+func (api *RHMonitorApi) ReqQryInvestorMoney(investor *Investor) int {
+	return int(C.ReqQryInvestorMoney(
+		api.cInstance,
+		investor.ToCRHMonitorQryInvestorMoneyField(),
+		C.int(api.nextRequestID()),
+	))
+}
+
+func (api *RHMonitorApi) ReqQryInvestorPosition(investor *Investor, instrumentID string) int {
+	return int(C.ReqQryInvestorPosition(
+		api.cInstance,
+		investor.ToCRHMonitorQryInvestorPositionField(instrumentID),
+		C.int(api.nextRequestID()),
+	))
+}
+
+func (api *RHMonitorApi) ReqOffsetOrder(offsetOrder *OffsetOrder) int {
+	log.Printf("ReqOffsetOrder not implied: %v", offsetOrder)
+	return -255
+}
+
+func (api *RHMonitorApi) ReqSubPushInfo(sub *SubInfo) int {
+	return int(C.ReqSubPushInfo(
+		api.cInstance,
+		sub.ToCRHMonitorSubPushInfo(),
 		C.int(api.nextRequestID()),
 	))
 }
@@ -85,7 +123,8 @@ func (api *RHMonitorApi) OnFrontDisconnected(reason Reason) {
 
 func (api *RHMonitorApi) OnRspUserLogin(login *RspUserLogin, info *RspInfo, requestID int) {
 	if err := CheckRspInfo(info); err != nil {
-		log.Printf("User[%s] login failed: %v", api.login.UserID, err)
+		log.Printf("User[%s] login failed: %v", api.riskUser.UserID, err)
+		return
 	}
 
 	log.Printf("User[%s] logged in: %s %s", login.UserID, login.TradingDay, login.LoginTime)
@@ -94,13 +133,23 @@ func (api *RHMonitorApi) OnRspUserLogin(login *RspUserLogin, info *RspInfo, requ
 func (api *RHMonitorApi) OnRspUserLogout(logout *RspUserLogout, info *RspInfo, requestID int) {
 	if err := CheckRspInfo(info); err != nil {
 		log.Printf("User logout failed: %v", err)
+		return
 	}
 
 	log.Printf("User[%s] logged out.", logout.UserID)
 }
 
 func (api *RHMonitorApi) OnRspQryMonitorAccounts(investor *Investor, info *RspInfo, requestID int, isLast bool) {
-	printData(info, investor)
+	if err := CheckRspInfo(info); err != nil {
+		log.Printf("Monitor account query failed: %v", err)
+		return
+	}
+
+	api.investors = append(api.investors, investor)
+
+	if isLast {
+		log.Printf("All monitor account query finished: %v", api.investors)
+	}
 }
 
 func (api *RHMonitorApi) OnRspQryInvestorMoney(account *Account, info *RspInfo, requestID int, isLast bool) {
@@ -154,6 +203,8 @@ func NewRHMonitorApi(addr string, port int) *RHMonitorApi {
 	C.SetCallbacks(cApi, &callbacks)
 
 	instanceCache[cApi] = &api
+
+	C.Init(cApi, C.CString(ip.String()), C.uint(port))
 
 	return &api
 }
