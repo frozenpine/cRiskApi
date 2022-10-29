@@ -2,36 +2,37 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.10)
 
 if(WIN32)
-	add_definitions(-DISLIB -DWIN32 -DCMAKE_GNUtoMS:BOOL=ON)
+	add_definitions(-DISLIB -DWIN32)
 endif()
 
 add_definitions(-DCMONITORAPI_EXPORTS)
 
-PROJECT(cRHMonitorApi) # 项目名称
+PROJECT(cRHMonitorApi VERSION 0.0.1) # 项目名称
 
 # C++11 support
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 # GDB调试
-# SET(CMAKE_BUILD_TYPE "Debug")
-# SET(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -g2 -ggdb")
-# SET(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")
+SET(CMAKE_BUILD_TYPE "Debug")
+SET(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -g2 -ggdb")
+SET(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")
+
 set(
 	INCLUDE_DIRS
 	${PROJECT_SOURCE_DIR}/../include
 )
 
-set(SRC_DIR ${PROJECT_SOURCE_DIR})
 set(
-	RHMONITOR_PROJECT
-
-	${SRC_DIR}/cRHMonitorApi.cpp
-	${INCLUDE_DIRS}/cRHMonitorApi.h
-	${INCLUDE_DIRS}/RHMonitorApi.h
-	${INCLUDE_DIRS}/RHUserApiDataType.h
-	${INCLUDE_DIRS}/RHUserApiStruct.h
+	LIB_DIRS
+	${PROJECT_SOURCE_DIR}/../libs
 )
 
+AUX_SOURCE_DIRECTORY(${PROJECT_SOURCE_DIR} SRCS)
+
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/../libs)
-ADD_LIBRARY(cRHMonitorApi ${RHMONITOR_PROJECT})
+
+find_library(DEP_LIBS NAMES rohonbase RHMonitorApi RHMonitorClientApi DataCollect PATHS ${LIB_DIRS})
+
+add_library(cRHMonitorApi STATIC ${SRCS})
 target_include_directories(cRHMonitorApi PUBLIC ${INCLUDE_DIRS})
+target_link_libraries(cRHMonitorApi ${DEP_LIBS})

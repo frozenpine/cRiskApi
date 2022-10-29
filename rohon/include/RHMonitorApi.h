@@ -1,8 +1,8 @@
-ï»¿/////////////////////////////////////////////////////////////////////////
-///@system èèˆªæœŸè´§äº¤æ˜“å¹³å°
-///@company ä¸Šæµ·èèˆªä¿¡æ¯æŠ€æœ¯æœ‰é™å…¬å¸
+/////////////////////////////////////////////////////////////////////////
+///@system ÈÚº½ÆÚ»õ½»Ò×Æ½Ì¨
+///@company ÉÏº£ÈÚº½ĞÅÏ¢¼¼ÊõÓĞÏŞ¹«Ë¾
 ///@file RHMonitorApi.h
-///@brief å®šä¹‰äº†å®¢æˆ·ç«¯æ¥å£
+///@brief ¶¨ÒåÁË¿Í»§¶Ë½Ó¿Ú
 /// 20180910 create by Haosc
 ///
 /////////////////////////////////////////////////////////////////////////
@@ -30,85 +30,85 @@
 class CRHMonitorSpi
 {
 public:
-	///å½“å®¢æˆ·ç«¯ä¸äº¤æ˜“åå°å»ºç«‹èµ·é€šä¿¡è¿æ¥æ—¶ï¼ˆè¿˜æœªç™»å½•å‰ï¼‰ï¼Œè¯¥æ–¹æ³•è¢«è°ƒç”¨ã€‚
+	///µ±¿Í»§¶ËÓë½»Ò×ºóÌ¨½¨Á¢ÆğÍ¨ĞÅÁ¬½ÓÊ±£¨»¹Î´µÇÂ¼Ç°£©£¬¸Ã·½·¨±»µ÷ÓÃ¡£
 	virtual void OnFrontConnected(){};
 
-	///å½“å®¢æˆ·ç«¯ä¸äº¤æ˜“åå°é€šä¿¡è¿æ¥æ–­å¼€æ—¶ï¼Œè¯¥æ–¹æ³•è¢«è°ƒç”¨ã€‚å½“å‘ç”Ÿè¿™ä¸ªæƒ…å†µåï¼ŒAPIä¼šè‡ªåŠ¨é‡æ–°è¿æ¥ï¼Œå®¢æˆ·ç«¯å¯ä¸åšå¤„ç†ã€‚
-	///@param nReason é”™è¯¯åŸå› 
-	///        0x1001 ç½‘ç»œè¯»å¤±è´¥
-	///        0x1002 ç½‘ç»œå†™å¤±è´¥
-	///        0x2001 æ¥æ”¶å¿ƒè·³è¶…æ—¶
-	///        0x2002 å‘é€å¿ƒè·³å¤±è´¥
-	///        0x2003 æ”¶åˆ°é”™è¯¯æŠ¥æ–‡
+	///µ±¿Í»§¶ËÓë½»Ò×ºóÌ¨Í¨ĞÅÁ¬½Ó¶Ï¿ªÊ±£¬¸Ã·½·¨±»µ÷ÓÃ¡£µ±·¢ÉúÕâ¸öÇé¿öºó£¬API»á×Ô¶¯ÖØĞÂÁ¬½Ó£¬¿Í»§¶Ë¿É²»×ö´¦Àí¡£
+	///@param nReason ´íÎóÔ­Òò
+	///        0x1001 ÍøÂç¶ÁÊ§°Ü
+	///        0x1002 ÍøÂçĞ´Ê§°Ü
+	///        0x2001 ½ÓÊÕĞÄÌø³¬Ê±
+	///        0x2002 ·¢ËÍĞÄÌøÊ§°Ü
+	///        0x2003 ÊÕµ½´íÎó±¨ÎÄ
 	virtual void OnFrontDisconnected(int nReason){};
 
-	///é£æ§è´¦æˆ·ç™»é™†å“åº”
+	///·ç¿ØÕË»§µÇÂ½ÏìÓ¦
 	virtual void OnRspUserLogin(CRHMonitorRspUserLoginField *pRspUserLoginField, CRHRspInfoField *pRHRspInfoField, int nRequestID){};
 
-	///é£æ§è´¦æˆ·ç™»å‡ºå“åº”
+	///·ç¿ØÕË»§µÇ³öÏìÓ¦
 	virtual void OnRspUserLogout(CRHMonitorUserLogoutField *pRspUserLoginField, CRHRspInfoField *pRHRspInfoField, int nRequestID){};
 
-	//æŸ¥è¯¢ç›‘æ§è´¦æˆ·å“åº”
+	//²éÑ¯¼à¿ØÕË»§ÏìÓ¦
 	virtual void OnRspQryMonitorAccounts(CRHQryInvestorField *pRspMonitorUser, CRHRspInfoField *pRHRspInfoField, int nRequestID, bool isLast){};
 
-	///æŸ¥è¯¢è´¦æˆ·èµ„é‡‘å“åº”
+	///²éÑ¯ÕË»§×Ê½ğÏìÓ¦
 	virtual void OnRspQryInvestorMoney(CRHTradingAccountField *pRHTradingAccountField, CRHRspInfoField *pRHRspInfoField, int nRequestID, bool isLast){};
 
-	///æŸ¥è¯¢è´¦æˆ·æŒä»“ä¿¡æ¯å“åº”
+	///²éÑ¯ÕË»§³Ö²ÖĞÅÏ¢ÏìÓ¦
 	virtual void OnRspQryInvestorPosition(CRHMonitorPositionField *pRHMonitorPositionField, CRHRspInfoField *pRHRspInfoField, int nRequestID, bool isLast){};
 
-	//å¹³ä»“æŒ‡ä»¤å‘é€å¤±è´¥æ—¶çš„å“åº”
+	//Æ½²ÖÖ¸Áî·¢ËÍÊ§°ÜÊ±µÄÏìÓ¦
 	virtual void OnRspOffsetOrder(CRHMonitorOffsetOrderField *pMonitorOrderField, CRHRspInfoField *pRHRspInfoField, int nRequestID, bool isLast){};
 
-	///æŠ¥å•é€šçŸ¥
+	///±¨µ¥Í¨Öª
 	virtual void OnRtnOrder(CRHOrderField *pOrder){};
 
-	///æˆäº¤é€šçŸ¥
+	///³É½»Í¨Öª
 	virtual void OnRtnTrade(CRHTradeField *pTrade){};
 
-	///è´¦æˆ·èµ„é‡‘å‘ç”Ÿå˜åŒ–å›æŠ¥
+	///ÕË»§×Ê½ğ·¢Éú±ä»¯»Ø±¨
 	virtual void OnRtnInvestorMoney(CRHTradingAccountField *pRohonTradingAccountField){};
 
-	///è´¦æˆ·æŸåˆçº¦æŒä»“å›æŠ¥
+	///ÕË»§Ä³ºÏÔ¼³Ö²Ö»Ø±¨
 	virtual void OnRtnInvestorPosition(CRHMonitorPositionField *pRohonMonitorPositionField){};
 };
 
 class RHMONITOR_API_EXPORT_NEW CRHMonitorApi
 {
 public:
-	///åˆ›å»ºMonitorApi
+	///´´½¨MonitorApi
 	static CRHMonitorApi *CreateRHMonitorApi();
-	///åˆ é™¤æ¥å£å¯¹è±¡æœ¬èº«
-	///@remark ä¸å†ä½¿ç”¨æœ¬æ¥å£å¯¹è±¡æ—¶,è°ƒç”¨è¯¥å‡½æ•°åˆ é™¤æ¥å£å¯¹è±¡
+	///É¾³ı½Ó¿Ú¶ÔÏó±¾Éí
+	///@remark ²»ÔÙÊ¹ÓÃ±¾½Ó¿Ú¶ÔÏóÊ±,µ÷ÓÃ¸Ãº¯ÊıÉ¾³ı½Ó¿Ú¶ÔÏó
 	virtual void Release() = 0;
 
-	///åˆå§‹åŒ–
-	///@remark åˆå§‹åŒ–è¿è¡Œç¯å¢ƒ,åªæœ‰è°ƒç”¨å,æ¥å£æ‰å¼€å§‹å·¥ä½œ
+	///³õÊ¼»¯
+	///@remark ³õÊ¼»¯ÔËĞĞ»·¾³,Ö»ÓĞµ÷ÓÃºó,½Ó¿Ú²Å¿ªÊ¼¹¤×÷
 	virtual void Init(const char *ip, unsigned int port) = 0;
 
-	///æ³¨å†Œå›è°ƒæ¥å£
-	///@param pSpi æ´¾ç”Ÿè‡ªå›è°ƒæ¥å£ç±»çš„å®ä¾‹
+	///×¢²á»Øµ÷½Ó¿Ú
+	///@param pSpi ÅÉÉú×Ô»Øµ÷½Ó¿ÚÀàµÄÊµÀı
 	virtual void RegisterSpi(CRHMonitorSpi *pSpi) = 0;
 
-	///è´¦æˆ·ç™»é™†
+	///ÕË»§µÇÂ½
 	virtual int ReqUserLogin(CRHMonitorReqUserLoginField *pUserLoginField, int nRequestID) = 0;
 
-	//è´¦æˆ·ç™»å‡º
+	//ÕË»§µÇ³ö
 	virtual int ReqUserLogout(CRHMonitorUserLogoutField *pUserLogoutField, int nRequestID) = 0;
 
-	//æŸ¥è¯¢æ‰€æœ‰ç®¡ç†çš„è´¦æˆ·
+	//²éÑ¯ËùÓĞ¹ÜÀíµÄÕË»§
 	virtual int ReqQryMonitorAccounts(CRHMonitorQryMonitorUser *pQryMonitorUser, int nRequestID) = 0;
 
-	///æŸ¥è¯¢è´¦æˆ·èµ„é‡‘
+	///²éÑ¯ÕË»§×Ê½ğ
 	virtual int ReqQryInvestorMoney(CRHMonitorQryInvestorMoneyField *pQryInvestorMoneyField, int nRequestID) = 0;
 
-	///æŸ¥è¯¢è´¦æˆ·æŒä»“
+	///²éÑ¯ÕË»§³Ö²Ö
 	virtual int ReqQryInvestorPosition(CRHMonitorQryInvestorPositionField *pQryInvestorPositionField, int nRequestID) = 0;
 
-	//ç»™Serverå‘é€å¼ºå¹³è¯·æ±‚
+	//¸øServer·¢ËÍÇ¿Æ½ÇëÇó
 	virtual int ReqOffsetOrder(CRHMonitorOffsetOrderField *pMonitorOrderField, int nRequestID) = 0;
 
-	//è®¢é˜…ä¸»åŠ¨æ¨é€ä¿¡æ¯
+	//¶©ÔÄÖ÷¶¯ÍÆËÍĞÅÏ¢
 	virtual int ReqSubPushInfo(CRHMonitorSubPushInfo *pInfo, int nRequestID) = 0;
 };
 

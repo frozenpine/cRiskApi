@@ -1,8 +1,8 @@
-ï»¿/////////////////////////////////////////////////////////////////////////
-///@system èèˆªæœŸè´§äº¤æ˜“å¹³å°
-///@company ä¸Šæµ·èèˆªä¿¡æ¯æŠ€æœ¯æœ‰é™å…¬å¸
+/////////////////////////////////////////////////////////////////////////
+///@system ÈÚº½ÆÚ»õ½»Ò×Æ½Ì¨
+///@company ÉÏº£ÈÚº½ĞÅÏ¢¼¼ÊõÓĞÏŞ¹«Ë¾
 ///@file RHUserApiDataType.h
-///@brief å®šä¹‰äº†å®¢æˆ·ç«¯æ¥å£ä½¿ç”¨çš„ä¸šåŠ¡æ•°æ®ç±»å‹
+///@brief ¶¨ÒåÁË¿Í»§¶Ë½Ó¿ÚÊ¹ÓÃµÄÒµÎñÊı¾İÀàĞÍ
 /// 20170120 create by Gabe
 /////////////////////////////////////////////////////////////////////////
 
@@ -17,648 +17,648 @@ enum RH_TE_RESUME_TYPE
 };
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHDateTypeæ˜¯ä¸€ä¸ªæ—¥æœŸç±»å‹
+/// TRHDateTypeÊÇÒ»¸öÈÕÆÚÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef char TRHDateType[9];
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHTimeTypeæ˜¯ä¸€ä¸ªæ—¶é—´ç±»å‹
+/// TRHTimeTypeÊÇÒ»¸öÊ±¼äÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef char TRHTimeType[9];
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHInvestorIDTypeæ˜¯ä¸€ä¸ªæŠ•èµ„è€…ä»£ç ç±»å‹
+/// TRHInvestorIDTypeÊÇÒ»¸öÍ¶×ÊÕß´úÂëÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef char TRHInvestorIDType[13];
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHBrokerIDTypeæ˜¯ä¸€ä¸ªç»çºªå…¬å¸ä»£ç ç±»å‹
+/// TRHBrokerIDTypeÊÇÒ»¸ö¾­¼Í¹«Ë¾´úÂëÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef char TRHBrokerIDType[11];
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHUserIDTypeæ˜¯ä¸€ä¸ªç”¨æˆ·ä»£ç ç±»å‹
+/// TRHUserIDTypeÊÇÒ»¸öÓÃ»§´úÂëÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef char TRHUserIDType[16];
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHPasswordTypeæ˜¯ä¸€ä¸ªå¯†ç ç±»å‹
+/// TRHPasswordTypeÊÇÒ»¸öÃÜÂëÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef char TRHPasswordType[41];
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHProductInfoTypeæ˜¯ä¸€ä¸ªäº§å“ä¿¡æ¯ç±»å‹
+/// TRHProductInfoTypeÊÇÒ»¸ö²úÆ·ĞÅÏ¢ÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef char TRHProductInfoType[11];
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHProtocolInfoTypeæ˜¯ä¸€ä¸ªåè®®ä¿¡æ¯ç±»å‹
+/// TRHProtocolInfoTypeÊÇÒ»¸öĞ­ÒéĞÅÏ¢ÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef char TRHProtocolInfoType[11];
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHBusinessUnitTypeæ˜¯ä¸€ä¸ªä¸šåŠ¡å•å…ƒç±»å‹
+/// TRHBusinessUnitTypeÊÇÒ»¸öÒµÎñµ¥ÔªÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef char TRHBusinessUnitType[21];
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHMacAddressTypeæ˜¯ä¸€ä¸ªMacåœ°å€ç±»å‹
+/// TRHMacAddressTypeÊÇÒ»¸öMacµØÖ·ÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef char TRHMacAddressType[21];
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHPasswordTypeTypeæ˜¯ä¸€ä¸ªå¯†ç ç±»å‹ç±»å‹
+/// TRHPasswordTypeTypeÊÇÒ»¸öÃÜÂëÀàĞÍÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
-///äº¤æ˜“å¯†ç 
+///½»Ò×ÃÜÂë
 #define RH_TRADE_PWDT_Trade '1'
-///èµ„é‡‘å¯†ç 
+///×Ê½ğÃÜÂë
 #define RH_TRADE_PWDT_Account '2'
 
 typedef char TRHPasswordTypeType;
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHIPAddressTypeæ˜¯ä¸€ä¸ªIPåœ°å€ç±»å‹
+/// TRHIPAddressTypeÊÇÒ»¸öIPµØÖ·ÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef char TRHIPAddressType[16];
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHTIDTypeæ˜¯ä¸€ä¸ªäº¤æ˜“IDç±»å‹
+/// TRHTIDTypeÊÇÒ»¸ö½»Ò×IDÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef int TRHTIDType;
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHLoginRemarkTypeæ˜¯ä¸€ä¸ªç™»å½•å¤‡æ³¨ç±»å‹
+/// TRHLoginRemarkTypeÊÇÒ»¸öµÇÂ¼±¸×¢ÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef char TRHLoginRemarkType[36];
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHSystemNameTypeæ˜¯ä¸€ä¸ªç³»ç»Ÿåç§°ç±»å‹
+/// TRHSystemNameTypeÊÇÒ»¸öÏµÍ³Ãû³ÆÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef char TRHSystemNameType[41];
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHFrontIDTypeæ˜¯ä¸€ä¸ªå‰ç½®ç¼–å·ç±»å‹
+/// TRHFrontIDTypeÊÇÒ»¸öÇ°ÖÃ±àºÅÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef int TRHFrontIDType;
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHSessionIDTypeæ˜¯ä¸€ä¸ªä¼šè¯ç¼–å·ç±»å‹
+/// TRHSessionIDTypeÊÇÒ»¸ö»á»°±àºÅÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef int TRHSessionIDType;
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHOrderRefTypeæ˜¯ä¸€ä¸ªæŠ¥å•å¼•ç”¨ç±»å‹
+/// TRHOrderRefTypeÊÇÒ»¸ö±¨µ¥ÒıÓÃÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef char TRHOrderRefType[13];
 
-//é£æ§è´¦æˆ·æƒé™
-///å¼ºå¹³æƒé™
+//·ç¿ØÕË»§È¨ÏŞ
+///Ç¿Æ½È¨ÏŞ
 #define RH_MONITOR_ADMINISTRATOR '0'
-///æ™®é€šç›‘è§†æƒé™
+///ÆÕÍ¨¼àÊÓÈ¨ÏŞ
 #define RH_MONITOR_NOMAL '1'
 
 typedef char TRHPrivilegeType;
 
-//ä¿¡æ¯æŸ¥çœ‹æƒé™
-//[0]ä¸ºå…¨å±€å¼ºå¹³æ¨¡å¼, æ•´æ•°0ä¸ºä¸è‡ªåŠ¨å¼ºå¹³, 1ä¸ºè‡ªåŠ¨å¼ºå¹³
-//[1]ä¸ºå…¨å±€äº¤æ˜“æ¨¡å¼, æ•´æ•°0ä¸ºæŒ‰èµ„é‡‘è´¦æˆ·ä¼˜å…ˆçº§æŠ¥å•, 1ä¸ºæŒ‰æ¯”ä¾‹å¼€ä»“, 2ä¸ºå‡€å¤´å¯¸æ¨¡å¼
-//[2]ä¸PrivilegeTypeç›¸åŒ
+//ĞÅÏ¢²é¿´È¨ÏŞ
+//[0]ÎªÈ«¾ÖÇ¿Æ½Ä£Ê½, ÕûÊı0Îª²»×Ô¶¯Ç¿Æ½, 1Îª×Ô¶¯Ç¿Æ½
+//[1]ÎªÈ«¾Ö½»Ò×Ä£Ê½, ÕûÊı0Îª°´×Ê½ğÕË»§ÓÅÏÈ¼¶±¨µ¥, 1Îª°´±ÈÀı¿ª²Ö, 2Îª¾»Í·´çÄ£Ê½
+//[2]ÓëPrivilegeTypeÏàÍ¬
 typedef char TRHInfoPrivilegeType[200];
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHErrorIDTypeæ˜¯ä¸€ä¸ªé”™è¯¯ä»£ç ç±»å‹
+/// TRHErrorIDTypeÊÇÒ»¸ö´íÎó´úÂëÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef int TRHErrorIDType;
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHErrorMsgTypeæ˜¯ä¸€ä¸ªé”™è¯¯ä¿¡æ¯ç±»å‹
+/// TRHErrorMsgTypeÊÇÒ»¸ö´íÎóĞÅÏ¢ÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef char TRHErrorMsgType[81];
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHInstrumentIDTypeæ˜¯ä¸€ä¸ªåˆçº¦ä»£ç ç±»å‹
+/// TRHInstrumentIDTypeÊÇÒ»¸öºÏÔ¼´úÂëÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef char TRHInstrumentIDType[31];
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHHedgeFlagTypeæ˜¯ä¸€ä¸ªæŠ•æœºå¥—ä¿æ ‡å¿—ç±»å‹
+/// TRHHedgeFlagTypeÊÇÒ»¸öÍ¶»úÌ×±£±êÖ¾ÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
-///æŠ•æœº
+///Í¶»ú
 #define RH_TRADE_HF_Speculation '1'
-///å¥—åˆ©
+///Ì×Àû
 #define RH_TRADE_HF_Arbitrage '2'
-///å¥—ä¿
+///Ì×±£
 #define RH_TRADE_HF_Hedge '3'
-///åšå¸‚å•†
+///×öÊĞÉÌ
 #define RH_TRADE_HF_MarketMaker '5'
 
 typedef char TRHHedgeFlagType;
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHDirectionTypeæ˜¯ä¸€ä¸ªä¹°å–æ–¹å‘ç±»å‹
+/// TRHDirectionTypeÊÇÒ»¸öÂòÂô·½ÏòÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
-///ä¹°
+///Âò
 #define RH_TRADE_D_Buy '0'
-///å–
+///Âô
 #define RH_TRADE_D_Sell '1'
 
 typedef char TRHDirectionType;
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHVolumeTypeæ˜¯ä¸€ä¸ªæ•°é‡ç±»å‹
+/// TRHVolumeTypeÊÇÒ»¸öÊıÁ¿ÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef int TRHVolumeType;
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHMoneyTypeæ˜¯ä¸€ä¸ªèµ„é‡‘ç±»å‹
+/// TRHMoneyTypeÊÇÒ»¸ö×Ê½ğÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef double TRHMoneyType;
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHPositionEntryTypeç”¨äºåŒºåˆ†è¿”å›æŒä»“ç±»å‹ä¿¡æ¯
-///æ˜¨ä»“ï¼Œå†»ç»“æŒä»“æ•°é‡ï¼Œé€ç¬”å¼€ä»“å‡ä»·
+/// TRHPositionEntryTypeÓÃÓÚÇø·Ö·µ»Ø³Ö²ÖÀàĞÍĞÅÏ¢
+///×ò²Ö£¬¶³½á³Ö²ÖÊıÁ¿£¬Öğ±Ê¿ª²Ö¾ù¼Û
 /////////////////////////////////////////////////////////////////////////
 typedef char TRHPositionEntryType;
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHAccountIDTypeæ˜¯ä¸€ä¸ªæŠ•èµ„è€…å¸å·ç±»å‹
+/// TRHAccountIDTypeÊÇÒ»¸öÍ¶×ÊÕßÕÊºÅÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef char TRHAccountIDType[13];
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHSettlementIDTypeæ˜¯ä¸€ä¸ªç»“ç®—ç¼–å·ç±»å‹
+/// TRHSettlementIDTypeÊÇÒ»¸ö½áËã±àºÅÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef int TRHSettlementIDType;
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHCurrencyIDTypeæ˜¯ä¸€ä¸ªå¸ç§ä»£ç ç±»å‹
+/// TRHCurrencyIDTypeÊÇÒ»¸ö±ÒÖÖ´úÂëÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef char TRHCurrencyIDType[4];
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHBizTypeTypeæ˜¯ä¸€ä¸ªä¸šåŠ¡ç±»å‹ç±»å‹
+/// TRHBizTypeTypeÊÇÒ»¸öÒµÎñÀàĞÍÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
-///æœŸè´§
+///ÆÚ»õ
 #define RH_TRADE_BZTP_Future '1'
-///è¯åˆ¸
+///Ö¤È¯
 #define RH_TRADE_BZTP_Stock '2'
 
 typedef char TRHBizTypeType;
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHPriceTypeæ˜¯ä¸€ä¸ªä»·æ ¼ç±»å‹
+/// TRHPriceTypeÊÇÒ»¸ö¼Û¸ñÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef double TRHPriceType;
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHCombOffsetFlagTypeæ˜¯ä¸€ä¸ªç»„åˆå¼€å¹³æ ‡å¿—ç±»å‹
+/// TRHCombOffsetFlagTypeÊÇÒ»¸ö×éºÏ¿ªÆ½±êÖ¾ÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef char TRHCombOffsetFlagType[5];
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHCombHedgeFlagTypeæ˜¯ä¸€ä¸ªç»„åˆæŠ•æœºå¥—ä¿æ ‡å¿—ç±»å‹
+/// TRHCombHedgeFlagTypeÊÇÒ»¸ö×éºÏÍ¶»úÌ×±£±êÖ¾ÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef char TRHCombHedgeFlagType[5];
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHOffsetFlagTypeæ˜¯ä¸€ä¸ªå¼€å¹³æ ‡å¿—ç±»å‹
+/// TRHOffsetFlagTypeÊÇÒ»¸ö¿ªÆ½±êÖ¾ÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
-///å¼€ä»“
+///¿ª²Ö
 #define RH_TRADE_OF_Open '0'
-///å¹³ä»“
+///Æ½²Ö
 #define RH_TRADE_OF_Close '1'
-///å¼ºå¹³
+///Ç¿Æ½
 #define RH_TRADE_OF_ForceClose '2'
-///å¹³ä»Š
+///Æ½½ñ
 #define RH_TRADE_OF_CloseToday '3'
-///å¹³æ˜¨
+///Æ½×ò
 #define RH_TRADE_OF_CloseYesterday '4'
-///å¼ºå‡
+///Ç¿¼õ
 #define RH_TRADE_OF_ForceOff '5'
-///æœ¬åœ°å¼ºå¹³
+///±¾µØÇ¿Æ½
 #define RH_TRADE_OF_LocalForceClose '6'
 
 typedef char TRHOffsetFlagType;
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHHedgeFlagTypeæ˜¯ä¸€ä¸ªæŠ•æœºå¥—ä¿æ ‡å¿—ç±»å‹
+/// TRHHedgeFlagTypeÊÇÒ»¸öÍ¶»úÌ×±£±êÖ¾ÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
-///æŠ•æœº
+///Í¶»ú
 #define RH_TRADE_HF_Speculation '1'
-///å¥—åˆ©
+///Ì×Àû
 #define RH_TRADE_HF_Arbitrage '2'
-///å¥—ä¿
+///Ì×±£
 #define RH_TRADE_HF_Hedge '3'
-///åšå¸‚å•†
+///×öÊĞÉÌ
 #define RH_TRADE_HF_MarketMaker '5'
 
 typedef char TRHHedgeFlagType;
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHOrderPriceTypeTypeæ˜¯ä¸€ä¸ªæŠ¥å•ä»·æ ¼æ¡ä»¶ç±»å‹
+/// TRHOrderPriceTypeTypeÊÇÒ»¸ö±¨µ¥¼Û¸ñÌõ¼şÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
-///ä»»æ„ä»·
+///ÈÎÒâ¼Û
 #define RH_TRADE_OPT_AnyPrice '1'
-///é™ä»·
+///ÏŞ¼Û
 #define RH_TRADE_OPT_LimitPrice '2'
-///æœ€ä¼˜ä»·
+///×îÓÅ¼Û
 #define RH_TRADE_OPT_BestPrice '3'
-///æœ€æ–°ä»·
+///×îĞÂ¼Û
 #define RH_TRADE_OPT_LastPrice '4'
-///æœ€æ–°ä»·æµ®åŠ¨ä¸Šæµ®1ä¸ªticks
+///×îĞÂ¼Û¸¡¶¯ÉÏ¸¡1¸öticks
 #define RH_TRADE_OPT_LastPricePlusOneTicks '5'
-///æœ€æ–°ä»·æµ®åŠ¨ä¸Šæµ®2ä¸ªticks
+///×îĞÂ¼Û¸¡¶¯ÉÏ¸¡2¸öticks
 #define RH_TRADE_OPT_LastPricePlusTwoTicks '6'
-///æœ€æ–°ä»·æµ®åŠ¨ä¸Šæµ®3ä¸ªticks
+///×îĞÂ¼Û¸¡¶¯ÉÏ¸¡3¸öticks
 #define RH_TRADE_OPT_LastPricePlusThreeTicks '7'
-///å–ä¸€ä»·
+///ÂôÒ»¼Û
 #define RH_TRADE_OPT_AskPrice1 '8'
-///å–ä¸€ä»·æµ®åŠ¨ä¸Šæµ®1ä¸ªticks
+///ÂôÒ»¼Û¸¡¶¯ÉÏ¸¡1¸öticks
 #define RH_TRADE_OPT_AskPrice1PlusOneTicks '9'
-///å–ä¸€ä»·æµ®åŠ¨ä¸Šæµ®2ä¸ªticks
+///ÂôÒ»¼Û¸¡¶¯ÉÏ¸¡2¸öticks
 #define RH_TRADE_OPT_AskPrice1PlusTwoTicks 'A'
-///å–ä¸€ä»·æµ®åŠ¨ä¸Šæµ®3ä¸ªticks
+///ÂôÒ»¼Û¸¡¶¯ÉÏ¸¡3¸öticks
 #define RH_TRADE_OPT_AskPrice1PlusThreeTicks 'B'
-///ä¹°ä¸€ä»·
+///ÂòÒ»¼Û
 #define RH_TRADE_OPT_BidPrice1 'C'
-///ä¹°ä¸€ä»·æµ®åŠ¨ä¸Šæµ®1ä¸ªticks
+///ÂòÒ»¼Û¸¡¶¯ÉÏ¸¡1¸öticks
 #define RH_TRADE_OPT_BidPrice1PlusOneTicks 'D'
-///ä¹°ä¸€ä»·æµ®åŠ¨ä¸Šæµ®2ä¸ªticks
+///ÂòÒ»¼Û¸¡¶¯ÉÏ¸¡2¸öticks
 #define RH_TRADE_OPT_BidPrice1PlusTwoTicks 'E'
-///ä¹°ä¸€ä»·æµ®åŠ¨ä¸Šæµ®3ä¸ªticks
+///ÂòÒ»¼Û¸¡¶¯ÉÏ¸¡3¸öticks
 #define RH_TRADE_OPT_BidPrice1PlusThreeTicks 'F'
-///äº”æ¡£ä»·
+///Îåµµ¼Û
 #define RH_TRADE_OPT_FiveLevelPrice 'G'
-///æ­¢æŸå¸‚ä»·
+///Ö¹ËğÊĞ¼Û
 #define RH_TRADE_STOPLOSS_MARKET 'H'
-///æ­¢æŸé™ä»·
+///Ö¹ËğÏŞ¼Û
 #define RH_TRADE_STOPLOSS_LIMIT 'I'
-//æ­¢æŸé™ä»·
-//é•¿æ•ˆå•
+//Ö¹ËğÏŞ¼Û
+//³¤Ğ§µ¥
 #define RH_TRADE_GTC_LIMIT 'J'
-//ä¸€é”®é”åˆ¸
+//Ò»¼üËøÈ¯
 #define RH_TRADE_STOCK_LEND 'K'
-//èèµ„ä¹°å…¥å•
+//ÈÚ×ÊÂòÈëµ¥
 #define RH_TRADE_STOCK_FINANCING_BUY 'L'
-//ç°åˆ¸è¿˜åˆ¸å•
+//ÏÖÈ¯»¹È¯µ¥
 #define RH_TRADE_REPAY_STOCK 'M'
-// ETFç”³è´­
+// ETFÉê¹º
 #define RH_TRADE_ETF_PURCHASE 'N'
-// ETFèµå›
+// ETFÊê»Ø
 #define RH_TRADE_ETF_REDEMPTION 'O'
 typedef char TRHOrderPriceTypeType;
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHForceCloseReasonTypeæ˜¯ä¸€ä¸ªå¼ºå¹³åŸå› ç±»å‹
+/// TRHForceCloseReasonTypeÊÇÒ»¸öÇ¿Æ½Ô­ÒòÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
-///éå¼ºå¹³
+///·ÇÇ¿Æ½
 #define RH_TRADE_FCC_NotForceClose '0'
-///èµ„é‡‘ä¸è¶³
+///×Ê½ğ²»×ã
 #define RH_TRADE_FCC_LackDeposit '1'
-///å®¢æˆ·è¶…ä»“
+///¿Í»§³¬²Ö
 #define RH_TRADE_FCC_ClientOverPositionLimit '2'
-///ä¼šå‘˜è¶…ä»“
+///»áÔ±³¬²Ö
 #define RH_TRADE_FCC_MemberOverPositionLimit '3'
-///æŒä»“éæ•´æ•°å€
+///³Ö²Ö·ÇÕûÊı±¶
 #define RH_TRADE_FCC_NotMultiple '4'
-///è¿è§„
+///Î¥¹æ
 #define RH_TRADE_FCC_Violation '5'
-///å…¶å®ƒ
+///ÆäËü
 #define RH_TRADE_FCC_Other '6'
-///è‡ªç„¶äººä¸´è¿‘äº¤å‰²
+///×ÔÈ»ÈËÁÙ½ü½»¸î
 #define RH_TRADE_FCC_PersonDeliv '7'
 
 typedef char TRHForceCloseReasonType;
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHOrderTypeTypeæ˜¯ä¸€ä¸ªæŠ¥å•ç±»å‹ç±»å‹
+/// TRHOrderTypeTypeÊÇÒ»¸ö±¨µ¥ÀàĞÍÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
-///æ­£å¸¸
+///Õı³£
 #define RH_TRADE_ORDT_Normal '0'
-///æŠ¥ä»·è¡ç”Ÿ
+///±¨¼ÛÑÜÉú
 #define RH_TRADE_ORDT_DeriveFromQuote '1'
-///ç»„åˆè¡ç”Ÿ
+///×éºÏÑÜÉú
 #define RH_TRADE_ORDT_DeriveFromCombination '2'
-///ç»„åˆæŠ¥å•
+///×éºÏ±¨µ¥
 #define RH_TRADE_ORDT_Combination '3'
-///æ¡ä»¶å•
+///Ìõ¼şµ¥
 #define RH_TRADE_ORDT_ConditionalOrder '4'
-///äº’æ¢å•
+///»¥»»µ¥
 #define RH_TRADE_ORDT_Swap '5'
-///èèµ„ä¹°å…¥å•
+///ÈÚ×ÊÂòÈëµ¥
 #define RH_TRADE_ORDT_FinancingBuy 'A'
-///å–åˆ¸è¿˜æ¬¾
+///ÂôÈ¯»¹¿î
 #define RH_TRADE_ORDT_SellRepayMoney 'B'
-///èèµ„å¹³ä»“
+///ÈÚ×ÊÆ½²Ö
 #define RH_TRADE_ORDT_FinancingSell 'C'
-///ç°åˆ¸è¿˜åˆ¸
+///ÏÖÈ¯»¹È¯
 #define RH_TRADE_ORDT_RepayStock 'R'
 
 typedef char TRHOrderTypeType;
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHTimeConditionTypeæ˜¯ä¸€ä¸ªæœ‰æ•ˆæœŸç±»å‹ç±»å‹
+/// TRHTimeConditionTypeÊÇÒ»¸öÓĞĞ§ÆÚÀàĞÍÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
-///ç«‹å³å®Œæˆï¼Œå¦åˆ™æ’¤é”€
+///Á¢¼´Íê³É£¬·ñÔò³·Ïú
 #define RH_TRADE_TC_IOC '1'
-///æœ¬èŠ‚æœ‰æ•ˆ
+///±¾½ÚÓĞĞ§
 #define RH_TRADE_TC_GFS '2'
-///å½“æ—¥æœ‰æ•ˆ
+///µ±ÈÕÓĞĞ§
 #define RH_TRADE_TC_GFD '3'
-///æŒ‡å®šæ—¥æœŸå‰æœ‰æ•ˆ
+///Ö¸¶¨ÈÕÆÚÇ°ÓĞĞ§
 #define RH_TRADE_TC_GTD '4'
-///æ’¤é”€å‰æœ‰æ•ˆ
+///³·ÏúÇ°ÓĞĞ§
 #define RH_TRADE_TC_GTC '5'
-///é›†åˆç«ä»·æœ‰æ•ˆ
+///¼¯ºÏ¾º¼ÛÓĞĞ§
 #define RH_TRADE_TC_GFA '6'
 
 typedef char TRHTimeConditionType;
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHVolumeConditionTypeæ˜¯ä¸€ä¸ªæˆäº¤é‡ç±»å‹ç±»å‹
+/// TRHVolumeConditionTypeÊÇÒ»¸ö³É½»Á¿ÀàĞÍÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
-///ä»»ä½•æ•°é‡
+///ÈÎºÎÊıÁ¿
 #define RH_TRADE_VC_AV '1'
-///æœ€å°æ•°é‡
+///×îĞ¡ÊıÁ¿
 #define RH_TRADE_VC_MV '2'
-///å…¨éƒ¨æ•°é‡
+///È«²¿ÊıÁ¿
 #define RH_TRADE_VC_CV '3'
 
 typedef char TRHVolumeConditionType;
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHBoolTypeæ˜¯ä¸€ä¸ªå¸ƒå°”å‹ç±»å‹
+/// TRHBoolTypeÊÇÒ»¸ö²¼¶ûĞÍÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef int TRHBoolType;
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHRequestIDTypeæ˜¯ä¸€ä¸ªè¯·æ±‚ç¼–å·ç±»å‹
+/// TRHRequestIDTypeÊÇÒ»¸öÇëÇó±àºÅÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef int TRHRequestIDType;
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHOrderLocalIDTypeæ˜¯ä¸€ä¸ªæœ¬åœ°æŠ¥å•ç¼–å·ç±»å‹
+/// TRHOrderLocalIDTypeÊÇÒ»¸ö±¾µØ±¨µ¥±àºÅÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef char TRHOrderLocalIDType[13];
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHExchangeIDTypeæ˜¯ä¸€ä¸ªäº¤æ˜“æ‰€ä»£ç ç±»å‹
+/// TRHExchangeIDTypeÊÇÒ»¸ö½»Ò×Ëù´úÂëÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef char TRHExchangeIDType[9];
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHParticipantIDTypeæ˜¯ä¸€ä¸ªä¼šå‘˜ä»£ç ç±»å‹
+/// TRHParticipantIDTypeÊÇÒ»¸ö»áÔ±´úÂëÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef char TRHParticipantIDType[11];
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHClientIDTypeæ˜¯ä¸€ä¸ªäº¤æ˜“ç¼–ç ç±»å‹
+/// TRHClientIDTypeÊÇÒ»¸ö½»Ò×±àÂëÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef char TRHClientIDType[11];
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHExchangeInstIDTypeæ˜¯ä¸€ä¸ªåˆçº¦åœ¨äº¤æ˜“æ‰€çš„ä»£ç ç±»å‹
+/// TRHExchangeInstIDTypeÊÇÒ»¸öºÏÔ¼ÔÚ½»Ò×ËùµÄ´úÂëÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef char TRHExchangeInstIDType[31];
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHTraderIDTypeæ˜¯ä¸€ä¸ªäº¤æ˜“æ‰€äº¤æ˜“å‘˜ä»£ç ç±»å‹
+/// TRHTraderIDTypeÊÇÒ»¸ö½»Ò×Ëù½»Ò×Ô±´úÂëÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef char TRHTraderIDType[21];
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHInstallIDTypeæ˜¯ä¸€ä¸ªå®‰è£…ç¼–å·ç±»å‹
+/// TRHInstallIDTypeÊÇÒ»¸ö°²×°±àºÅÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef int TRHInstallIDType;
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHOrderSubmitStatusTypeæ˜¯ä¸€ä¸ªæŠ¥å•æäº¤çŠ¶æ€ç±»å‹
+/// TRHOrderSubmitStatusTypeÊÇÒ»¸ö±¨µ¥Ìá½»×´Ì¬ÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
-///å·²ç»æäº¤
+///ÒÑ¾­Ìá½»
 #define RH_TRADE_OSS_InsertSubmitted '0'
-///æ’¤å•å·²ç»æäº¤
+///³·µ¥ÒÑ¾­Ìá½»
 #define RH_TRADE_OSS_CancelSubmitted '1'
-///ä¿®æ”¹å·²ç»æäº¤
+///ĞŞ¸ÄÒÑ¾­Ìá½»
 #define RH_TRADE_OSS_ModifySubmitted '2'
-///å·²ç»æ¥å—
+///ÒÑ¾­½ÓÊÜ
 #define RH_TRADE_OSS_Accepted '3'
-///æŠ¥å•å·²ç»è¢«æ‹’ç»
+///±¨µ¥ÒÑ¾­±»¾Ü¾ø
 #define RH_TRADE_OSS_InsertRejected '4'
-///æ’¤å•å·²ç»è¢«æ‹’ç»
+///³·µ¥ÒÑ¾­±»¾Ü¾ø
 #define RH_TRADE_OSS_CancelRejected '5'
-///æ”¹å•å·²ç»è¢«æ‹’ç»
+///¸Äµ¥ÒÑ¾­±»¾Ü¾ø
 #define RH_TRADE_OSS_ModifyRejected '6'
 
 typedef char TRHOrderSubmitStatusType;
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHSequenceNoTypeæ˜¯ä¸€ä¸ªåºå·ç±»å‹
+/// TRHSequenceNoTypeÊÇÒ»¸öĞòºÅÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef int TRHSequenceNoType;
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHOrderSysIDTypeæ˜¯ä¸€ä¸ªæŠ¥å•ç¼–å·ç±»å‹
+/// TRHOrderSysIDTypeÊÇÒ»¸ö±¨µ¥±àºÅÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef char TRHOrderSysIDType[21];
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHOrderSourceTypeæ˜¯ä¸€ä¸ªæŠ¥å•æ¥æºç±»å‹
+/// TRHOrderSourceTypeÊÇÒ»¸ö±¨µ¥À´Ô´ÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
-///æ¥è‡ªå‚ä¸è€…
+///À´×Ô²ÎÓëÕß
 #define RH_TRADE_OSRC_Participant '0'
-///æ¥è‡ªç®¡ç†å‘˜
+///À´×Ô¹ÜÀíÔ±
 #define RH_TRADE_OSRC_Administrator '1'
-///æŸ¥è¯¢æŠ¥å•
+///²éÑ¯±¨µ¥
 #define RH_TRADE_OSRC_QryOrder '2'
 
-///æ¥è‡ªäºé£æ§çš„å¼ºå¹³å•
+///À´×ÔÓÚ·ç¿ØµÄÇ¿Æ½µ¥
 #define RH_TRADE_OSRC_MonitorForceOrder '3'
-///è§¦å‘é£é™©åçš„å¼ºå¹³å•
+///´¥·¢·çÏÕºóµÄÇ¿Æ½µ¥
 #define RH_TRADE_OSRC_RiskForceOrder '4'
-///é£æ§ç«¯ç¬¬ä¸‰æ–¹æŠ¥å•
+///·ç¿Ø¶ËµÚÈı·½±¨µ¥
 #define RH_TRADE_OSRC_MonitorThirdOrder '5'
-///èµ„é‡‘è´¦æˆ·å¤–éƒ¨æŠ¥å•åè‡ªåŠ¨æ˜ å°„çš„æŠ¥å•
+///×Ê½ğÕË»§Íâ²¿±¨µ¥ºó×Ô¶¯Ó³ÉäµÄ±¨µ¥
 #define RH_TRADE_OSRC_RealObjThirdOrder '6'
-///æœåŠ¡å™¨æ¡ä»¶å•
+///·şÎñÆ÷Ìõ¼şµ¥
 #define RH_TRADE_OSRC_ServerCondiOrder '7'
-///æœåŠ¡å™¨æ­¢æŸå•
+///·şÎñÆ÷Ö¹Ëğµ¥
 #define RH_TRADE_OSRC_ServerLossOrder '8'
-///æœåŠ¡å™¨æ­¢ç›ˆå•
+///·şÎñÆ÷Ö¹Ó¯µ¥
 #define RH_TRADE_OSRC_ServerProfitOrder '9'
-///æœåŠ¡å™¨æ­¢æŸè¿½å•
+///·şÎñÆ÷Ö¹Ëğ×·µ¥
 #define RH_TRADE_OSRC_ServerLossEnsureOrder 'a'
-///æœåŠ¡å™¨æ­¢ç›ˆè¿½å•
+///·şÎñÆ÷Ö¹Ó¯×·µ¥
 #define RH_TRADE_OSRC_ServerProfitEnsureOrder 'b'
-///æœåŠ¡å™¨é¢„åŸ‹å•
+///·şÎñÆ÷Ô¤Âñµ¥
 #define RH_TRADE_OSRC_ServerParkedOrder 'c'
 
 typedef char TRHOrderSourceType;
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHOrderStatusTypeæ˜¯ä¸€ä¸ªæŠ¥å•çŠ¶æ€ç±»å‹
+/// TRHOrderStatusTypeÊÇÒ»¸ö±¨µ¥×´Ì¬ÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
-///å…¨éƒ¨æˆäº¤
+///È«²¿³É½»
 #define RH_TRADE_OST_AllTraded '0'
-///éƒ¨åˆ†æˆäº¤è¿˜åœ¨é˜Ÿåˆ—ä¸­
+///²¿·Ö³É½»»¹ÔÚ¶ÓÁĞÖĞ
 #define RH_TRADE_OST_PartTradedQueueing '1'
-///éƒ¨åˆ†æˆäº¤ä¸åœ¨é˜Ÿåˆ—ä¸­
+///²¿·Ö³É½»²»ÔÚ¶ÓÁĞÖĞ
 #define RH_TRADE_OST_PartTradedNotQueueing '2'
-///æœªæˆäº¤è¿˜åœ¨é˜Ÿåˆ—ä¸­
+///Î´³É½»»¹ÔÚ¶ÓÁĞÖĞ
 #define RH_TRADE_OST_NoTradeQueueing '3'
-///æœªæˆäº¤ä¸åœ¨é˜Ÿåˆ—ä¸­
+///Î´³É½»²»ÔÚ¶ÓÁĞÖĞ
 #define RH_TRADE_OST_NoTradeNotQueueing '4'
-///æ’¤å•
+///³·µ¥
 #define RH_TRADE_OST_Canceled '5'
-///æœªçŸ¥
+///Î´Öª
 #define RH_TRADE_OST_Unknown 'a'
-///å°šæœªè§¦å‘
+///ÉĞÎ´´¥·¢
 #define RH_TRADE_OST_NotTouched 'b'
-///å·²è§¦å‘
+///ÒÑ´¥·¢
 #define RH_TRADE_OST_Touched 'c'
-///å·²æäº¤
+///ÒÑÌá½»
 #define RH_TRADE_OST_Submitted 'd'
-///æ­£åœ¨ä¿®æ”¹
+///ÕıÔÚĞŞ¸Ä
 #define RH_TRADE_OST_Amending 'm'
 
 typedef char TRHOrderStatusType;
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHBranchIDTypeæ˜¯ä¸€ä¸ªè¥ä¸šéƒ¨ç¼–å·ç±»å‹
+/// TRHBranchIDTypeÊÇÒ»¸öÓªÒµ²¿±àºÅÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef char TRHBranchIDType[9];
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHInvestUnitIDTypeæ˜¯ä¸€ä¸ªæŠ•èµ„å•å…ƒä»£ç ç±»å‹
+/// TRHInvestUnitIDTypeÊÇÒ»¸öÍ¶×Êµ¥Ôª´úÂëÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef char TRHInvestUnitIDType[17];
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHTradeIDTypeæ˜¯ä¸€ä¸ªæˆäº¤ç¼–å·ç±»å‹
+/// TRHTradeIDTypeÊÇÒ»¸ö³É½»±àºÅÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
 typedef char TRHTradeIDType[21];
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHTradingRoleTypeæ˜¯ä¸€ä¸ªäº¤æ˜“è§’è‰²ç±»å‹
+/// TRHTradingRoleTypeÊÇÒ»¸ö½»Ò×½ÇÉ«ÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
-///ä»£ç†
+///´úÀí
 #define RH_TRADE_ER_Broker '1'
-///è‡ªè¥
+///×ÔÓª
 #define RH_TRADE_ER_Host '2'
-///åšå¸‚å•†
+///×öÊĞÉÌ
 #define RH_TRADE_ER_Maker '3'
 
 typedef char TRHTradingRoleType;
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHTradeTypeTypeæ˜¯ä¸€ä¸ªæˆäº¤ç±»å‹ç±»å‹
+/// TRHTradeTypeTypeÊÇÒ»¸ö³É½»ÀàĞÍÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
-///ç»„åˆæŒä»“æ‹†åˆ†ä¸ºå•ä¸€æŒä»“,åˆå§‹åŒ–ä¸åº”åŒ…å«è¯¥ç±»å‹çš„æŒä»“
+///×éºÏ³Ö²Ö²ğ·ÖÎªµ¥Ò»³Ö²Ö,³õÊ¼»¯²»Ó¦°üº¬¸ÃÀàĞÍµÄ³Ö²Ö
 #define RH_TRADE_TRDT_SplitCombination '#'
-///æ™®é€šæˆäº¤
+///ÆÕÍ¨³É½»
 #define RH_TRADE_TRDT_Common '0'
-///æœŸæƒæ‰§è¡Œ
+///ÆÚÈ¨Ö´ĞĞ
 #define RH_TRADE_TRDT_OptionsExecution '1'
-/// OTCæˆäº¤
+/// OTC³É½»
 #define RH_TRADE_TRDT_OTC '2'
-///æœŸè½¬ç°è¡ç”Ÿæˆäº¤
+///ÆÚ×ªÏÖÑÜÉú³É½»
 #define RH_TRADE_TRDT_EFPDerived '3'
-///ç»„åˆè¡ç”Ÿæˆäº¤
+///×éºÏÑÜÉú³É½»
 #define RH_TRADE_TRDT_CombinationDerived '4'
-///èèµ„ä¹°å…¥æˆäº¤(èèµ„èåˆ¸)
+///ÈÚ×ÊÂòÈë³É½»(ÈÚ×ÊÈÚÈ¯)
 #define RH_TRADE_TRDT_FinancingBuy 'F'
-///ç°åˆ¸è¿˜åˆ¸æˆäº¤(èèµ„èåˆ¸)
+///ÏÖÈ¯»¹È¯³É½»(ÈÚ×ÊÈÚÈ¯)
 #define RH_TRADE_TRDT_RepayStock 'R'
 
-///ç°åˆ¸è¿˜åˆ¸æˆäº¤(èèµ„èåˆ¸)
-#define RH_TRADE_TRDT_RepayStock_Auto 'R' //å–å¹³ä»Šçš„ç°åˆ¸è¿˜åˆ¸
+///ÏÖÈ¯»¹È¯³É½»(ÈÚ×ÊÈÚÈ¯)
+#define RH_TRADE_TRDT_RepayStock_Auto 'R' //ÂôÆ½½ñµÄÏÖÈ¯»¹È¯
 
-#define RH_TRADE_TRDT_RepayStock_Manual 'S' //æ­£å¸¸çš„ç°åˆ¸è¿˜åˆ¸æŒ‡ä»¤
+#define RH_TRADE_TRDT_RepayStock_Manual 'S' //Õı³£µÄÏÖÈ¯»¹È¯Ö¸Áî
 
 typedef char TRHTradeTypeType;
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHPriceSourceTypeæ˜¯ä¸€ä¸ªæˆäº¤ä»·æ¥æºç±»å‹
+/// TRHPriceSourceTypeÊÇÒ»¸ö³É½»¼ÛÀ´Ô´ÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
-///å‰æˆäº¤ä»·
+///Ç°³É½»¼Û
 #define RH_TRADE_PSRC_LastPrice '0'
-///ä¹°å§”æ‰˜ä»·
+///ÂòÎ¯ÍĞ¼Û
 #define RH_TRADE_PSRC_Buy '1'
-///å–å§”æ‰˜ä»·
+///ÂôÎ¯ÍĞ¼Û
 #define RH_TRADE_PSRC_Sell '2'
 
 typedef char TRHPriceSourceType;
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHTradeSourceTypeæ˜¯ä¸€ä¸ªæˆäº¤æ¥æºç±»å‹
+/// TRHTradeSourceTypeÊÇÒ»¸ö³É½»À´Ô´ÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
-///æ¥è‡ªäº¤æ˜“æ‰€æ™®é€šå›æŠ¥
+///À´×Ô½»Ò×ËùÆÕÍ¨»Ø±¨
 #define TRH_TSRC_NORMAL '0'
-///æ¥è‡ªæŸ¥è¯¢
+///À´×Ô²éÑ¯
 #define TRH_TSRC_QUERY '1'
 
 typedef char TRHTradeSourceType;
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHAccountTypeæ˜¯ä¸€ä¸ªè´¦æˆ·ç±»å‹
+/// TRHAccountTypeÊÇÒ»¸öÕË»§ÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
-///è™šæ‹Ÿè´¦æˆ·
+///ĞéÄâÕË»§
 #define RH_ACCOUNTTYPE_VIRTUAL '0'
-///çœŸå®è´¦æˆ·ç±»å‹
+///ÕæÊµÕË»§ÀàĞÍ
 #define RH_ACCOUNTTYPE_REAL '1'
-///èµ„é‡‘è´¦æˆ·ç»„(äº§å“)
+///×Ê½ğÕË»§×é(²úÆ·)
 #define RH_ACCOUNTTYPE_REALGROUP '2'
 
 typedef char TRHAccountType;
 
 /////////////////////////////////////////////////////////////////////////
-/// RHMonitorSubPushInfoTypeæ˜¯ä¸€ä¸ªå›æŠ¥ç±»å‹å®šä¹‰,å¯é€šè¿‡'|'è¿ç®—ç¬¦æ¥ç»„åˆä½¿ç”¨
+/// RHMonitorSubPushInfoTypeÊÇÒ»¸ö»Ø±¨ÀàĞÍ¶¨Òå,¿ÉÍ¨¹ı'|'ÔËËã·ûÀ´×éºÏÊ¹ÓÃ
 /////////////////////////////////////////////////////////////////////////
 enum
 {
-	///å§”æ‰˜å›æŠ¥
+	///Î¯ÍĞ»Ø±¨
 	RHMonitorSubPushInfoType_Order = 1,
-	///æˆäº¤å›æŠ¥
+	///³É½»»Ø±¨
 	RHMonitorSubPushInfoType_Trade = 2
 };
 
 typedef int RHMonitorSubPushInfoType;
 
 /////////////////////////////////////////////////////////////////////////
-/// TRHContingentConditionTypeæ˜¯ä¸€ä¸ªè§¦å‘æ¡ä»¶ç±»å‹
+/// TRHContingentConditionTypeÊÇÒ»¸ö´¥·¢Ìõ¼şÀàĞÍ
 /////////////////////////////////////////////////////////////////////////
-///ç«‹å³
+///Á¢¼´
 #define RH_TRADE_CC_Immediately '1'
-///æ­¢æŸ
+///Ö¹Ëğ
 #define RH_TRADE_CC_Touch '2'
-///æ­¢èµ¢
+///Ö¹Ó®
 #define RH_TRADE_CC_TouchProfit '3'
-///é¢„åŸ‹å•
+///Ô¤Âñµ¥
 #define RH_TRADE_CC_ParkedOrder '4'
-///æœ€æ–°ä»·å¤§äºæ¡ä»¶ä»·
+///×îĞÂ¼Û´óÓÚÌõ¼ş¼Û
 #define RH_TRADE_CC_LastPriceGreaterThanStopPrice '5'
-///æœ€æ–°ä»·å¤§äºç­‰äºæ¡ä»¶ä»·
+///×îĞÂ¼Û´óÓÚµÈÓÚÌõ¼ş¼Û
 #define RH_TRADE_CC_LastPriceGreaterEqualStopPrice '6'
-///æœ€æ–°ä»·å°äºæ¡ä»¶ä»·
+///×îĞÂ¼ÛĞ¡ÓÚÌõ¼ş¼Û
 #define RH_TRADE_CC_LastPriceLesserThanStopPrice '7'
-///æœ€æ–°ä»·å°äºç­‰äºæ¡ä»¶ä»·
+///×îĞÂ¼ÛĞ¡ÓÚµÈÓÚÌõ¼ş¼Û
 #define RH_TRADE_CC_LastPriceLesserEqualStopPrice '8'
-///å–ä¸€ä»·å¤§äºæ¡ä»¶ä»·
+///ÂôÒ»¼Û´óÓÚÌõ¼ş¼Û
 #define RH_TRADE_CC_AskPriceGreaterThanStopPrice '9'
-///å–ä¸€ä»·å¤§äºç­‰äºæ¡ä»¶ä»·
+///ÂôÒ»¼Û´óÓÚµÈÓÚÌõ¼ş¼Û
 #define RH_TRADE_CC_AskPriceGreaterEqualStopPrice 'A'
-///å–ä¸€ä»·å°äºæ¡ä»¶ä»·
+///ÂôÒ»¼ÛĞ¡ÓÚÌõ¼ş¼Û
 #define RH_TRADE_CC_AskPriceLesserThanStopPrice 'B'
-///å–ä¸€ä»·å°äºç­‰äºæ¡ä»¶ä»·
+///ÂôÒ»¼ÛĞ¡ÓÚµÈÓÚÌõ¼ş¼Û
 #define RH_TRADE_CC_AskPriceLesserEqualStopPrice 'C'
-///ä¹°ä¸€ä»·å¤§äºæ¡ä»¶ä»·
+///ÂòÒ»¼Û´óÓÚÌõ¼ş¼Û
 #define RH_TRADE_CC_BidPriceGreaterThanStopPrice 'D'
-///ä¹°ä¸€ä»·å¤§äºç­‰äºæ¡ä»¶ä»·
+///ÂòÒ»¼Û´óÓÚµÈÓÚÌõ¼ş¼Û
 #define RH_TRADE_CC_BidPriceGreaterEqualStopPrice 'E'
-///ä¹°ä¸€ä»·å°äºæ¡ä»¶ä»·
+///ÂòÒ»¼ÛĞ¡ÓÚÌõ¼ş¼Û
 #define RH_TRADE_CC_BidPriceLesserThanStopPrice 'F'
-///ä¹°ä¸€ä»·å°äºç­‰äºæ¡ä»¶ä»·
+///ÂòÒ»¼ÛĞ¡ÓÚµÈÓÚÌõ¼ş¼Û
 #define RH_TRADE_CC_BidPriceLesserEqualStopPrice 'H'
-///å¼€ç©ºæŒ‡ä»¤è½¬æ¢ä¸ºå¹³æ˜¨ä»“ä¼˜å…ˆ
+///¿ª¿ÕÖ¸Áî×ª»»ÎªÆ½×ò²ÖÓÅÏÈ
 #define RH_TRADE_CC_CloseYDFirst 'Z'
 
 typedef char TRHContingentConditionType;

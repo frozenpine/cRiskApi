@@ -122,3 +122,4 @@ go.work
 **/.vs
 **/out
 **/Debug
+**/.vscode

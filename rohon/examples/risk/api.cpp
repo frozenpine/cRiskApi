@@ -1,147 +1,156 @@
-#include <stdlib.h>
-#include <stdbool.h>
-#include <stdint.h>
-#include <memory.h>
-#include <assert.h>
+#include <stdio.h>
 
-#include "RHMonitorApi.h"
+#include "api.h"
 
-class cRHMonitorApi : CRHMonitorSpi
-{
-public:
-    cRHMonitorApi()
-    {
-        createInstance();
-    };
+#define LOGE(fmt, ...) fprintf(stderr, (fmt), __VA_ARGS__)
 
-protected:
-    ~cRHMonitorApi()
-    {
-        Release();
-    }
+#define CHK_RSP(rsp, msg) do { \
+    if ((rsp)->ErrorID != 0) { \
+        LOGE("%s failed[%d]: %s\n", (msg), (rsp)->ErrorID, (rsp)->ErrorMsg); \
+        return; \
+    } \
+    LOGE("%s success: %s\n", (msg), (rsp)->ErrorMsg); \
+} while (false)
 
-private:
-    CRHMonitorApi *pApi;
-    bool isConnected;
-    bool isLoggedIn;
-    char remoteIP[16];
-    int remotePort;
-    CRHMonitorReqUserLoginField loginInfo;
-    int requestID;
 
-    void
-    createInstance()
-    {
-        pApi = CRHMonitorApi::CreateRHMonitorApi();
-
-        assert(pApi != NULL);
-
-        pApi->RegisterSpi(this);
-    }
-
-public:
-    ///ÂàùÂßãÂåñ
-    ///@remark ÂàùÂßãÂåñËøêË°åÁéØÂ¢É,Âè™ÊúâË∞ÉÁî®Âêé,Êé•Âè£ÊâçÂºÄÂßãÂ∑•‰Ωú
-    void
-    Init(const char *ip, unsigned int port)
-    {
-        memcpy(remoteIP, ip, sizeof(remoteIP));
-        remotePort = port;
-
-        pApi->Init(ip, port);
-    };
-
-    ///Ë¥¶Êà∑ÁôªÈôÜ
-    int ReqUserLogin(CRHMonitorReqUserLoginField *pUserLoginField, int nRequestID)
-    {
-        memcpy(&loginInfo, pUserLoginField, sizeof(loginInfo));
-
-        return pApi->ReqUserLogin(pUserLoginField, nRequestID);
-    };
-
-    //Ë¥¶Êà∑ÁôªÂá∫
-    int ReqUserLogout(CRHMonitorUserLogoutField *pUserLogoutField, int nRequestID)
-    {
-        return pApi->ReqUserLogout(pUserLogoutField, nRequestID);
-    };
-
-    //Êü•ËØ¢ÊâÄÊúâÁÆ°ÁêÜÁöÑË¥¶Êà∑
-    int ReqQryMonitorAccounts(CRHMonitorQryMonitorUser *pQryMonitorUser, int nRequestID)
-    {
-        return pApi->ReqQryMonitorAccounts(pQryMonitorUser, nRequestID);
-    };
-
-    ///Êü•ËØ¢Ë¥¶Êà∑ËµÑÈáë
-    int ReqQryInvestorMoney(CRHMonitorQryInvestorMoneyField *pQryInvestorMoneyField, int nRequestID)
-    {
-        return pApi->ReqQryInvestorMoney(pQryInvestorMoneyField, nRequestID);
-    };
-
-    ///Êü•ËØ¢Ë¥¶Êà∑ÊåÅ‰ªì
-    int ReqQryInvestorPosition(CRHMonitorQryInvestorPositionField *pQryInvestorPositionField, int nRequestID)
-    {
-        return pApi->ReqQryInvestorPosition(pQryInvestorPositionField, nRequestID);
-    };
-
-    //ÁªôServerÂèëÈÄÅÂº∫Âπ≥ËØ∑Ê±Ç
-    int ReqOffsetOrder(CRHMonitorOffsetOrderField *pMonitorOrderField, int nRequestID)
-    {
-        return pApi->ReqOffsetOrder(pMonitorOrderField, nRequestID);
-    };
-
-    //ËÆ¢ÈòÖ‰∏ªÂä®Êé®ÈÄÅ‰ø°ÊÅØ
-    int ReqSubPushInfo(CRHMonitorSubPushInfo *pInfo, int nRequestID)
-    {
-        return pApi->ReqSubPushInfo(pInfo, nRequestID);
-    };
-
-    ///ÂΩìÂÆ¢Êà∑Á´Ø‰∏é‰∫§ÊòìÂêéÂè∞Âª∫Á´ãËµ∑ÈÄö‰ø°ËøûÊé•Êó∂ÔºàËøòÊú™ÁôªÂΩïÂâçÔºâÔºåËØ•ÊñπÊ≥ïË¢´Ë∞ÉÁî®„ÄÇ
-    void OnFrontConnected(){};
-
-    ///ÂΩìÂÆ¢Êà∑Á´Ø‰∏é‰∫§ÊòìÂêéÂè∞ÈÄö‰ø°ËøûÊé•Êñ≠ÂºÄÊó∂ÔºåËØ•ÊñπÊ≥ïË¢´Ë∞ÉÁî®„ÄÇÂΩìÂèëÁîüËøô‰∏™ÊÉÖÂÜµÂêéÔºåAPI‰ºöËá™Âä®ÈáçÊñ∞ËøûÊé•ÔºåÂÆ¢Êà∑Á´ØÂèØ‰∏çÂÅöÂ§ÑÁêÜ„ÄÇ
-    ///@param nReason ÈîôËØØÂéüÂõ†
-    ///        0x1001 ÁΩëÁªúËØªÂ§±Ë¥•
-    ///        0x1002 ÁΩëÁªúÂÜôÂ§±Ë¥•
-    ///        0x2001 Êé•Êî∂ÂøÉË∑≥Ë∂ÖÊó∂
-    ///        0x2002 ÂèëÈÄÅÂøÉË∑≥Â§±Ë¥•
-    ///        0x2003 Êî∂Âà∞ÈîôËØØÊä•Êñá
-    void OnFrontDisconnected(int nReason){};
-
-    ///È£éÊéßË¥¶Êà∑ÁôªÈôÜÂìçÂ∫î
-    void OnRspUserLogin(CRHMonitorRspUserLoginField *pRspUserLoginField, CRHRspInfoField *pRHRspInfoField, int nRequestID){};
-
-    ///È£éÊéßË¥¶Êà∑ÁôªÂá∫ÂìçÂ∫î
-    void OnRspUserLogout(CRHMonitorUserLogoutField *pRspUserLoginField, CRHRspInfoField *pRHRspInfoField, int nRequestID){};
-
-    //Êü•ËØ¢ÁõëÊéßË¥¶Êà∑ÂìçÂ∫î
-    void OnRspQryMonitorAccounts(CRHQryInvestorField *pRspMonitorUser, CRHRspInfoField *pRHRspInfoField, int nRequestID, bool isLast){};
-
-    ///Êü•ËØ¢Ë¥¶Êà∑ËµÑÈáëÂìçÂ∫î
-    void OnRspQryInvestorMoney(CRHTradingAccountField *pRHTradingAccountField, CRHRspInfoField *pRHRspInfoField, int nRequestID, bool isLast){};
-
-    ///Êü•ËØ¢Ë¥¶Êà∑ÊåÅ‰ªì‰ø°ÊÅØÂìçÂ∫î
-    void OnRspQryInvestorPosition(CRHMonitorPositionField *pRHMonitorPositionField, CRHRspInfoField *pRHRspInfoField, int nRequestID, bool isLast){};
-
-    //Âπ≥‰ªìÊåá‰ª§ÂèëÈÄÅÂ§±Ë¥•Êó∂ÁöÑÂìçÂ∫î
-    void OnRspOffsetOrder(CRHMonitorOffsetOrderField *pMonitorOrderField, CRHRspInfoField *pRHRspInfoField, int nRequestID, bool isLast){};
-
-    ///Êä•ÂçïÈÄöÁü•
-    void OnRtnOrder(CRHOrderField *pOrder){};
-
-    ///Êàê‰∫§ÈÄöÁü•
-    void OnRtnTrade(CRHTradeField *pTrade){};
-
-    ///Ë¥¶Êà∑ËµÑÈáëÂèëÁîüÂèòÂåñÂõûÊä•
-    void OnRtnInvestorMoney(CRHTradingAccountField *pRohonTradingAccountField){};
-
-    ///Ë¥¶Êà∑ÊüêÂêàÁ∫¶ÊåÅ‰ªìÂõûÊä•
-    void OnRtnInvestorPosition(CRHMonitorPositionField *pRohonMonitorPositionField){};
-
-    void Release()
-    {
-        if (NULL != pApi)
-        {
-            pApi->Release();
-        }
-    }
+///µ±øÕªß∂À”ÎΩª“◊∫ÛÃ®Ω®¡¢∆Õ®–≈¡¨Ω” ±£®ªπŒ¥µ«¬º«∞£©£¨∏√∑Ω∑®±ªµ˜”√°£
+void cRHMonitorApi::OnFrontConnected(){ 
+    bConnected = true;
+    
+    LOGE("Front[%s:%d] connected.", remoteAddr, remotePort);
 };
+
+///µ±øÕªß∂À”ÎΩª“◊∫ÛÃ®Õ®–≈¡¨Ω”∂œø™ ±£¨∏√∑Ω∑®±ªµ˜”√°£µ±∑¢…˙’‚∏ˆ«Èøˆ∫Û£¨APIª·◊‘∂Ø÷ÿ–¬¡¨Ω”£¨øÕªß∂Àø…≤ª◊ˆ¥¶¿Ì°£
+///@param nReascRHMonitorApi::On ¥ÌŒÛ‘≠“Ú
+///        0x1001 Õ¯¬Á∂¡ ß∞‹
+///        0x1002 Õ¯¬Á–¥ ß∞‹
+///        0x2001 Ω” ’–ƒÃ¯≥¨ ±
+///        0x2002 ∑¢ÀÕ–ƒÃ¯ ß∞‹
+///        0x2003  ’µΩ¥ÌŒÛ±®Œƒ
+void cRHMonitorApi::OnFrontDisconnected(int nReason) { 
+    bConnected = false;
+
+    LOGE("Front[%s:%d] disconnected: %02x", remoteAddr, remotePort, nReason);
+};
+
+///∑Áøÿ’Àªßµ«¬ΩœÏ”¶
+void cRHMonitorApi::OnRspUserLogin(CRHMonitorRspUserLoginField *pRspUserLoginField, CRHRspInfoField *pRHRspInfoField){
+    CHK_RSP(pRHRspInfoField, "Request user login");
+
+    memcpy(&loginInfo, pRspUserLoginField, sizeof(loginInfo));
+
+    LOGE(
+        "Risk user[%s] logged in: %s %s\n", 
+        pRspUserLoginField->UserID, 
+        pRspUserLoginField->TradingDay, 
+        pRspUserLoginField->LoginTime
+    );
+};
+
+///∑Áøÿ’Àªßµ«≥ˆœÏ”¶
+void cRHMonitorApi::OnRspUserLogout(CRHMonitorUserLogoutField *pRspUserLoginField, CRHRspInfoField *pRHRspInfoField){
+    CHK_RSP(pRHRspInfoField, "Request user logout");
+};
+
+//≤È—Øº‡øÿ’ÀªßœÏ”¶
+void cRHMonitorApi::OnRspQryMonitorAccounts(CRHQryInvestorField *pRspMonitorUser, CRHRspInfoField *pRHRspInfoField, bool isLast){};
+
+///≤È—Ø’Àªß◊ ΩœÏ”¶
+void cRHMonitorApi::OnRspQryInvestorMoney(CRHTradingAccountField *pRHTradingAccountField, CRHRspInfoField *pRHRspInfoField, bool isLast){};
+
+///≤È—Ø’Àªß≥÷≤÷–≈œ¢œÏ”¶
+void cRHMonitorApi::OnRspQryInvestorPosition(CRHMonitorPositionField *pRHMonitorPositionField, CRHRspInfoField *pRHRspInfoField, bool isLast){};
+
+//∆Ω≤÷÷∏¡Ó∑¢ÀÕ ß∞‹ ±µƒœÏ”¶
+void cRHMonitorApi::OnRspOffsetOrder(CRHMonitorOffsetOrderField *pMonitorOrderField, CRHRspInfoField *pRHRspInfoField, bool isLast){};
+
+///±®µ•Õ®÷™
+void cRHMonitorApi::OnRtnOrder(CRHOrderField *pOrder){};
+
+///≥…ΩªÕ®÷™
+void cRHMonitorApi::OnRtnTrade(CRHTradeField *pTrade){};
+
+///’Àªß◊ Ω∑¢…˙±‰ªØªÿ±®
+void cRHMonitorApi::OnRtnInvestorMoney(CRHTradingAccountField *pRohonTradingAccountField){};
+
+///’Àªßƒ≥∫œ‘º≥÷≤÷ªÿ±®
+void cRHMonitorApi::OnRtnInvestorPosition(CRHMonitorPositionField *pRohonMonitorPositionField){};
+
+void cRHMonitorApi::waitBool(std::atomic<bool>* flag, bool v)
+{
+    while(*flag != v){ ; }
+};
+
+///≥ı ºªØ
+///@remark ≥ı ºªØ‘À––ª∑æ≥,÷ª”–µ˜”√∫Û,Ω”ø⁄≤≈ø™ ºπ§◊˜
+void cRHMonitorApi::Init(const char *ip, unsigned int port)
+{
+    pApi->Init(ip, port);
+
+    memcpy(remoteAddr, ip, sizeof(remoteAddr) - 1);
+    remotePort = port;
+};
+
+///’Àªßµ«¬Ω
+int cRHMonitorApi::ReqUserLogin(CRHMonitorReqUserLoginField *pUserLoginField)
+{
+    waitBool(&bConnected, true);
+
+    return pApi->ReqUserLogin(pUserLoginField, nRequestID);
+};
+
+//’Àªßµ«≥ˆ
+int cRHMonitorApi::ReqUserLogout(CRHMonitorUserLogoutField *pUserLogoutField)
+{
+    waitBool(&bLogin, true);
+
+    return pApi->ReqUserLogout(pUserLogoutField, nRequestID);
+};
+
+//≤È—ØÀ˘”–π‹¿Ìµƒ’Àªß
+int cRHMonitorApi::ReqQryMonitorAccounts(CRHMonitorQryMonitorUser *pQryMonitorUser)
+{
+    waitBool(&bLogin, true);
+
+    return pApi->ReqQryMonitorAccounts(pQryMonitorUser, nRequestID);
+};
+
+///≤È—Ø’Àªß◊ Ω
+int cRHMonitorApi::ReqQryInvestorMoney(CRHMonitorQryInvestorMoneyField *pQryInvestorMoneyField)
+{
+    waitBool(&bLogin, true);
+
+    return pApi->ReqQryInvestorMoney(pQryInvestorMoneyField, nRequestID);
+};
+
+///≤È—Ø’Àªß≥÷≤÷
+int cRHMonitorApi::ReqQryInvestorPosition(CRHMonitorQryInvestorPositionField *pQryInvestorPositionField)
+{
+    waitBool(&bLogin, true);
+
+    return pApi->ReqQryInvestorPosition(pQryInvestorPositionField, nRequestID);
+};
+
+//∏¯Server∑¢ÀÕ«ø∆Ω«Î«Û
+int cRHMonitorApi::ReqOffsetOrder(CRHMonitorOffsetOrderField *pMonitorOrderField)
+{
+    waitBool(&bLogin, true);
+
+    return pApi->ReqOffsetOrder(pMonitorOrderField, nRequestID);
+};
+
+//∂©‘ƒ÷˜∂ØÕ∆ÀÕ–≈œ¢
+int cRHMonitorApi::ReqSubPushInfo(CRHMonitorSubPushInfo *pInfo)
+{
+    waitBool(&bLogin, true);
+
+    return pApi->ReqSubPushInfo(pInfo, nRequestID);
+};
+
+void cRHMonitorApi::Release()
+{
+    if (NULL != pApi)
+    {
+        pApi->Release();
+    }
+}
