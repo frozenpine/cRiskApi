@@ -1,7 +1,6 @@
-#pragma execution_character_set("utf-8")
 #include "api.h"
 
-static cRHMonitorApi* api = NULL;
+static fpRHMonitorApi* api = NULL;
 
 const char* ip = "129.211.138.170";
 const int port = 20002;
@@ -9,7 +8,7 @@ const char* riskUser = "rdcesfk";
 const char* riskPass = "888888";
 
 int main() {
-	api = new cRHMonitorApi();
+	api = new fpRHMonitorApi();
 
 	api->Init(ip, port);
 

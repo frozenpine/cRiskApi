@@ -2,22 +2,27 @@
 
 #include "api.h"
 
-#define LOGE(fmt, ...) fprintf(stderr, (fmt), __VA_ARGS__)
+#define FMTI(fmt) "[INFO ] " fmt "\n"
+#define FMTW(fmt) "[WARNI] " fmt "\n"
+#define FMTE(fmt) "[ERROR] " fmt "\n"
+#define LOGI(fmt, ...) fprintf(stderr, FMTI(fmt), __VA_ARGS__)
+#define LOGW(fmt, ...) fprintf(stderr, FMTW(fmt), __VA_ARGS__)
+#define LOGE(fmt, ...) fprintf(stderr, FMTE(fmt), __VA_ARGS__)
 
 #define CHK_RSP(rsp, msg) do { \
     if ((rsp)->ErrorID != 0) { \
-        LOGE("%s failed[%d]: %s\n", (msg), (rsp)->ErrorID, (rsp)->ErrorMsg); \
+        LOGE("%s failed[%d]: %s", (msg), (rsp)->ErrorID, (rsp)->ErrorMsg); \
         return; \
     } \
-    LOGE("%s success: %s\n", (msg), (rsp)->ErrorMsg); \
+    LOGI("%s success: %s", (msg), (rsp)->ErrorMsg); \
 } while (false)
 
 
 ///当客户端与交易后台建立起通信连接时（还未登录前），该方法被调用。
-void cRHMonitorApi::OnFrontConnected(){ 
-    bConnected = true;
+void fpRHMonitorApi::OnFrontConnected(){ 
+    bConnected.store(true);
     
-    LOGE("Front[%s:%d] connected.", remoteAddr, remotePort);
+    LOGI("Front[%s:%d] connected.", remoteAddr, remotePort);
 };
 
 ///当客户端与交易后台通信连接断开时，该方法被调用。当发生这个情况后，API会自动重新连接，客户端可不做处理。
@@ -27,20 +32,20 @@ void cRHMonitorApi::OnFrontConnected(){
 ///        0x2001 接收心跳超时
 ///        0x2002 发送心跳失败
 ///        0x2003 收到错误报文
-void cRHMonitorApi::OnFrontDisconnected(int nReason) { 
-    bConnected = false;
+void fpRHMonitorApi::OnFrontDisconnected(int nReason) { 
+    bConnected.store(false);
 
-    LOGE("Front[%s:%d] disconnected: %02x", remoteAddr, remotePort, nReason);
+    LOGW("Front[%s:%d] disconnected: %02x", remoteAddr, remotePort, nReason);
 };
 
 ///风控账户登陆响应
-void cRHMonitorApi::OnRspUserLogin(CRHMonitorRspUserLoginField *pRspUserLoginField, CRHRspInfoField *pRHRspInfoField){
+void fpRHMonitorApi::OnRspUserLogin(CRHMonitorRspUserLoginField *pRspUserLoginField, CRHRspInfoField *pRHRspInfoField){
     CHK_RSP(pRHRspInfoField, "Request user login");
 
     memcpy(&loginInfo, pRspUserLoginField, sizeof(loginInfo));
 
-    LOGE(
-        "Risk user[%s] logged in: %s %s\n", 
+    LOGI(
+        "Risk user[%s] logged in: %s %s", 
         pRspUserLoginField->UserID, 
         pRspUserLoginField->TradingDay, 
         pRspUserLoginField->LoginTime
@@ -48,42 +53,46 @@ void cRHMonitorApi::OnRspUserLogin(CRHMonitorRspUserLoginField *pRspUserLoginFie
 };
 
 ///风控账户登出响应
-void cRHMonitorApi::OnRspUserLogout(CRHMonitorUserLogoutField *pRspUserLoginField, CRHRspInfoField *pRHRspInfoField){
+void fpRHMonitorApi::OnRspUserLogout(CRHMonitorUserLogoutField *pRspUserLoginField, CRHRspInfoField *pRHRspInfoField){
     CHK_RSP(pRHRspInfoField, "Request user logout");
 };
 
 //查询监控账户响应
-void cRHMonitorApi::OnRspQryMonitorAccounts(CRHQryInvestorField *pRspMonitorUser, CRHRspInfoField *pRHRspInfoField, bool isLast){};
+void fpRHMonitorApi::OnRspQryMonitorAccounts(CRHQryInvestorField *pRspMonitorUser, CRHRspInfoField *pRHRspInfoField, bool isLast){};
 
 ///查询账户资金响应
-void cRHMonitorApi::OnRspQryInvestorMoney(CRHTradingAccountField *pRHTradingAccountField, CRHRspInfoField *pRHRspInfoField, bool isLast){};
+void fpRHMonitorApi::OnRspQryInvestorMoney(CRHTradingAccountField *pRHTradingAccountField, CRHRspInfoField *pRHRspInfoField, bool isLast){};
 
 ///查询账户持仓信息响应
-void cRHMonitorApi::OnRspQryInvestorPosition(CRHMonitorPositionField *pRHMonitorPositionField, CRHRspInfoField *pRHRspInfoField, bool isLast){};
+void fpRHMonitorApi::OnRspQryInvestorPosition(CRHMonitorPositionField *pRHMonitorPositionField, CRHRspInfoField *pRHRspInfoField, bool isLast){};
 
 //平仓指令发送失败时的响应
-void cRHMonitorApi::OnRspOffsetOrder(CRHMonitorOffsetOrderField *pMonitorOrderField, CRHRspInfoField *pRHRspInfoField, bool isLast){};
+void fpRHMonitorApi::OnRspOffsetOrder(CRHMonitorOffsetOrderField *pMonitorOrderField, CRHRspInfoField *pRHRspInfoField, bool isLast){};
 
 ///报单通知
-void cRHMonitorApi::OnRtnOrder(CRHOrderField *pOrder){};
+void fpRHMonitorApi::OnRtnOrder(CRHOrderField *pOrder){};
 
 ///成交通知
-void cRHMonitorApi::OnRtnTrade(CRHTradeField *pTrade){};
+void fpRHMonitorApi::OnRtnTrade(CRHTradeField *pTrade){};
 
 ///账户资金发生变化回报
-void cRHMonitorApi::OnRtnInvestorMoney(CRHTradingAccountField *pRohonTradingAccountField){};
+void fpRHMonitorApi::OnRtnInvestorMoney(CRHTradingAccountField *pRohonTradingAccountField){};
 
 ///账户某合约持仓回报
-void cRHMonitorApi::OnRtnInvestorPosition(CRHMonitorPositionField *pRohonMonitorPositionField){};
+void fpRHMonitorApi::OnRtnInvestorPosition(CRHMonitorPositionField *pRohonMonitorPositionField){};
 
-void cRHMonitorApi::waitBool(std::atomic<bool>* flag, bool v)
+void fpRHMonitorApi::waitBool(std::atomic<bool>* flag, bool v)
 {
-    while(*flag != v){ ; }
+    while(true) { 
+        bool check = flag->load() == v;
+
+        if(check) break;
+    }
 };
 
 ///初始化
 ///@remark 初始化运行环境,只有调用后,接口才开始工作
-void cRHMonitorApi::Init(const char *ip, unsigned int port)
+void fpRHMonitorApi::Init(const char *ip, unsigned int port)
 {
     pApi->Init(ip, port);
 
@@ -92,15 +101,17 @@ void cRHMonitorApi::Init(const char *ip, unsigned int port)
 };
 
 ///账户登陆
-int cRHMonitorApi::ReqUserLogin(CRHMonitorReqUserLoginField *pUserLoginField)
+int fpRHMonitorApi::ReqUserLogin(CRHMonitorReqUserLoginField *pUserLoginField)
 {
     waitBool(&bConnected, true);
+
+    LOGI("Request login for user: %s\n", pUserLoginField->UserID);
 
     return pApi->ReqUserLogin(pUserLoginField, nRequestID);
 };
 
 //账户登出
-int cRHMonitorApi::ReqUserLogout(CRHMonitorUserLogoutField *pUserLogoutField)
+int fpRHMonitorApi::ReqUserLogout(CRHMonitorUserLogoutField *pUserLogoutField)
 {
     waitBool(&bLogin, true);
 
@@ -108,7 +119,7 @@ int cRHMonitorApi::ReqUserLogout(CRHMonitorUserLogoutField *pUserLogoutField)
 };
 
 //查询所有管理的账户
-int cRHMonitorApi::ReqQryMonitorAccounts(CRHMonitorQryMonitorUser *pQryMonitorUser)
+int fpRHMonitorApi::ReqQryMonitorAccounts(CRHMonitorQryMonitorUser *pQryMonitorUser)
 {
     waitBool(&bLogin, true);
 
@@ -116,7 +127,7 @@ int cRHMonitorApi::ReqQryMonitorAccounts(CRHMonitorQryMonitorUser *pQryMonitorUs
 };
 
 ///查询账户资金
-int cRHMonitorApi::ReqQryInvestorMoney(CRHMonitorQryInvestorMoneyField *pQryInvestorMoneyField)
+int fpRHMonitorApi::ReqQryInvestorMoney(CRHMonitorQryInvestorMoneyField *pQryInvestorMoneyField)
 {
     waitBool(&bLogin, true);
 
@@ -124,7 +135,7 @@ int cRHMonitorApi::ReqQryInvestorMoney(CRHMonitorQryInvestorMoneyField *pQryInve
 };
 
 ///查询账户持仓
-int cRHMonitorApi::ReqQryInvestorPosition(CRHMonitorQryInvestorPositionField *pQryInvestorPositionField)
+int fpRHMonitorApi::ReqQryInvestorPosition(CRHMonitorQryInvestorPositionField *pQryInvestorPositionField)
 {
     waitBool(&bLogin, true);
 
@@ -132,7 +143,7 @@ int cRHMonitorApi::ReqQryInvestorPosition(CRHMonitorQryInvestorPositionField *pQ
 };
 
 //给Server发送强平请求
-int cRHMonitorApi::ReqOffsetOrder(CRHMonitorOffsetOrderField *pMonitorOrderField)
+int fpRHMonitorApi::ReqOffsetOrder(CRHMonitorOffsetOrderField *pMonitorOrderField)
 {
     waitBool(&bLogin, true);
 
@@ -140,14 +151,14 @@ int cRHMonitorApi::ReqOffsetOrder(CRHMonitorOffsetOrderField *pMonitorOrderField
 };
 
 //订阅主动推送信息
-int cRHMonitorApi::ReqSubPushInfo(CRHMonitorSubPushInfo *pInfo)
+int fpRHMonitorApi::ReqSubPushInfo(CRHMonitorSubPushInfo *pInfo)
 {
     waitBool(&bLogin, true);
 
     return pApi->ReqSubPushInfo(pInfo, nRequestID);
 };
 
-void cRHMonitorApi::Release()
+void fpRHMonitorApi::Release()
 {
     if (NULL != pApi)
     {

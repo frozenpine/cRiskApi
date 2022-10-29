@@ -29,7 +29,7 @@ aux_source_directory(${PROJECT_SOURCE_DIR} SRCS)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR})
 
-find_library(DEP_LIBS NAMES rohonbase RHMonitorApi RHMonitorClientApi DataCollect PATHS ${LIB_DIRS})
+find_library(DEP_LIBS NAMES RHMonitorApi PATHS ${LIB_DIRS})
 
 add_executable(cppRohonRisk ${SRCS})
 target_include_directories(cppRohonRisk PUBLIC ${INCLUDE_DIRS})

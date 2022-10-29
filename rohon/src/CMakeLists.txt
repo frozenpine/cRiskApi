@@ -31,7 +31,7 @@ AUX_SOURCE_DIRECTORY(${PROJECT_SOURCE_DIR} SRCS)
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/../libs)
 
-find_library(DEP_LIBS NAMES rohonbase RHMonitorApi RHMonitorClientApi DataCollect PATHS ${LIB_DIRS})
+find_library(DEP_LIBS NAMES RHMonitorApi PATHS ${LIB_DIRS})
 
 add_library(cRHMonitorApi STATIC ${SRCS})
 target_include_directories(cRHMonitorApi PUBLIC ${INCLUDE_DIRS})

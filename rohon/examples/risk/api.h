@@ -7,10 +7,10 @@
 
 #include "RHMonitorApi.h"
 
-class cRHMonitorApi : CRHMonitorSpi
+class fpRHMonitorApi : CRHMonitorSpi
 {
 public:
-    cRHMonitorApi() : nRequestID(0), bConnected(false), bLogin(false), remotePort(0)
+    fpRHMonitorApi() : nRequestID(0), remotePort(0), bConnected(false), bLogin(false)
     {
         createInstance();
 
@@ -19,7 +19,7 @@ public:
     };
 
 protected:
-    ~cRHMonitorApi()
+    ~fpRHMonitorApi()
     {
         Release();
     }
