@@ -1,7 +1,7 @@
 package rohon
 
 /*
-#cgo CFLAGS: -I./include
+#cgo CFLAGS: -I${SRCDIR}/include
 
 #include "cRHMonitorApi.h"
 */

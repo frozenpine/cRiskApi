@@ -27,13 +27,22 @@ set(
 	${PROJECT_SOURCE_DIR}/../libs
 )
 
+set(
+	PROJECT_HEADERS
+
+	${INCLUDE_DIRS}/cRHMonitorApi.h
+	${INCLUDE_DIRS}/RHMonitorApi.h
+	${INCLUDE_DIRS}/RHUserApiDataType.h
+	${INCLUDE_DIRS}/RHUserApiStruct.h
+)
+
 AUX_SOURCE_DIRECTORY(${PROJECT_SOURCE_DIR} SRCS)
 
 # set(CMAKE_SKIP_BUILD_RPATH TRUE)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/out)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/../libs)
 
 find_library(DEP_LIBS NAMES RHMonitorApi PATHS ${LIB_DIRS})
 
-add_library(cRHMonitorApi STATIC ${SRCS})
+add_library(cRHMonitorApi SHARED ${SRCS} ${PROJECT_HEADERS})
 target_include_directories(cRHMonitorApi PUBLIC ${INCLUDE_DIRS})
 target_link_libraries(cRHMonitorApi ${DEP_LIBS})
