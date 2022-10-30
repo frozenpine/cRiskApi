@@ -2,7 +2,7 @@ package rohon
 
 /*
 #cgo CFLAGS: -I./include
-#cgo LDFLAGS: -L./libs -lcRHMonitorApi -lRHMonitorApi -lRHMonitorClientApi -lrohonbase -lDataCollect
+#cgo LDFLAGS: -L./libs -lcRHMonitorApi
 
 #include "cRHMonitorApi.h"
 */

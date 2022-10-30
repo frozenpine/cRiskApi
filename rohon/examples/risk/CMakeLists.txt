@@ -2,10 +2,10 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.10)
 
 if(WIN32)
-	add_definitions(-DISLIB -DWIN32)
+	add_definitions(-DISLIB -DWIN32 -D_CRT_SECURE_NO_WARNINGS)
 endif()
 
-PROJECT(cppRohonRisk VERSION 0.0.1) # 项目名称
+PROJECT(cppRisk VERSION 0.0.1) # 项目名称
 
 # C++11 support
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
@@ -27,10 +27,11 @@ set(
 
 aux_source_directory(${PROJECT_SOURCE_DIR} SRCS)
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR})
+# set(CMAKE_SKIP_BUILD_RPATH TRUE)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/out)
 
-find_library(DEP_LIBS NAMES RHMonitorApi PATHS ${LIB_DIRS})
+find_library(DEP_LIBS NAMES RHMonitorApi PATHS ${LIB_DIRS} REQUIRED)
 
-add_executable(cppRohonRisk ${SRCS})
-target_include_directories(cppRohonRisk PUBLIC ${INCLUDE_DIRS})
-target_link_libraries(cppRohonRisk ${DEP_LIBS})
+add_executable(cppRisk ${SRCS})
+target_include_directories(cppRisk PUBLIC ${INCLUDE_DIRS})
+target_link_libraries(cppRisk ${DEP_LIBS})

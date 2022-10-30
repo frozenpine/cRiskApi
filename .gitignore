@@ -123,3 +123,4 @@ go.work
 **/out
 **/Debug
 **/.vscode
+**/log_files

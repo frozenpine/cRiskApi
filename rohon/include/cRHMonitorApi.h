@@ -2,17 +2,17 @@
 #ifndef C_MONITOR_API_H
 #define C_MONITOR_API_H
 
-#ifdef __GNUC__
-#ifdef CMONITORAPI_EXPORTS
-#define C_API __attribute__((visibility("default")))
-#else
-#define C_API __attribute__((visibility("default")))
-#endif
-#else
+#if defined(ISLIB) && defined(WIN32)
 #ifdef CMONITORAPI_EXPORTS
 #define C_API __declspec(dllexport)
 #else
 #define C_API __declspec(dllimport)
+#endif
+#else
+#ifdef CMONITORAPI_EXPORTS
+#define C_API __attribute__((visibility("default")))
+#else
+#define C_API __attribute__((visibility("default")))
 #endif
 #endif
 
