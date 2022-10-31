@@ -5,7 +5,7 @@ if(WIN32)
 	add_definitions(-DISLIB -DWIN32)
 endif()
 
-add_definitions(-DCMONITORAPI_EXPORTS)
+add_definitions(-DCRHMONITORAPI_EXPORTS)
 
 PROJECT(cRHMonitorApi VERSION 0.0.1) # 项目名称
 
@@ -19,7 +19,7 @@ SET(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")
 
 set(
 	INCLUDE_DIRS
-	${PROJECT_SOURCE_DIR}/../include
+	${PROJECT_SOURCE_DIR}/../includes
 )
 
 set(

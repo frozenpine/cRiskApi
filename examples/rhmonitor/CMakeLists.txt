@@ -14,8 +14,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 # SET(CMAKE_BUILD_TYPE "Debug")
 # SET(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -g2 -ggdb")
 # SET(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")
-
-set(
+set( 
 	INCLUDE_DIRS
 	${PROJECT_SOURCE_DIR}/../../include
 )
@@ -25,6 +24,14 @@ set(
 	${PROJECT_SOURCE_DIR}/../../libs
 )
 
+set(
+	PROJECT_FILES
+	${PROJECT_SOURCE_DIR}/api.h
+	${INCLUDE_DIRS}/RHMonitorApi.h
+	${INCLUDE_DIRS}/RHUserApiDataType.h
+	${INCLUDE_DIRS}/RHUserApiStruct.h
+)
+
 aux_source_directory(${PROJECT_SOURCE_DIR} SRCS)
 
 # set(CMAKE_SKIP_BUILD_RPATH TRUE)
@@ -32,6 +39,6 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/out)
 
 find_library(DEP_LIBS NAMES RHMonitorApi PATHS ${LIB_DIRS} REQUIRED)
 
-add_executable(cppRisk ${SRCS})
+add_executable(cppRisk ${SRCS} ${PROJECT_FILES})
 target_include_directories(cppRisk PUBLIC ${INCLUDE_DIRS})
 target_link_libraries(cppRisk ${DEP_LIBS})

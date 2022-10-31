@@ -3,13 +3,13 @@
 #define C_MONITOR_API_H
 
 #if defined(ISLIB) && defined(WIN32)
-#ifdef CMONITORAPI_EXPORTS
+#ifdef CRHMONITORAPI_EXPORTS
 #define C_API __declspec(dllexport)
 #else
 #define C_API __declspec(dllimport)
 #endif
 #else
-#ifdef CMONITORAPI_EXPORTS
+#ifdef CRHMONITORAPI_EXPORTS
 #define C_API __attribute__((visibility("default")))
 #else
 #define C_API __attribute__((visibility("default")))
