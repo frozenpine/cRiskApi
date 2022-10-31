@@ -13,6 +13,8 @@ LIB_DIR="${CURR_DIR}/../libs/rohon"
 
 mkdir -p "${BUILD_DIR}" && cd "${BUILD_DIR}"
 
+export LD_LIBRARY_PATH="${LIB_DIR}"
+
 cmake ..
 
 make clean && make
