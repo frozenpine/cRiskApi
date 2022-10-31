@@ -34,7 +34,10 @@ void fpRHMonitorApi::OnFrontDisconnected(int nReason)
 };
 
 ///风控账户登陆响应
-void fpRHMonitorApi::OnRspUserLogin(CRHMonitorRspUserLoginField *pRspUserLoginField, CRHRspInfoField *pRHRspInfoField)
+void fpRHMonitorApi::OnRspUserLogin(
+    CRHMonitorRspUserLoginField *pRspUserLoginField, 
+    CRHRspInfoField *pRHRspInfoField,
+    int nRequestID)
 {
     CHK_RSP(pRHRspInfoField, "Request user login");
 
@@ -50,7 +53,10 @@ void fpRHMonitorApi::OnRspUserLogin(CRHMonitorRspUserLoginField *pRspUserLoginFi
 };
 
 ///风控账户登出响应
-void fpRHMonitorApi::OnRspUserLogout(CRHMonitorUserLogoutField *pRspUserLoginField, CRHRspInfoField *pRHRspInfoField)
+void fpRHMonitorApi::OnRspUserLogout(
+    CRHMonitorUserLogoutField *pRspUserLoginField, 
+    CRHRspInfoField *pRHRspInfoField,
+    int nRequestID)
 {
     CHK_RSP(pRHRspInfoField, "Request user logout");
 
@@ -58,16 +64,40 @@ void fpRHMonitorApi::OnRspUserLogout(CRHMonitorUserLogoutField *pRspUserLoginFie
 };
 
 //查询监控账户响应
-void fpRHMonitorApi::OnRspQryMonitorAccounts(CRHQryInvestorField *pRspMonitorUser, CRHRspInfoField *pRHRspInfoField, bool isLast){};
+void fpRHMonitorApi::OnRspQryMonitorAccounts(
+    CRHQryInvestorField *pRspMonitorUser, 
+    CRHRspInfoField *pRHRspInfoField, 
+    int nRequestID, bool isLast)
+{
+    CHK_RSP(pRHRspInfoField, "Request query accounts");
+};
 
 ///查询账户资金响应
-void fpRHMonitorApi::OnRspQryInvestorMoney(CRHTradingAccountField *pRHTradingAccountField, CRHRspInfoField *pRHRspInfoField, bool isLast){};
+void fpRHMonitorApi::OnRspQryInvestorMoney(
+    CRHTradingAccountField *pRHTradingAccountField, 
+    CRHRspInfoField *pRHRspInfoField, 
+    int nRequestID, bool isLast)
+{
+    CHK_RSP(pRHRspInfoField, "Request query money");
+};
 
 ///查询账户持仓信息响应
-void fpRHMonitorApi::OnRspQryInvestorPosition(CRHMonitorPositionField *pRHMonitorPositionField, CRHRspInfoField *pRHRspInfoField, bool isLast){};
+void fpRHMonitorApi::OnRspQryInvestorPosition(
+    CRHMonitorPositionField *pRHMonitorPositionField, 
+    CRHRspInfoField *pRHRspInfoField, 
+    int nRequestID, bool isLast)
+{
+    CHK_RSP(pRHRspInfoField, "Request query position");
+};
 
 //平仓指令发送失败时的响应
-void fpRHMonitorApi::OnRspOffsetOrder(CRHMonitorOffsetOrderField *pMonitorOrderField, CRHRspInfoField *pRHRspInfoField, bool isLast){};
+void fpRHMonitorApi::OnRspOffsetOrder(
+    CRHMonitorOffsetOrderField *pMonitorOrderField, 
+    CRHRspInfoField *pRHRspInfoField, 
+    int nRequestID, bool isLast)
+{
+    CHK_RSP(pRHRspInfoField, "Request offset order");
+};
 
 ///报单通知
 void fpRHMonitorApi::OnRtnOrder(CRHOrderField *pOrder){};
