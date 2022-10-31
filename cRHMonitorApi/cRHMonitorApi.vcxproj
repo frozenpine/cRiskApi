@@ -136,6 +136,9 @@
       <AdditionalLibraryDirectories>$(SolutionDir)\libs\rohon;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>RHMonitorApi.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>COPY /B /Y $(OutDir)$(TargetName).* $(SolutionDir)libs\rohon\</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>

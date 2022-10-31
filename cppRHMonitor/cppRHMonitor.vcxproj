@@ -19,20 +19,20 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\examples\rhmonitor\api.h" />
     <ClInclude Include="..\includes\rohon\RHMonitorApi.h" />
     <ClInclude Include="..\includes\rohon\RHUserApiDataType.h" />
     <ClInclude Include="..\includes\rohon\RHUserApiStruct.h" />
+    <ClInclude Include="api.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\examples\rhmonitor\api.cpp" />
-    <ClCompile Include="..\examples\rhmonitor\demo.cpp" />
+    <ClCompile Include="api.cpp" />
+    <ClCompile Include="demo.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\examples\rhmonitor\build.sh" />
+    <None Include="build.sh" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\examples\rhmonitor\CMakeLists.txt" />
+    <Text Include="CMakeLists.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

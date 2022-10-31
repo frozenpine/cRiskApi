@@ -24,25 +24,25 @@
     <ClInclude Include="..\includes\rohon\RHUserApiStruct.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\examples\rhmonitor\api.h">
+    <ClInclude Include="api.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\examples\rhmonitor\api.cpp">
+    <ClCompile Include="api.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\examples\rhmonitor\demo.cpp">
+    <ClCompile Include="demo.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\examples\rhmonitor\build.sh">
+    <None Include="build.sh">
       <Filter>资源文件</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\examples\rhmonitor\CMakeLists.txt">
+    <Text Include="CMakeLists.txt">
       <Filter>资源文件</Filter>
     </Text>
   </ItemGroup>

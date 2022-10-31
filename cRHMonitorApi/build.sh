@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e
 
-cd `dirname $0`
-CURR_DIR=`pwd`
+cd $(dirname $0)
+CURR_DIR=$(pwd)
 
 BUILD_DIR="${CURR_DIR}/build"
 LIB_DIR="${CURR_DIR}/../libs"
@@ -11,6 +11,6 @@ LIB_DIR="${CURR_DIR}/../libs"
 
 mkdir -p "${BUILD_DIR}" && cd "${BUILD_DIR}"
 
-cmake ..
+cmake "$*" ..
 
 make clean && make

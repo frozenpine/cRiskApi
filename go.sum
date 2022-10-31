@@ -1,0 +1,4 @@
+github.com/frozenpine/cRiskApi/rohon v0.0.0-20221031052732-2b8eb15707bd h1:3UBMYGKCEyw8UYZqLdNrO/1urZiAS+F1ssQVT0xhybs=
+github.com/frozenpine/cRiskApi/rohon v0.0.0-20221031052732-2b8eb15707bd/go.mod h1:oZrSQBR02SumTUR7X6hQ8RVpyfz22xLkEfdzoHCen8s=
+github.com/pkg/errors v0.9.1 h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=
+github.com/pkg/errors v0.9.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=

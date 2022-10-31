@@ -105,9 +105,9 @@ int fpRHMonitorApi::ReqUserLogin(CRHMonitorReqUserLoginField *pUserLoginField)
 {
     waitBool(&bConnected, true);
 
-    LOGI("Request login for user: %s\n", pUserLoginField->UserID);
+    LOGI("Request login for user: %s", pUserLoginField->UserID);
 
-    return pApi->ReqUserLogin(pUserLoginField, nRequestID);
+    return pApi->ReqUserLogin(pUserLoginField, nRequestID++);
 };
 
 //账户登出
@@ -115,7 +115,7 @@ int fpRHMonitorApi::ReqUserLogout(CRHMonitorUserLogoutField *pUserLogoutField)
 {
     waitBool(&bLogin, true);
 
-    return pApi->ReqUserLogout(pUserLogoutField, nRequestID);
+    return pApi->ReqUserLogout(pUserLogoutField, nRequestID++);
 };
 
 //查询所有管理的账户
@@ -123,7 +123,7 @@ int fpRHMonitorApi::ReqQryMonitorAccounts(CRHMonitorQryMonitorUser *pQryMonitorU
 {
     waitBool(&bLogin, true);
 
-    return pApi->ReqQryMonitorAccounts(pQryMonitorUser, nRequestID);
+    return pApi->ReqQryMonitorAccounts(pQryMonitorUser, nRequestID++);
 };
 
 ///查询账户资金
@@ -131,7 +131,7 @@ int fpRHMonitorApi::ReqQryInvestorMoney(CRHMonitorQryInvestorMoneyField *pQryInv
 {
     waitBool(&bLogin, true);
 
-    return pApi->ReqQryInvestorMoney(pQryInvestorMoneyField, nRequestID);
+    return pApi->ReqQryInvestorMoney(pQryInvestorMoneyField, nRequestID++);
 };
 
 ///查询账户持仓
@@ -139,7 +139,7 @@ int fpRHMonitorApi::ReqQryInvestorPosition(CRHMonitorQryInvestorPositionField *p
 {
     waitBool(&bLogin, true);
 
-    return pApi->ReqQryInvestorPosition(pQryInvestorPositionField, nRequestID);
+    return pApi->ReqQryInvestorPosition(pQryInvestorPositionField, nRequestID++);
 };
 
 //给Server发送强平请求
@@ -147,7 +147,7 @@ int fpRHMonitorApi::ReqOffsetOrder(CRHMonitorOffsetOrderField *pMonitorOrderFiel
 {
     waitBool(&bLogin, true);
 
-    return pApi->ReqOffsetOrder(pMonitorOrderField, nRequestID);
+    return pApi->ReqOffsetOrder(pMonitorOrderField, nRequestID++);
 };
 
 //订阅主动推送信息
@@ -155,7 +155,7 @@ int fpRHMonitorApi::ReqSubPushInfo(CRHMonitorSubPushInfo *pInfo)
 {
     waitBool(&bLogin, true);
 
-    return pApi->ReqSubPushInfo(pInfo, nRequestID);
+    return pApi->ReqSubPushInfo(pInfo, nRequestID++);
 };
 
 void fpRHMonitorApi::Release()
