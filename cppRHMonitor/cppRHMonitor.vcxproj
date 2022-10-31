@@ -130,7 +130,7 @@
       <AdditionalDependencies>RHMonitorApi.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y /B $(SolutionDir)\libs\rohon\*.dll $(OutDir)</Command>
+      <Command>COPY /Y /B $(SolutionDir)\libs\rohon\*.dll $(OutDir)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

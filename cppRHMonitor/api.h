@@ -56,10 +56,10 @@ public:
     int ReqUserLogin(CRHMonitorReqUserLoginField *pUserLoginField);
 
     //账户登出
-    int ReqUserLogout(CRHMonitorUserLogoutField *pUserLogoutField);
+    int ReqUserLogout();
 
     //查询所有管理的账户
-    int ReqQryMonitorAccounts(CRHMonitorQryMonitorUser *pQryMonitorUser);
+    int ReqQryMonitorAccounts();
 
     ///查询账户资金
     int ReqQryInvestorMoney(CRHMonitorQryInvestorMoneyField *pQryInvestorMoneyField);

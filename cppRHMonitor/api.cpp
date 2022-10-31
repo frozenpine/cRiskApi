@@ -103,27 +103,39 @@ void fpRHMonitorApi::Init(const char *ip, unsigned int port)
 ///账户登陆
 int fpRHMonitorApi::ReqUserLogin(CRHMonitorReqUserLoginField *pUserLoginField)
 {
+    memcpy(&loginInfo, pUserLoginField, sizeof(loginInfo));
+
     waitBool(&bConnected, true);
 
-    LOGI("Request login for user: %s", pUserLoginField->UserID);
+    LOGI("Request login for user: %s", loginInfo.UserID);
 
-    return pApi->ReqUserLogin(pUserLoginField, nRequestID++);
+    return pApi->ReqUserLogin(&loginInfo, nRequestID++);
 };
 
 //账户登出
-int fpRHMonitorApi::ReqUserLogout(CRHMonitorUserLogoutField *pUserLogoutField)
+int fpRHMonitorApi::ReqUserLogout()
 {
     waitBool(&bLogin, true);
 
-    return pApi->ReqUserLogout(pUserLogoutField, nRequestID++);
+    CRHMonitorUserLogoutField logout = CRHMonitorUserLogoutField{ 0 };
+    memcpy(&logout.UserID, &loginInfo.UserID, sizeof(logout.UserID) - 1);
+
+    LOGI("Request logout for user: %s", loginInfo.UserID);
+
+    return pApi->ReqUserLogout(&logout, nRequestID++);
 };
 
 //查询所有管理的账户
-int fpRHMonitorApi::ReqQryMonitorAccounts(CRHMonitorQryMonitorUser *pQryMonitorUser)
+int fpRHMonitorApi::ReqQryMonitorAccounts()
 {
     waitBool(&bLogin, true);
 
-    return pApi->ReqQryMonitorAccounts(pQryMonitorUser, nRequestID++);
+    CRHMonitorQryMonitorUser qry = CRHMonitorQryMonitorUser{ 0 };
+    memcpy(&qry.UserID, &loginInfo.UserID, sizeof(qry.UserID) - 1);
+
+    LOGI("Query accounts for user: %s", loginInfo.UserID);
+
+    return pApi->ReqQryMonitorAccounts(&qry, nRequestID++);
 };
 
 ///查询账户资金
