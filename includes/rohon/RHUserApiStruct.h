@@ -3,7 +3,7 @@
 ///@company 上海融航信息技术有限公司
 ///@file RHUserApiStruct.h
 ///@brief 定义了客户端接口使用的业务数据结构
-/// 20180910 create by Haosc
+///20180910 create by Haosc
 /////////////////////////////////////////////////////////////////////////
 
 #if !defined(RH_TRADESTRUCT_H)
@@ -11,7 +11,6 @@
 
 #if _MSC_VER > 1000
 #pragma once
-#pragma execution_character_set("utf-8")
 #endif // _MSC_VER > 1000
 
 #include "RHUserApiDataType.h"
@@ -20,236 +19,237 @@
 struct CRHReqUserLoginField
 {
 	///交易日
-	TRHDateType TradingDay;
+	TRHDateType	TradingDay;
 	///经纪公司代码
-	TRHBrokerIDType BrokerID;
+	TRHBrokerIDType	BrokerID;
 	///用户代码
-	TRHUserIDType UserID;
+	TRHUserIDType	UserID;
 	///密码
-	TRHPasswordType Password;
+	TRHPasswordType	Password;
 	///用户端产品信息
-	TRHProductInfoType UserProductInfo;
+	TRHProductInfoType	UserProductInfo;
 	///接口端产品信息
-	TRHProductInfoType InterfaceProductInfo;
+	TRHProductInfoType	InterfaceProductInfo;
 	///协议信息
-	TRHProtocolInfoType ProtocolInfo;
-	/// Mac地址
-	TRHMacAddressType MacAddress;
+	TRHProtocolInfoType	ProtocolInfo;
+	///Mac地址
+	TRHMacAddressType	MacAddress;
 	///动态密码
-	TRHPasswordType OneTimePassword;
+	TRHPasswordType	OneTimePassword;
 	///终端IP地址
-	TRHIPAddressType ClientIPAddress;
+	TRHIPAddressType	ClientIPAddress;
 	///扩展实例ID，BrokerID和UserID不足以区分多个实例
-	TRHTIDType InstanceID;
+	TRHTIDType		InstanceID;
 	///登录备注
-	TRHLoginRemarkType LoginRemark;
+	TRHLoginRemarkType	LoginRemark;
 };
 
 ///用户登录应答
 struct CRHRspUserLoginField
 {
 	///交易日
-	TRHDateType TradingDay;
+	TRHDateType	TradingDay;
 	///登录成功时间
-	TRHTimeType LoginTime;
+	TRHTimeType	LoginTime;
 	///经纪公司代码
-	TRHBrokerIDType BrokerID;
+	TRHBrokerIDType	BrokerID;
 	///用户代码
-	TRHUserIDType UserID;
+	TRHUserIDType	UserID;
 	///交易系统名称
-	TRHSystemNameType SystemName;
+	TRHSystemNameType	SystemName;
 	///前置编号
-	TRHFrontIDType FrontID;
+	TRHFrontIDType	FrontID;
 	///会话编号
-	TRHSessionIDType SessionID;
+	TRHSessionIDType	SessionID;
 	///最大报单引用
-	TRHOrderRefType MaxOrderRef;
+	TRHOrderRefType	MaxOrderRef;
 	///上期所时间
-	TRHTimeType SHFETime;
+	TRHTimeType	SHFETime;
 	///大商所时间
-	TRHTimeType DCETime;
+	TRHTimeType	DCETime;
 	///郑商所时间
-	TRHTimeType CZCETime;
+	TRHTimeType	CZCETime;
 	///中金所时间
-	TRHTimeType FFEXTime;
+	TRHTimeType	FFEXTime;
 	///能源中心时间
-	TRHTimeType INETime;
+	TRHTimeType	INETime;
 	///扩展实例ID，BrokerID和UserID不足以区分多个实例
-	TRHTIDType InstanceID;
+	TRHTIDType		InstanceID;
 };
 
 ///用户登出请求
 struct CRHUserLogoutField
 {
 	///经纪公司代码
-	TRHBrokerIDType BrokerID;
+	TRHBrokerIDType	BrokerID;
 	///用户代码
-	TRHUserIDType UserID;
+	TRHUserIDType	UserID;
 };
 
 ///强制交易员退出
 struct CRHForceUserLogoutField
 {
 	///经纪公司代码
-	TRHBrokerIDType BrokerID;
+	TRHBrokerIDType	BrokerID;
 	///用户代码
-	TRHUserIDType UserID;
+	TRHUserIDType	UserID;
 };
 
-struct CRHMonitorReqUserLoginField
+struct CRHMonitorReqUserLoginField 
 {
 	//风控账号
-	TRHUserIDType UserID;
+	TRHUserIDType		  UserID;
 	//风控密码
-	TRHPasswordType Password;
-	// MAC地址
-	TRHMacAddressType MacAddress;
+	TRHPasswordType		  Password;
+	//MAC地址
+	TRHMacAddressType	  MacAddress;
 };
 
-struct CRHMonitorUserLogoutField
+struct CRHMonitorUserLogoutField 
 {
 	//风控账号
-	TRHUserIDType UserID;
+	TRHUserIDType		  UserID;
 };
+
 
 struct CRHMonitorRspUserLoginField
 {
 	//风控账号
-	TRHUserIDType UserID;
+	TRHUserIDType		  UserID;
 	//账户权限
-	TRHPrivilegeType PrivilegeType;
+	TRHPrivilegeType		  PrivilegeType;
 	//信息查看权限
-	TRHInfoPrivilegeType InfoPrivilegeType;
+	TRHInfoPrivilegeType	  InfoPrivilegeType;
 	///交易日
-	TRHDateType TradingDay;
+	TRHDateType			  TradingDay;
 	///登录成功时间
-	TRHTimeType LoginTime;
+	TRHTimeType			  LoginTime;
 };
 
 struct CRHMonitorQryMonitorUser
 {
 	//风控账号
-	TRHUserIDType UserID;
+	TRHUserIDType		  UserID;
 };
 
-struct CRHMonitorRspMonitorUser
+struct CRHMonitorRspMonitorUser 
 {
 	//投资者
-	TRHInvestorIDType InvestorID;
+	TRHInvestorIDType	  InvestorID;
 	//经纪公司代码
-	TRHBrokerIDType BrokerID;
+	TRHBrokerIDType		  BrokerID;
 };
 
 ///响应信息
 struct CRHRspInfoField
 {
 	///错误代码
-	TRHErrorIDType ErrorID;
+	TRHErrorIDType	ErrorID;
 	///错误信息
-	TRHErrorMsgType ErrorMsg;
+	TRHErrorMsgType	ErrorMsg;
 };
 
 ///资金账户
 struct CRHTradingAccountField
 {
 	///经纪公司代码
-	TRHBrokerIDType BrokerID;
+	TRHBrokerIDType	BrokerID;
 	///投资者帐号
-	TRHAccountIDType AccountID;
+	TRHAccountIDType	AccountID;
 	///上次质押金额
-	TRHMoneyType PreMortgage;
+	TRHMoneyType	PreMortgage;
 	///上次信用额度
-	TRHMoneyType PreCredit;
+	TRHMoneyType	PreCredit;
 	///上次存款额
-	TRHMoneyType PreDeposit;
+	TRHMoneyType	PreDeposit;
 	///上次结算准备金
-	TRHMoneyType PreBalance;
+	TRHMoneyType	PreBalance;
 	///上次占用的保证金
-	TRHMoneyType PreMargin;
+	TRHMoneyType	PreMargin;
 	///利息基数
-	TRHMoneyType InterestBase;
+	TRHMoneyType	InterestBase;
 	///利息收入
-	TRHMoneyType Interest;
+	TRHMoneyType	Interest;
 	///入金金额
-	TRHMoneyType Deposit;
+	TRHMoneyType	Deposit;
 	///出金金额
-	TRHMoneyType Withdraw;
+	TRHMoneyType	Withdraw;
 	///冻结的保证金
-	TRHMoneyType FrozenMargin;
+	TRHMoneyType	FrozenMargin;
 	///冻结的资金
-	TRHMoneyType FrozenCash;
+	TRHMoneyType	FrozenCash;
 	///冻结的手续费
-	TRHMoneyType FrozenCommission;
+	TRHMoneyType	FrozenCommission;
 	///当前保证金总额
-	TRHMoneyType CurrMargin;
+	TRHMoneyType	CurrMargin;
 	///资金差额
-	TRHMoneyType CashIn;
+	TRHMoneyType	CashIn;
 	///手续费
-	TRHMoneyType Commission;
+	TRHMoneyType	Commission;
 	///平仓盈亏
-	TRHMoneyType CloseProfit;
+	TRHMoneyType	CloseProfit;
 	///持仓盈亏
-	TRHMoneyType PositionProfit;
+	TRHMoneyType	PositionProfit;
 	///期货结算准备金
-	TRHMoneyType Balance;
+	TRHMoneyType	Balance;
 	///可用资金
-	TRHMoneyType Available;
+	TRHMoneyType	Available;
 	///可取资金
-	TRHMoneyType WithdrawQuota;
+	TRHMoneyType	WithdrawQuota;
 	///基本准备金
-	TRHMoneyType Reserve;
+	TRHMoneyType	Reserve;
 	///交易日
-	TRHDateType TradingDay;
+	TRHDateType	TradingDay;
 	///结算编号
-	TRHSettlementIDType SettlementID;
+	TRHSettlementIDType	SettlementID;
 	///信用额度
-	TRHMoneyType Credit;
+	TRHMoneyType	Credit;
 	///质押金额
-	TRHMoneyType Mortgage;
+	TRHMoneyType	Mortgage;
 	///交易所保证金
-	TRHMoneyType ExchangeMargin;
+	TRHMoneyType	ExchangeMargin;
 	///投资者交割保证金
-	TRHMoneyType DeliveryMargin;
+	TRHMoneyType	DeliveryMargin;
 	///交易所交割保证金
-	TRHMoneyType ExchangeDeliveryMargin;
+	TRHMoneyType	ExchangeDeliveryMargin;
 	///保底期货结算准备金
-	TRHMoneyType ReserveBalance;
+	TRHMoneyType	ReserveBalance;
 	///币种代码
-	TRHCurrencyIDType CurrencyID;
+	TRHCurrencyIDType	CurrencyID;
 	///上次货币质入金额
-	TRHMoneyType PreFundMortgageIn;
+	TRHMoneyType	PreFundMortgageIn;
 	///上次货币质出金额
-	TRHMoneyType PreFundMortgageOut;
+	TRHMoneyType	PreFundMortgageOut;
 	///货币质入金额
-	TRHMoneyType FundMortgageIn;
+	TRHMoneyType	FundMortgageIn;
 	///货币质出金额
-	TRHMoneyType FundMortgageOut;
+	TRHMoneyType	FundMortgageOut;
 	///货币质押余额
-	TRHMoneyType FundMortgageAvailable;
+	TRHMoneyType	FundMortgageAvailable;
 	///可质押货币金额
-	TRHMoneyType MortgageableFund;
+	TRHMoneyType	MortgageableFund;
 	///特殊产品占用保证金
-	TRHMoneyType SpecProductMargin;
+	TRHMoneyType	SpecProductMargin;
 	///特殊产品冻结保证金
-	TRHMoneyType SpecProductFrozenMargin;
+	TRHMoneyType	SpecProductFrozenMargin;
 	///特殊产品手续费
-	TRHMoneyType SpecProductCommission;
+	TRHMoneyType	SpecProductCommission;
 	///特殊产品冻结手续费
-	TRHMoneyType SpecProductFrozenCommission;
+	TRHMoneyType	SpecProductFrozenCommission;
 	///特殊产品持仓盈亏
-	TRHMoneyType SpecProductPositionProfit;
+	TRHMoneyType	SpecProductPositionProfit;
 	///特殊产品平仓盈亏
-	TRHMoneyType SpecProductCloseProfit;
+	TRHMoneyType	SpecProductCloseProfit;
 	///根据持仓盈亏算法计算的特殊产品持仓盈亏
-	TRHMoneyType SpecProductPositionProfitByAlg;
+	TRHMoneyType	SpecProductPositionProfitByAlg;
 	///特殊产品交易所保证金
-	TRHMoneyType SpecProductExchangeMargin;
+	TRHMoneyType	SpecProductExchangeMargin;
 	///业务类型
-	TRHBizTypeType BizType;
+	TRHBizTypeType	BizType;
 	///延时换汇冻结金额
-	TRHMoneyType FrozenSwap;
+	TRHMoneyType	FrozenSwap;
 	///剩余换汇额度
-	TRHMoneyType RemainSwap;
+	TRHMoneyType	RemainSwap;
 	//证券持仓市值
 	TRHMoneyType TotalStockMarketValue;
 	//期权持仓市值
@@ -266,31 +266,31 @@ struct CRHTradingAccountField
 struct CRHMonitorPositionField
 {
 	///投资者代码
-	TRHInvestorIDType InvestorID;
+	TRHInvestorIDType	InvestorID;
 	///经纪公司代码
-	TRHBrokerIDType BrokerID;
+	TRHBrokerIDType		BrokerID;
 	///合约类别
-	TRHInstrumentIDType ProductID;
+	TRHInstrumentIDType	ProductID;
 	///合约代码
-	TRHInstrumentIDType InstrumentID;
+	TRHInstrumentIDType	InstrumentID;
 	///投机套保标志
-	TRHHedgeFlagType HedgeFlag;
+	TRHHedgeFlagType		HedgeFlag;
 	///持仓方向
-	TRHDirectionType Direction;
+	TRHDirectionType		Direction;
 	///持仓数量
-	TRHVolumeType Volume;
+	TRHVolumeType		Volume;
 	///持仓保证金
-	TRHMoneyType Margin;
+	TRHMoneyType			Margin;
 	///逐笔开仓均价
-	TRHMoneyType AvgOpenPriceByVol;
+	TRHMoneyType			AvgOpenPriceByVol;
 	///逐日开仓均价
-	TRHMoneyType AvgOpenPrice;
+	TRHMoneyType			AvgOpenPrice;
 	///今仓数量
-	TRHVolumeType TodayVolume;
+	TRHVolumeType		TodayVolume;
 	///冻结持仓数量
-	TRHVolumeType FrozenVolume;
+	TRHVolumeType		FrozenVolume;
 	///信息类型
-	TRHPositionEntryType EntryType;
+	TRHPositionEntryType	EntryType;			
 	///昨仓，冻结持仓数量，逐笔持盈，逐笔开仓均价
 };
 
@@ -298,261 +298,262 @@ struct CRHMonitorPositionField
 struct CRHQryInvestorField
 {
 	///经纪公司代码
-	TRHBrokerIDType BrokerID;
+	TRHBrokerIDType	BrokerID;
 	///投资者代码
-	TRHInvestorIDType InvestorID;
+	TRHInvestorIDType	InvestorID;
 };
 
 struct CRHMonitorQryInvestorPositionField
 {
 	///投资者代码
-	TRHInvestorIDType InvestorID;
+	TRHInvestorIDType	InvestorID;
 	///账户类别
-	// TRHAccountType		AccountType;
+	//TRHAccountType		AccountType;
 	///经纪公司代码
-	TRHBrokerIDType BrokerID;
+	TRHBrokerIDType		BrokerID;	
 	///合约代码
-	TRHInstrumentIDType InstrumentID;
+	TRHInstrumentIDType	InstrumentID;
 };
 
 struct CRHMonitorQryInvestorMoneyField
 {
 	///投资者代码
-	TRHInvestorIDType InvestorID;
+	TRHInvestorIDType	InvestorID;
 	///账户类别
-	// TRHAccountType		AccountType;
+	//TRHAccountType		AccountType;
 	///经纪公司代码
-	TRHBrokerIDType BrokerID;
+	TRHBrokerIDType		BrokerID;	
+	
 };
 
 //风控端强制平仓字段
 struct CRHMonitorOffsetOrderField
 {
 	//投资者
-	TRHInvestorIDType InvestorID;
+	TRHInvestorIDType	  InvestorID;
 	//经纪公司代码
-	TRHBrokerIDType BrokerID;
+	TRHBrokerIDType		  BrokerID;
 	//合约ID
-	TRHInstrumentIDType InstrumentID;
+	TRHInstrumentIDType	  InstrumentID;
 	//方向
-	TRHDirectionType Direction;
+	TRHDirectionType		  Direction;
 	//手数
-	TRHVolumeType volume;
+	TRHVolumeType		  volume;
 	//价格
-	TRHPriceType Price;
+	TRHPriceType			  Price;
 	///组合开平标志
-	TRHCombOffsetFlagType CombOffsetFlag;
+	TRHCombOffsetFlagType  CombOffsetFlag;
 	///组合投机套保标志
-	TRHCombHedgeFlagType CombHedgeFlag;
+	TRHCombHedgeFlagType	  CombHedgeFlag;
 };
 
 ///报单
 struct CRHOrderField
 {
 	///经纪公司代码
-	TRHBrokerIDType BrokerID;
+	TRHBrokerIDType	BrokerID;
 	///投资者代码
-	TRHInvestorIDType InvestorID;
+	TRHInvestorIDType	InvestorID;
 	///合约代码
-	TRHInstrumentIDType InstrumentID;
+	TRHInstrumentIDType	InstrumentID;
 	///报单引用
-	TRHOrderRefType OrderRef;
+	TRHOrderRefType	OrderRef;
 	///用户代码
-	TRHUserIDType UserID;
+	TRHUserIDType	UserID;
 	///报单价格条件
-	TRHOrderPriceTypeType OrderPriceType;
+	TRHOrderPriceTypeType	OrderPriceType;
 	///买卖方向
-	TRHDirectionType Direction;
+	TRHDirectionType	Direction;
 	///组合开平标志
-	TRHCombOffsetFlagType CombOffsetFlag;
+	TRHCombOffsetFlagType	CombOffsetFlag;
 	///组合投机套保标志
-	TRHCombHedgeFlagType CombHedgeFlag;
+	TRHCombHedgeFlagType	CombHedgeFlag;
 	///价格
-	TRHPriceType LimitPrice;
+	TRHPriceType	LimitPrice;
 	///数量
-	TRHVolumeType VolumeTotalOriginal;
+	TRHVolumeType	VolumeTotalOriginal;
 	///有效期类型
-	TRHTimeConditionType TimeCondition;
-	/// GTD日期
-	TRHDateType GTDDate;
+	TRHTimeConditionType	TimeCondition;
+	///GTD日期
+	TRHDateType	GTDDate;
 	///成交量类型
-	TRHVolumeConditionType VolumeCondition;
+	TRHVolumeConditionType	VolumeCondition;
 	///最小成交量
-	TRHVolumeType MinVolume;
+	TRHVolumeType	MinVolume;
 	///触发条件
-	TRHContingentConditionType ContingentCondition;
+	TRHContingentConditionType	ContingentCondition;
 	///止损价
-	TRHPriceType StopPrice;
+	TRHPriceType	StopPrice;
 	///强平原因
-	TRHForceCloseReasonType ForceCloseReason;
+	TRHForceCloseReasonType	ForceCloseReason;
 	///自动挂起标志
-	TRHBoolType IsAutoSuspend;
+	TRHBoolType	IsAutoSuspend;
 	///业务单元
-	TRHBusinessUnitType BusinessUnit;
+	TRHBusinessUnitType	BusinessUnit;
 	///请求编号
-	TRHRequestIDType RequestID;
+	TRHRequestIDType	RequestID;
 	///本地报单编号
-	TRHOrderLocalIDType OrderLocalID;
+	TRHOrderLocalIDType	OrderLocalID;
 	///交易所代码
-	TRHExchangeIDType ExchangeID;
+	TRHExchangeIDType	ExchangeID;
 	///会员代码
-	TRHParticipantIDType ParticipantID;
+	TRHParticipantIDType	ParticipantID;
 	///客户代码
-	TRHClientIDType ClientID;
+	TRHClientIDType	ClientID;
 	///合约在交易所的代码
-	TRHExchangeInstIDType ExchangeInstID;
+	TRHExchangeInstIDType	ExchangeInstID;
 	///交易所交易员代码
-	TRHTraderIDType TraderID;
+	TRHTraderIDType	TraderID;
 	///安装编号
-	TRHInstallIDType InstallID;
+	TRHInstallIDType	InstallID;
 	///报单提交状态
-	TRHOrderSubmitStatusType OrderSubmitStatus;
+	TRHOrderSubmitStatusType	OrderSubmitStatus;
 	///报单提示序号
-	TRHSequenceNoType NotifySequence;
+	TRHSequenceNoType	NotifySequence;
 	///交易日
-	TRHDateType TradingDay;
+	TRHDateType	TradingDay;
 	///结算编号
-	TRHSettlementIDType SettlementID;
+	TRHSettlementIDType	SettlementID;
 	///报单编号
-	TRHOrderSysIDType OrderSysID;
+	TRHOrderSysIDType	OrderSysID;
 	///报单来源
-	TRHOrderSourceType OrderSource;
+	TRHOrderSourceType	OrderSource;
 	///报单状态
-	TRHOrderStatusType OrderStatus;
+	TRHOrderStatusType	OrderStatus;
 	///报单类型
-	TRHOrderTypeType OrderType;
+	TRHOrderTypeType	OrderType;
 	///今成交数量
-	TRHVolumeType VolumeTraded;
+	TRHVolumeType	VolumeTraded;
 	///剩余数量
-	TRHVolumeType VolumeTotal;
+	TRHVolumeType	VolumeTotal;
 	///报单日期
-	TRHDateType InsertDate;
+	TRHDateType	InsertDate;
 	///委托时间
-	TRHTimeType InsertTime;
+	TRHTimeType	InsertTime;
 	///激活时间
-	TRHTimeType ActiveTime;
+	TRHTimeType	ActiveTime;
 	///挂起时间
-	TRHTimeType SuspendTime;
+	TRHTimeType	SuspendTime;
 	///最后修改时间
-	TRHTimeType UpdateTime;
+	TRHTimeType	UpdateTime;
 	///撤销时间
-	TRHTimeType CancelTime;
+	TRHTimeType	CancelTime;
 	///最后修改交易所交易员代码
-	TRHTraderIDType ActiveTraderID;
+	TRHTraderIDType	ActiveTraderID;
 	///结算会员编号
-	TRHParticipantIDType ClearingPartID;
+	TRHParticipantIDType	ClearingPartID;
 	///序号
-	TRHSequenceNoType SequenceNo;
+	TRHSequenceNoType	SequenceNo;
 	///前置编号
-	TRHFrontIDType FrontID;
+	TRHFrontIDType	FrontID;
 	///会话编号
-	TRHSessionIDType SessionID;
+	TRHSessionIDType	SessionID;
 	///用户端产品信息
-	TRHProductInfoType UserProductInfo;
+	TRHProductInfoType	UserProductInfo;
 	///状态信息
-	TRHErrorMsgType StatusMsg;
+	TRHErrorMsgType	StatusMsg;
 	///用户强评标志
-	TRHBoolType UserForceClose;
+	TRHBoolType	UserForceClose;
 	///操作用户代码
-	TRHUserIDType ActiveUserID;
+	TRHUserIDType	ActiveUserID;
 	///经纪公司报单编号
-	TRHSequenceNoType BrokerOrderSeq;
+	TRHSequenceNoType	BrokerOrderSeq;
 	///相关报单
-	TRHOrderSysIDType RelativeOrderSysID;
+	TRHOrderSysIDType	RelativeOrderSysID;
 	///郑商所成交数量
-	TRHVolumeType ZCETotalTradedVolume;
+	TRHVolumeType	ZCETotalTradedVolume;
 	///互换单标志
-	TRHBoolType IsSwapOrder;
+	TRHBoolType	IsSwapOrder;
 	///营业部编号
-	TRHBranchIDType BranchID;
+	TRHBranchIDType	BranchID;
 	///投资单元代码
-	TRHInvestUnitIDType InvestUnitID;
+	TRHInvestUnitIDType	InvestUnitID;
 	///资金账号
-	TRHAccountIDType AccountID;
+	TRHAccountIDType	AccountID;
 	///币种代码
-	TRHCurrencyIDType CurrencyID;
-	/// IP地址
-	TRHIPAddressType IPAddress;
-	/// Mac地址
-	TRHMacAddressType MacAddress;
+	TRHCurrencyIDType	CurrencyID;
+	///IP地址
+	TRHIPAddressType	IPAddress;
+	///Mac地址
+	TRHMacAddressType	MacAddress;
 };
 
 ///成交
 struct CRHTradeField
 {
 	///经纪公司代码
-	TRHBrokerIDType BrokerID;
+	TRHBrokerIDType	BrokerID;
 	///投资者代码
-	TRHInvestorIDType InvestorID;
+	TRHInvestorIDType	InvestorID;
 	///合约代码
-	TRHInstrumentIDType InstrumentID;
+	TRHInstrumentIDType	InstrumentID;
 	///报单引用
-	TRHOrderRefType OrderRef;
+	TRHOrderRefType	OrderRef;
 	///用户代码
-	TRHUserIDType UserID;
+	TRHUserIDType	UserID;
 	///交易所代码
-	TRHExchangeIDType ExchangeID;
+	TRHExchangeIDType	ExchangeID;
 	///成交编号
-	TRHTradeIDType TradeID;
+	TRHTradeIDType	TradeID;
 	///买卖方向
-	TRHDirectionType Direction;
+	TRHDirectionType	Direction;
 	///报单编号
-	TRHOrderSysIDType OrderSysID;
+	TRHOrderSysIDType	OrderSysID;
 	///会员代码
-	TRHParticipantIDType ParticipantID;
+	TRHParticipantIDType	ParticipantID;
 	///客户代码
-	TRHClientIDType ClientID;
+	TRHClientIDType	ClientID;
 	///交易角色
-	TRHTradingRoleType TradingRole;
+	TRHTradingRoleType	TradingRole;
 	///合约在交易所的代码
-	TRHExchangeInstIDType ExchangeInstID;
+	TRHExchangeInstIDType	ExchangeInstID;
 	///开平标志
-	TRHOffsetFlagType OffsetFlag;
+	TRHOffsetFlagType	OffsetFlag;
 	///投机套保标志
-	TRHHedgeFlagType HedgeFlag;
+	TRHHedgeFlagType	HedgeFlag;
 	///价格
-	TRHPriceType Price;
+	TRHPriceType	Price;
 	///数量
-	TRHVolumeType Volume;
+	TRHVolumeType	Volume;
 	///成交时期
-	TRHDateType TradeDate;
+	TRHDateType	TradeDate;
 	///成交时间
-	TRHTimeType TradeTime;
+	TRHTimeType	TradeTime;
 	///成交类型
-	TRHTradeTypeType TradeType;
+	TRHTradeTypeType	TradeType;
 	///成交价来源
-	TRHPriceSourceType PriceSource;
+	TRHPriceSourceType	PriceSource;
 	///交易所交易员代码
-	TRHTraderIDType TraderID;
+	TRHTraderIDType	TraderID;
 	///本地报单编号
-	TRHOrderLocalIDType OrderLocalID;
+	TRHOrderLocalIDType	OrderLocalID;
 	///结算会员编号
-	TRHParticipantIDType ClearingPartID;
+	TRHParticipantIDType	ClearingPartID;
 	///业务单元
-	TRHBusinessUnitType BusinessUnit;
+	TRHBusinessUnitType	BusinessUnit;
 	///序号
-	TRHSequenceNoType SequenceNo;
+	TRHSequenceNoType	SequenceNo;
 	///交易日
-	TRHDateType TradingDay;
+	TRHDateType	TradingDay;
 	///结算编号
-	TRHSettlementIDType SettlementID;
+	TRHSettlementIDType	SettlementID;
 	///经纪公司报单编号
-	TRHSequenceNoType BrokerOrderSeq;
+	TRHSequenceNoType	BrokerOrderSeq;
 	///成交来源
-	TRHTradeSourceType TradeSource;
+	TRHTradeSourceType	TradeSource;
 	///投资单元代码
-	TRHInvestUnitIDType InvestUnitID;
+	TRHInvestUnitIDType	InvestUnitID;
 };
 
 //订阅推送信息
 struct CRHMonitorSubPushInfo
 {
 	///投资者代码
-	TRHInvestorIDType InvestorID;
+	TRHInvestorIDType	InvestorID;
 	///账户类别
-	TRHAccountType AccountType;
+	TRHAccountType		AccountType;
 	///经纪公司代码
-	TRHBrokerIDType BrokerID;
+	TRHBrokerIDType		BrokerID;
 	///订阅类型
 	RHMonitorSubPushInfoType SubInfoType;
 };

@@ -5,7 +5,7 @@ if(WIN32)
 	add_definitions(-DISLIB -DWIN32 -D_CRT_SECURE_NO_WARNINGS)
 endif()
 
-PROJECT(rhmonitor VERSION 0.0.1) # 项目名称
+PROJECT(cppRHMonitor VERSION 0.0.1) # 项目名称
 
 # C++11 support
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
@@ -14,14 +14,14 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 # SET(CMAKE_BUILD_TYPE "Debug")
 # SET(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -g2 -ggdb")
 # SET(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")
-set( 
+set(
 	INCLUDE_DIRS
-	${PROJECT_SOURCE_DIR}/../../includes/rohon
+	${PROJECT_SOURCE_DIR}/../includes/rohon
 )
 
 set(
 	LIB_DIRS
-	${PROJECT_SOURCE_DIR}/../../libs/rohon
+	${PROJECT_SOURCE_DIR}/../libs/rohon
 )
 
 set(
@@ -39,6 +39,6 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/out)
 
 find_library(DEP_LIBS NAMES RHMonitorApi PATHS ${LIB_DIRS} REQUIRED)
 
-add_executable(rhmonitor ${SRCS} ${PROJECT_FILES})
-target_include_directories(rhmonitor PUBLIC ${INCLUDE_DIRS})
-target_link_libraries(rhmonitor ${DEP_LIBS})
+add_executable(cppRHMonitor ${SRCS} ${PROJECT_HEADERS})
+target_include_directories(cppRHMonitor PUBLIC ${INCLUDE_DIRS})
+target_link_libraries(cppRHMonitor ${DEP_LIBS})

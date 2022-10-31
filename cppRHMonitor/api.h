@@ -4,8 +4,17 @@
 #include <memory.h>
 #include <assert.h>
 #include <atomic>
+#include <stdio.h>
+#include <thread>
 
 #include "RHMonitorApi.h"
+
+#define FMTI(fmt) "[TID: %5d] [INFO ] " fmt "\n"
+#define FMTW(fmt) "[TID: %5d] [WARNI] " fmt "\n"
+#define FMTE(fmt) "[TID: %5d] [ERROR] " fmt "\n"
+#define LOGI(fmt, ...) fprintf(stderr, FMTI(fmt), std::this_thread::get_id(), __VA_ARGS__)
+#define LOGW(fmt, ...) fprintf(stderr, FMTW(fmt), std::this_thread::get_id(), __VA_ARGS__)
+#define LOGE(fmt, ...) fprintf(stderr, FMTE(fmt), std::this_thread::get_id(), __VA_ARGS__)
 
 class fpRHMonitorApi : CRHMonitorSpi
 {
@@ -26,11 +35,15 @@ protected:
 
 private:
     CRHMonitorApi *pApi;
+    
     char remoteAddr[16];
     int remotePort;
+    
     std::atomic_int nRequestID;
+    
     std::atomic_bool bConnected;
     std::atomic_bool bLogin;
+    
     CRHMonitorReqUserLoginField loginInfo;
 
     void
@@ -44,13 +57,13 @@ private:
     }
 
 protected:
-    void waitBool(std::atomic<bool> *flag, bool v);
+    void setBoolFlag(std::atomic_bool *flag, bool v);
+    void waitBoolFlag(std::atomic_bool *flag, bool v);
 
 public:
     ///初始化
     ///@remark 初始化运行环境,只有调用后,接口才开始工作
-    void
-    Init(const char *ip, unsigned int port);
+    void Init(const char *ip, unsigned int port);
 
     ///账户登陆
     int ReqUserLogin(CRHMonitorReqUserLoginField *pUserLoginField);
