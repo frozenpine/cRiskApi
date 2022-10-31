@@ -16,7 +16,7 @@ const char* riskPass = "888888";
 int main() {
 	api = new fpRHMonitorApi();
 
-	LOGI("Rohon risk api instance[0x%x] created.", api);
+	LOGI("Rohon risk api instance[0x%x] created.", (unsigned int)api);
 
 	api->Init(ip, port);
 

@@ -9,12 +9,17 @@
 
 #include "RHMonitorApi.h"
 
-#define FMTI(fmt) "[TID: %5d] [INFO ] " fmt "\n"
-#define FMTW(fmt) "[TID: %5d] [WARNI] " fmt "\n"
-#define FMTE(fmt) "[TID: %5d] [ERROR] " fmt "\n"
-#define LOGI(fmt, ...) fprintf(stderr, FMTI(fmt), std::this_thread::get_id(), __VA_ARGS__)
-#define LOGW(fmt, ...) fprintf(stderr, FMTW(fmt), std::this_thread::get_id(), __VA_ARGS__)
-#define LOGE(fmt, ...) fprintf(stderr, FMTE(fmt), std::this_thread::get_id(), __VA_ARGS__)
+static inline unsigned int get_thread_id() {
+    std::hash<std::thread::id> hasher;
+    return hasher(std::this_thread::get_id()); 
+}
+
+#define FMTI(fmt) "[TID: %5u] [INFO ] " fmt "\n"
+#define FMTW(fmt) "[TID: %5u] [WARNI] " fmt "\n"
+#define FMTE(fmt) "[TID: %5u] [ERROR] " fmt "\n"
+#define LOGI(fmt, ...) fprintf(stderr, FMTI(fmt), get_thread_id(), __VA_ARGS__)
+#define LOGW(fmt, ...) fprintf(stderr, FMTW(fmt), get_thread_id(), __VA_ARGS__)
+#define LOGE(fmt, ...) fprintf(stderr, FMTE(fmt), get_thread_id(), __VA_ARGS__)
 
 class fpRHMonitorApi : public CRHMonitorSpi
 {
