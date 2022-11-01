@@ -3,7 +3,8 @@
 #define CHK_RSP(rsp, msg)                                                      \
     do                                                                         \
     {                                                                          \
-        if ((rsp)->ErrorID != 0)                                               \
+        if (NULL == rsp) break;                                                \
+        if ((rsp)->ErrorID > 0)                                                \
         {                                                                      \
             LOGE("%s failed[%d]: %s", (msg), (rsp)->ErrorID, (rsp)->ErrorMsg); \
             return;                                                            \
@@ -11,10 +12,11 @@
         LOGI("%s success: %s", (msg), (rsp)->ErrorMsg);                        \
     } while (false)
 
+
 ///当客户端与交易后台建立起通信连接时（还未登录前），该方法被调用。
 void fpRHMonitorApi::OnFrontConnected()
 {
-    LOGI("Front[%s:%d] connected.", remoteAddr, remotePort);
+    LOGI("Front[%s:%d] connected.", remoteAddr.c_str(), remotePort);
     
     setBoolFlag(&bConnected, true);
 };
@@ -28,7 +30,7 @@ void fpRHMonitorApi::OnFrontConnected()
 ///        0x2003 收到错误报文
 void fpRHMonitorApi::OnFrontDisconnected(int nReason)
 {
-    LOGW("Front[%s:%d] disconnected: %02x", remoteAddr, remotePort, nReason);
+    LOGW("Front[%s:%d] disconnected: %02x", remoteAddr.c_str(), remotePort, nReason);
     
     setBoolFlag(&bConnected, false);
 };
@@ -39,13 +41,11 @@ void fpRHMonitorApi::OnRspUserLogin(
     CRHRspInfoField *pRHRspInfoField,
     int nRequestID)
 {
-    CHK_RSP(pRHRspInfoField, "Request user login");
-
-    memcpy(&loginInfo, pRspUserLoginField, sizeof(loginInfo));
+    CHK_RSP(pRHRspInfoField, "Response user login");
 
     LOGI(
         "Risk user[%s] logged in: %s %s",
-        pRspUserLoginField->UserID,
+        loginInfo.UserID,
         pRspUserLoginField->TradingDay,
         pRspUserLoginField->LoginTime);
 
@@ -58,7 +58,7 @@ void fpRHMonitorApi::OnRspUserLogout(
     CRHRspInfoField *pRHRspInfoField,
     int nRequestID)
 {
-    CHK_RSP(pRHRspInfoField, "Request user logout");
+    CHK_RSP(pRHRspInfoField, "Response user logout");
 
     setBoolFlag(&bLogin, false);
 };
@@ -69,7 +69,27 @@ void fpRHMonitorApi::OnRspQryMonitorAccounts(
     CRHRspInfoField *pRHRspInfoField, 
     int nRequestID, bool isLast)
 {
-    CHK_RSP(pRHRspInfoField, "Request query accounts");
+    CHK_RSP(pRHRspInfoField, "Response query accounts");
+
+    if (NULL != pRspMonitorUser) {
+        LOGI("Managed account: %s.%s", brokerID.c_str(), pRspMonitorUser->InvestorID);
+
+        CRHQryInvestorField* investor = (CRHQryInvestorField*)malloc(sizeof(CRHQryInvestorField));
+        assert(investor != NULL);
+        memset(investor, 0, sizeof(CRHQryInvestorField));
+        memcpy(investor, pRspMonitorUser, sizeof(CRHQryInvestorField));
+
+        std::string identity = investor->BrokerID;
+        identity.append(".");
+        identity.append(investor->InvestorID);
+
+        investorsCache[identity] = investor;
+    }
+
+    if (isLast) {
+        LOGI("All managed account queried.");
+        setBoolFlag(&bInvestorReady, true);
+    }
 };
 
 ///查询账户资金响应
@@ -78,7 +98,21 @@ void fpRHMonitorApi::OnRspQryInvestorMoney(
     CRHRspInfoField *pRHRspInfoField, 
     int nRequestID, bool isLast)
 {
-    CHK_RSP(pRHRspInfoField, "Request query money");
+    CHK_RSP(pRHRspInfoField, "Response query money");
+
+    if (NULL != pRHTradingAccountField) {
+        fprintf(stderr, "[%s] Account[%s]'s money:\n", pRHTradingAccountField->TradingDay, pRHTradingAccountField->AccountID);
+        fprintf(stderr, "PreBalance: %.2f\n", pRHTradingAccountField->PreBalance);
+        fprintf(stderr, "Balance: %.2f\n", pRHTradingAccountField->Balance);
+        fprintf(stderr, "Available: %.2f\n", pRHTradingAccountField->Available);
+        fprintf(stderr, "Interest: %.2f\n", pRHTradingAccountField->Interest);
+        fprintf(stderr, "Deposit: %.2f\n", pRHTradingAccountField->Deposit);
+        fprintf(stderr, "Withdraw: %.2f\n", pRHTradingAccountField->Withdraw);
+        fprintf(stderr, "CurrMargin: %.2f\n", pRHTradingAccountField->CurrMargin);
+        fprintf(stderr, "Commission: %.2f\n", pRHTradingAccountField->Commission);
+        fprintf(stderr, "CloseProfit: %.2f\n", pRHTradingAccountField->CloseProfit);
+        fprintf(stderr, "OpenProfit: %.2f\n", pRHTradingAccountField->PositionProfit);
+    }
 };
 
 ///查询账户持仓信息响应
@@ -87,7 +121,7 @@ void fpRHMonitorApi::OnRspQryInvestorPosition(
     CRHRspInfoField *pRHRspInfoField, 
     int nRequestID, bool isLast)
 {
-    CHK_RSP(pRHRspInfoField, "Request query position");
+    CHK_RSP(pRHRspInfoField, "Response query position");
 };
 
 //平仓指令发送失败时的响应
@@ -96,7 +130,7 @@ void fpRHMonitorApi::OnRspOffsetOrder(
     CRHRspInfoField *pRHRspInfoField, 
     int nRequestID, bool isLast)
 {
-    CHK_RSP(pRHRspInfoField, "Request offset order");
+    CHK_RSP(pRHRspInfoField, "Response offset order");
 };
 
 ///报单通知
@@ -129,7 +163,7 @@ void fpRHMonitorApi::Init(const char *ip, unsigned int port)
 {
     pApi->Init(ip, port);
 
-    memcpy(remoteAddr, ip, sizeof(remoteAddr) - 1);
+    remoteAddr.assign(ip);
     remotePort = port;
 };
 
@@ -139,6 +173,7 @@ int fpRHMonitorApi::ReqUserLogin(CRHMonitorReqUserLoginField *pUserLoginField)
     waitBoolFlag(&bConnected, true);
 
     LOGI("Request login for user: %s", pUserLoginField->UserID);
+    memcpy(&loginInfo, pUserLoginField, sizeof(loginInfo));
 
     return pApi->ReqUserLogin(pUserLoginField, nRequestID++);
 };
@@ -177,6 +212,30 @@ int fpRHMonitorApi::ReqQryInvestorMoney(CRHMonitorQryInvestorMoneyField *pQryInv
     return pApi->ReqQryInvestorMoney(pQryInvestorMoneyField, nRequestID++);
 };
 
+///查询所有账户资金
+int fpRHMonitorApi::ReqQryAllInvestorMoney()
+{
+    waitBoolFlag(&bInvestorReady, true);
+
+    int rtn = 0;
+
+    for (auto iter = investorsCache.begin(); iter != investorsCache.end(); iter++) {
+        CRHMonitorQryInvestorMoneyField money = CRHMonitorQryInvestorMoneyField{ 0 };
+
+        // memcpy(&money.BrokerID, brokerID.c_str(), sizeof(money.BrokerID) - 1);
+        memcpy(&money.BrokerID, iter->second->BrokerID, sizeof(money.BrokerID) - 1);
+        memcpy(&money.InvestorID, iter->second->InvestorID, sizeof(money.InvestorID) - 1);
+
+        LOGI("Query investor[%s]'s money.", iter->second->InvestorID);
+
+        rtn = ReqQryInvestorMoney(&money);
+
+        if (0 != rtn) break;
+    }
+
+    return rtn;
+}
+
 ///查询账户持仓
 int fpRHMonitorApi::ReqQryInvestorPosition(CRHMonitorQryInvestorPositionField *pQryInvestorPositionField)
 {
@@ -184,6 +243,30 @@ int fpRHMonitorApi::ReqQryInvestorPosition(CRHMonitorQryInvestorPositionField *p
 
     return pApi->ReqQryInvestorPosition(pQryInvestorPositionField, nRequestID++);
 };
+
+///查询所有账户持仓
+int fpRHMonitorApi::ReqQryAllInvestorPosition()
+{
+    waitBoolFlag(&bInvestorReady, true);
+
+    int rtn = 0;
+
+    for (auto iter = investorsCache.begin(); iter != investorsCache.end(); iter++) {
+        CRHMonitorQryInvestorPositionField pos = CRHMonitorQryInvestorPositionField{ 0 };
+
+        // memcpy(&pos.BrokerID, brokerID.c_str(), sizeof(pos.BrokerID) - 1);
+        memcpy(&pos.BrokerID, iter->second->BrokerID, sizeof(pos.BrokerID) - 1);
+        memcpy(&pos.InvestorID, iter->second->InvestorID, sizeof(pos.InvestorID) - 1);
+
+        LOGI("Query investor[%s]'s position.", iter->second->InvestorID);
+
+        rtn = ReqQryInvestorPosition(&pos);
+
+        if (0 != rtn) break;
+    }
+
+    return rtn;
+}
 
 //给Server发送强平请求
 int fpRHMonitorApi::ReqOffsetOrder(CRHMonitorOffsetOrderField *pMonitorOrderField)

@@ -6,29 +6,34 @@
 #include <atomic>
 #include <stdio.h>
 #include <thread>
+#include <map>
+#include <string>
 
 #include "RHMonitorApi.h"
 
+#ifndef THREAD_ID
+#define THREAD_ID
 static inline unsigned int get_thread_id() {
     std::hash<std::thread::id> hasher;
     return hasher(std::this_thread::get_id()); 
 }
+#endif
 
 #define FMTI(fmt) "[TID: %5u] [INFO ] " fmt "\n"
 #define FMTW(fmt) "[TID: %5u] [WARNI] " fmt "\n"
-#define FMTE(fmt) "[TID: %5u] [ERROR] " fmt "\n"
+#define FMTE(fmt) "%s(%d)-<%s> [TID: %5u] [ERROR] " fmt "\n"
 #define LOGI(fmt, ...) fprintf(stderr, FMTI(fmt), get_thread_id(), __VA_ARGS__)
 #define LOGW(fmt, ...) fprintf(stderr, FMTW(fmt), get_thread_id(), __VA_ARGS__)
-#define LOGE(fmt, ...) fprintf(stderr, FMTE(fmt), get_thread_id(), __VA_ARGS__)
+#define LOGE(fmt, ...) fprintf(stderr, FMTE(fmt), __FILE__, __LINE__, __FUNCTION__, get_thread_id(), __VA_ARGS__)
 
 class fpRHMonitorApi : public CRHMonitorSpi
 {
 public:
-    fpRHMonitorApi() : nRequestID(0), remotePort(0), bConnected(false), bLogin(false)
+    fpRHMonitorApi(const char* brokerID) : nRequestID(0), remotePort(0), bConnected(false), bLogin(false), bInvestorReady(false)
     {
         createInstance();
 
-        memset(remoteAddr, 0, sizeof(remoteAddr));
+        this->brokerID.assign(brokerID);
         memset(&loginInfo, 0, sizeof(loginInfo));
     };
 
@@ -41,15 +46,18 @@ protected:
 private:
     CRHMonitorApi *pApi;
     
-    char remoteAddr[16];
+    std::string remoteAddr;
     int remotePort;
+    std::string brokerID;
     
     std::atomic_int nRequestID;
     
     std::atomic_bool bConnected;
     std::atomic_bool bLogin;
+    std::atomic_bool bInvestorReady;
     
     CRHMonitorReqUserLoginField loginInfo;
+    std::map<std::string, CRHQryInvestorField*> investorsCache;
 
     void
     createInstance()
@@ -82,8 +90,14 @@ public:
     ///查询账户资金
     int ReqQryInvestorMoney(CRHMonitorQryInvestorMoneyField *pQryInvestorMoneyField);
 
+    ///查询所有账户资金
+    int ReqQryAllInvestorMoney();
+
     ///查询账户持仓
     int ReqQryInvestorPosition(CRHMonitorQryInvestorPositionField *pQryInvestorPositionField);
+
+    ///查询所有账户持仓
+    int ReqQryAllInvestorPosition();
 
     //给Server发送强平请求
     int ReqOffsetOrder(CRHMonitorOffsetOrderField *pMonitorOrderField);

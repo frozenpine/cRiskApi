@@ -13,8 +13,10 @@ const char* riskUser = "rdfk";
 
 const char* riskPass = "888888";
 
+const char* brokerID = "RohonDemo";
+
 int main() {
-	api = new fpRHMonitorApi();
+	api = new fpRHMonitorApi(brokerID);
 
 	LOGI("Rohon risk api instance[0x%x] created.", (unsigned int)api);
 
@@ -27,6 +29,10 @@ int main() {
 	api->ReqUserLogin(&login);
 
 	api->ReqQryMonitorAccounts();
+
+	api->ReqQryAllInvestorMoney();
+
+	api->ReqQryAllInvestorPosition();
 
 	while (true) { ; }
 }
