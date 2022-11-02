@@ -1,4 +1,4 @@
-#include "api.h"
+﻿#include "api.h"
 
 static fpRHMonitorApi* api = NULL;
 
@@ -18,7 +18,7 @@ const char* brokerID = "RohonDemo";
 int main() {
 	api = new fpRHMonitorApi(brokerID);
 
-	LOGI("Rohon risk api instance[0x%x] created.", (unsigned int)api);
+	LOGI("Rohon risk api instance[0x%x] created.", (void *)api);
 
 	api->Init(ip, port);
 

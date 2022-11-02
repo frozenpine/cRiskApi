@@ -1,4 +1,4 @@
-#include <stdlib.h>
+ï»¿#include <stdlib.h>
 #include <stdint.h>
 #include <stdbool.h>
 #include <memory.h>
@@ -22,9 +22,9 @@ static inline unsigned int get_thread_id() {
 #define FMTI(fmt) "[TID: %5u] [INFO ] " fmt "\n"
 #define FMTW(fmt) "[TID: %5u] [WARNI] " fmt "\n"
 #define FMTE(fmt) "%s(%d)-<%s> [TID: %5u] [ERROR] " fmt "\n"
-#define LOGI(fmt, ...) fprintf(stderr, FMTI(fmt), get_thread_id(), __VA_ARGS__)
-#define LOGW(fmt, ...) fprintf(stderr, FMTW(fmt), get_thread_id(), __VA_ARGS__)
-#define LOGE(fmt, ...) fprintf(stderr, FMTE(fmt), __FILE__, __LINE__, __FUNCTION__, get_thread_id(), __VA_ARGS__)
+#define LOGI(fmt, ...) fprintf(stderr, FMTI(fmt), get_thread_id(), ##__VA_ARGS__)
+#define LOGW(fmt, ...) fprintf(stderr, FMTW(fmt), get_thread_id(), ##__VA_ARGS__)
+#define LOGE(fmt, ...) fprintf(stderr, FMTE(fmt), __FILE__, __LINE__, __FUNCTION__, get_thread_id(), ##__VA_ARGS__)
 
 class fpRHMonitorApi : public CRHMonitorSpi
 {
@@ -74,78 +74,78 @@ protected:
     void waitBoolFlag(std::atomic_bool *flag, bool v);
 
 public:
-    ///³õÊ¼»¯
-    ///@remark ³õÊ¼»¯ÔËĞĞ»·¾³,Ö»ÓĞµ÷ÓÃºó,½Ó¿Ú²Å¿ªÊ¼¹¤×÷
+    ///åˆå§‹åŒ–
+    ///@remark åˆå§‹åŒ–è¿è¡Œç¯å¢ƒ,åªæœ‰è°ƒç”¨å,æ¥å£æ‰å¼€å§‹å·¥ä½œ
     void Init(const char *ip, unsigned int port);
 
-    ///ÕË»§µÇÂ½
+    ///è´¦æˆ·ç™»é™†
     int ReqUserLogin(CRHMonitorReqUserLoginField *pUserLoginField);
 
-    //ÕË»§µÇ³ö
+    //è´¦æˆ·ç™»å‡º
     int ReqUserLogout();
 
-    //²éÑ¯ËùÓĞ¹ÜÀíµÄÕË»§
+    //æŸ¥è¯¢æ‰€æœ‰ç®¡ç†çš„è´¦æˆ·
     int ReqQryMonitorAccounts();
 
-    ///²éÑ¯ÕË»§×Ê½ğ
+    ///æŸ¥è¯¢è´¦æˆ·èµ„é‡‘
     int ReqQryInvestorMoney(CRHMonitorQryInvestorMoneyField *pQryInvestorMoneyField);
 
-    ///²éÑ¯ËùÓĞÕË»§×Ê½ğ
+    ///æŸ¥è¯¢æ‰€æœ‰è´¦æˆ·èµ„é‡‘
     int ReqQryAllInvestorMoney();
 
-    ///²éÑ¯ÕË»§³Ö²Ö
+    ///æŸ¥è¯¢è´¦æˆ·æŒä»“
     int ReqQryInvestorPosition(CRHMonitorQryInvestorPositionField *pQryInvestorPositionField);
 
-    ///²éÑ¯ËùÓĞÕË»§³Ö²Ö
+    ///æŸ¥è¯¢æ‰€æœ‰è´¦æˆ·æŒä»“
     int ReqQryAllInvestorPosition();
 
-    //¸øServer·¢ËÍÇ¿Æ½ÇëÇó
+    //ç»™Serverå‘é€å¼ºå¹³è¯·æ±‚
     int ReqOffsetOrder(CRHMonitorOffsetOrderField *pMonitorOrderField);
 
-    //¶©ÔÄÖ÷¶¯ÍÆËÍĞÅÏ¢
+    //è®¢é˜…ä¸»åŠ¨æ¨é€ä¿¡æ¯
     int ReqSubPushInfo(CRHMonitorSubPushInfo *pInfo);
 
     void Release();
 
-    ///µ±¿Í»§¶ËÓë½»Ò×ºóÌ¨½¨Á¢ÆğÍ¨ĞÅÁ¬½ÓÊ±£¨»¹Î´µÇÂ¼Ç°£©£¬¸Ã·½·¨±»µ÷ÓÃ¡£
+    ///å½“å®¢æˆ·ç«¯ä¸äº¤æ˜“åå°å»ºç«‹èµ·é€šä¿¡è¿æ¥æ—¶ï¼ˆè¿˜æœªç™»å½•å‰ï¼‰ï¼Œè¯¥æ–¹æ³•è¢«è°ƒç”¨ã€‚
     virtual void OnFrontConnected();
 
-    ///µ±¿Í»§¶ËÓë½»Ò×ºóÌ¨Í¨ĞÅÁ¬½Ó¶Ï¿ªÊ±£¬¸Ã·½·¨±»µ÷ÓÃ¡£µ±·¢ÉúÕâ¸öÇé¿öºó£¬API»á×Ô¶¯ÖØĞÂÁ¬½Ó£¬¿Í»§¶Ë¿É²»×ö´¦Àí¡£
-    ///@param nReason ´íÎóÔ­Òò
-    ///        0x1001 ÍøÂç¶ÁÊ§°Ü
-    ///        0x1002 ÍøÂçĞ´Ê§°Ü
-    ///        0x2001 ½ÓÊÕĞÄÌø³¬Ê±
-    ///        0x2002 ·¢ËÍĞÄÌøÊ§°Ü
-    ///        0x2003 ÊÕµ½´íÎó±¨ÎÄ
+    ///å½“å®¢æˆ·ç«¯ä¸äº¤æ˜“åå°é€šä¿¡è¿æ¥æ–­å¼€æ—¶ï¼Œè¯¥æ–¹æ³•è¢«è°ƒç”¨ã€‚å½“å‘ç”Ÿè¿™ä¸ªæƒ…å†µåï¼ŒAPIä¼šè‡ªåŠ¨é‡æ–°è¿æ¥ï¼Œå®¢æˆ·ç«¯å¯ä¸åšå¤„ç†ã€‚
+    ///@param nReason é”™è¯¯åŸå› 
+    ///        0x1001 ç½‘ç»œè¯»å¤±è´¥
+    ///        0x1002 ç½‘ç»œå†™å¤±è´¥
+    ///        0x2001 æ¥æ”¶å¿ƒè·³è¶…æ—¶
+    ///        0x2002 å‘é€å¿ƒè·³å¤±è´¥
+    ///        0x2003 æ”¶åˆ°é”™è¯¯æŠ¥æ–‡
     virtual void OnFrontDisconnected(int nReason);
 
-    ///·ç¿ØÕË»§µÇÂ½ÏìÓ¦
+    ///é£æ§è´¦æˆ·ç™»é™†å“åº”
     virtual void OnRspUserLogin(CRHMonitorRspUserLoginField* pRspUserLoginField, CRHRspInfoField* pRHRspInfoField, int nRequestID);
 
-    ///·ç¿ØÕË»§µÇ³öÏìÓ¦
+    ///é£æ§è´¦æˆ·ç™»å‡ºå“åº”
     virtual void OnRspUserLogout(CRHMonitorUserLogoutField* pRspUserLoginField, CRHRspInfoField* pRHRspInfoField, int nRequestID);
 
-    //²éÑ¯¼à¿ØÕË»§ÏìÓ¦
+    //æŸ¥è¯¢ç›‘æ§è´¦æˆ·å“åº”
     virtual void OnRspQryMonitorAccounts(CRHQryInvestorField* pRspMonitorUser, CRHRspInfoField* pRHRspInfoField, int nRequestID, bool isLast);
 
-    ///²éÑ¯ÕË»§×Ê½ğÏìÓ¦ 
+    ///æŸ¥è¯¢è´¦æˆ·èµ„é‡‘å“åº” 
     virtual void OnRspQryInvestorMoney(CRHTradingAccountField* pRHTradingAccountField, CRHRspInfoField* pRHRspInfoField, int nRequestID, bool isLast);
 
-    ///²éÑ¯ÕË»§³Ö²ÖĞÅÏ¢ÏìÓ¦
+    ///æŸ¥è¯¢è´¦æˆ·æŒä»“ä¿¡æ¯å“åº”
     virtual void OnRspQryInvestorPosition(CRHMonitorPositionField* pRHMonitorPositionField, CRHRspInfoField* pRHRspInfoField, int nRequestID, bool isLast);
 
-    //Æ½²ÖÖ¸Áî·¢ËÍÊ§°ÜÊ±µÄÏìÓ¦
+    //å¹³ä»“æŒ‡ä»¤å‘é€å¤±è´¥æ—¶çš„å“åº”
     virtual void OnRspOffsetOrder(CRHMonitorOffsetOrderField* pMonitorOrderField, CRHRspInfoField* pRHRspInfoField, int nRequestID, bool isLast);
 
-    ///±¨µ¥Í¨Öª
+    ///æŠ¥å•é€šçŸ¥
     virtual void OnRtnOrder(CRHOrderField* pOrder);
 
-    ///³É½»Í¨Öª
+    ///æˆäº¤é€šçŸ¥
     virtual void OnRtnTrade(CRHTradeField* pTrade);
 
-    ///ÕË»§×Ê½ğ·¢Éú±ä»¯»Ø±¨
+    ///è´¦æˆ·èµ„é‡‘å‘ç”Ÿå˜åŒ–å›æŠ¥
     virtual void OnRtnInvestorMoney(CRHTradingAccountField* pRohonTradingAccountField);
 
-    ///ÕË»§Ä³ºÏÔ¼³Ö²Ö»Ø±¨
+    ///è´¦æˆ·æŸåˆçº¦æŒä»“å›æŠ¥
     virtual void OnRtnInvestorPosition(CRHMonitorPositionField* pRohonMonitorPositionField);
 };
