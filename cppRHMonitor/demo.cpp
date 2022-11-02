@@ -1,4 +1,4 @@
-#include "api.h"
+﻿#include "api.h"
 
 static fpRHMonitorApi *api = NULL;
 
