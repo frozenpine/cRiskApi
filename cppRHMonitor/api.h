@@ -8,14 +8,22 @@
 #include <thread>
 #include <map>
 #include <string>
+#ifdef _WIN32
+#include <windows.h>
+#else
+#include <pthread.h>
+#endif
 
 #include "RHMonitorApi.h"
 
 #ifndef THREAD_ID
 #define THREAD_ID
-static inline unsigned int get_thread_id() {
-    std::hash<std::thread::id> hasher;
-    return hasher(std::this_thread::get_id()); 
+static inline unsigned long get_thread_id() {
+#ifdef WIN32
+    return GetCurrentThreadId();
+#else
+    return thread_self();
+#endif
 }
 #endif
 

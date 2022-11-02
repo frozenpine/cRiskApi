@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #ifndef C_MONITOR_API_H
 #define C_MONITOR_API_H
 
@@ -39,24 +39,24 @@ extern "C"
 #include "RHUserApiDataType.h"
 #include "RHUserApiStruct.h"
 
-    // C API ÊµÀı
+    // C API å®ä¾‹
     typedef uintptr_t CRHMonitorInstance;
 
-    /// µ±¿Í»§¶ËÓë½»Ò×ºóÌ¨½¨Á¢ÆğÍ¨ĞÅÁ¬½ÓÊ±£¨»¹Î´µÇÂ¼Ç°£©£¬¸Ã·½·¨±»µ÷ÓÃ¡£
+    /// å½“å®¢æˆ·ç«¯ä¸äº¤æ˜“åå°å»ºç«‹èµ·é€šä¿¡è¿æ¥æ—¶ï¼ˆè¿˜æœªç™»å½•å‰ï¼‰ï¼Œè¯¥æ–¹æ³•è¢«è°ƒç”¨ã€‚
     typedef void(APPWINAPI *CbOnFrontConnected)(CRHMonitorInstance instance);
     C_API void SetCbOnFrontConnected(CRHMonitorInstance instance, CbOnFrontConnected handler);
 
-    /// µ±¿Í»§¶ËÓë½»Ò×ºóÌ¨Í¨ĞÅÁ¬½Ó¶Ï¿ªÊ±£¬¸Ã·½·¨±»µ÷ÓÃ¡£µ±·¢ÉúÕâ¸öÇé¿öºó£¬API»á×Ô¶¯ÖØĞÂÁ¬½Ó£¬¿Í»§¶Ë¿É²»×ö´¦Àí¡£
-    ///@param nReason ´íÎóÔ­Òò
-    ///         0x1001 ÍøÂç¶ÁÊ§°Ü
-    ///         0x1002 ÍøÂçĞ´Ê§°Ü
-    ///         0x2001 ½ÓÊÕĞÄÌø³¬Ê±
-    ///         0x2002 ·¢ËÍĞÄÌøÊ§°Ü
-    ///         0x2003 ÊÕµ½´íÎó±¨ÎÄ
+    /// å½“å®¢æˆ·ç«¯ä¸äº¤æ˜“åå°é€šä¿¡è¿æ¥æ–­å¼€æ—¶ï¼Œè¯¥æ–¹æ³•è¢«è°ƒç”¨ã€‚å½“å‘ç”Ÿè¿™ä¸ªæƒ…å†µåï¼ŒAPIä¼šè‡ªåŠ¨é‡æ–°è¿æ¥ï¼Œå®¢æˆ·ç«¯å¯ä¸åšå¤„ç†ã€‚
+    ///@param nReason é”™è¯¯åŸå› 
+    ///         0x1001 ç½‘ç»œè¯»å¤±è´¥
+    ///         0x1002 ç½‘ç»œå†™å¤±è´¥
+    ///         0x2001 æ¥æ”¶å¿ƒè·³è¶…æ—¶
+    ///         0x2002 å‘é€å¿ƒè·³å¤±è´¥
+    ///         0x2003 æ”¶åˆ°é”™è¯¯æŠ¥æ–‡
     typedef void(APPWINAPI *CbOnFrontDisconnected)(CRHMonitorInstance instance, int nReason);
     C_API void SetCbOnFrontDisconnected(CRHMonitorInstance instance, CbOnFrontDisconnected handler);
 
-    /// ·ç¿ØÕË»§µÇÂ½ÏìÓ¦
+    /// é£æ§è´¦æˆ·ç™»é™†å“åº”
     typedef void(APPWINAPI *CbOnRspUserLogin)(
         CRHMonitorInstance instance,
         struct CRHMonitorRspUserLoginField *pRspUserLoginField,
@@ -64,15 +64,15 @@ extern "C"
         int nRequestID);
     C_API void SetCbOnRspUserLogin(CRHMonitorInstance instance, CbOnRspUserLogin handler);
 
-    /// ·ç¿ØÕË»§µÇ³öÏìÓ¦
+    /// é£æ§è´¦æˆ·ç™»å‡ºå“åº”
     typedef void(APPWINAPI *CbOnRspUserLogout)(
         CRHMonitorInstance instance,
-        struct CRHMonitorUserLogoutField *pRspUserLoginField,
+        struct CRHMonitorUserLogoutField *pRspUserLogoutField,
         struct CRHRspInfoField *pRHRspInfoField,
         int nRequestID);
     C_API void SetCbOnRspUserLogout(CRHMonitorInstance instance, CbOnRspUserLogout handler);
 
-    /// ²éÑ¯¼à¿ØÕË»§ÏìÓ¦
+    /// æŸ¥è¯¢ç›‘æ§è´¦æˆ·å“åº”
     typedef void(APPWINAPI *CbOnRspQryMonitorAccounts)(
         CRHMonitorInstance instance,
         struct CRHQryInvestorField *pRspMonitorUser,
@@ -80,7 +80,7 @@ extern "C"
         int nRequestID, bool isLast);
     C_API void SetCbOnRspQryMonitorAccounts(CRHMonitorInstance instance, CbOnRspQryMonitorAccounts handler);
 
-    /// ²éÑ¯ÕË»§×Ê½ğÏìÓ¦
+    /// æŸ¥è¯¢è´¦æˆ·èµ„é‡‘å“åº”
     typedef void(APPWINAPI *CbOnRspQryInvestorMoney)(
         CRHMonitorInstance instance,
         struct CRHTradingAccountField *pRHTradingAccountField,
@@ -88,7 +88,7 @@ extern "C"
         int nRequestID, bool isLast);
     C_API void SetCbOnRspQryInvestorMoney(CRHMonitorInstance instance, CbOnRspQryInvestorMoney handler);
 
-    /// ²éÑ¯ÕË»§³Ö²ÖĞÅÏ¢ÏìÓ¦
+    /// æŸ¥è¯¢è´¦æˆ·æŒä»“ä¿¡æ¯å“åº”
     typedef void(APPWINAPI *CbOnRspQryInvestorPosition)(
         CRHMonitorInstance instance,
         struct CRHMonitorPositionField *pRHMonitorPositionField,
@@ -96,7 +96,7 @@ extern "C"
         int nRequestID, bool isLast);
     C_API void SetCbOnRspQryInvestorPosition(CRHMonitorInstance instance, CbOnRspQryInvestorPosition handler);
 
-    /// Æ½²ÖÖ¸Áî·¢ËÍÊ§°ÜÊ±µÄÏìÓ¦
+    /// å¹³ä»“æŒ‡ä»¤å‘é€å¤±è´¥æ—¶çš„å“åº”
     typedef void(APPWINAPI *CbOnRspOffsetOrder)(
         CRHMonitorInstance instance,
         struct CRHMonitorOffsetOrderField *pMonitorOrderField,
@@ -104,19 +104,19 @@ extern "C"
         int nRequestID, bool isLast);
     C_API void SetCbOnRspOffsetOrder(CRHMonitorInstance instance, CbOnRspOffsetOrder handler);
 
-    /// ±¨µ¥Í¨Öª
+    /// æŠ¥å•é€šçŸ¥
     typedef void(APPWINAPI *CbOnRtnOrder)(CRHMonitorInstance instance, struct CRHOrderField *pOrder);
     C_API void SetCbOnRtnOrder(CRHMonitorInstance instance, CbOnRtnOrder handler);
 
-    /// ³É½»Í¨Öª
+    /// æˆäº¤é€šçŸ¥
     typedef void(APPWINAPI *CbOnRtnTrade)(CRHMonitorInstance instance, struct CRHTradeField *pTrade);
     C_API void SetCbOnRtnTrade(CRHMonitorInstance instance, CbOnRtnTrade handler);
 
-    /// ÕË»§×Ê½ğ·¢Éú±ä»¯»Ø±¨
+    /// è´¦æˆ·èµ„é‡‘å‘ç”Ÿå˜åŒ–å›æŠ¥
     typedef void(APPWINAPI *CbOnRtnInvestorMoney)(CRHMonitorInstance instance, struct CRHTradingAccountField *pRohonTradingAccountField);
     C_API void SetCbOnRtnInvestorMoney(CRHMonitorInstance instance, CbOnRtnInvestorMoney handler);
 
-    /// ÕË»§Ä³ºÏÔ¼³Ö²Ö»Ø±¨
+    /// è´¦æˆ·æŸåˆçº¦æŒä»“å›æŠ¥
     typedef void(APPWINAPI *CbOnRtnInvestorPosition)(CRHMonitorInstance instance, struct CRHMonitorPositionField *pRohonMonitorPositionField);
     C_API void SetCbOnRtnInvestorPosition(CRHMonitorInstance instance, CbOnRtnInvestorPosition handler);
 
@@ -138,35 +138,35 @@ extern "C"
 
     C_API void SetCallbacks(CRHMonitorInstance instance, callback_t *vt);
 
-    /// ´´½¨MonitorApi
+    /// åˆ›å»ºMonitorApi
     C_API CRHMonitorInstance CreateRHMonitorApi();
-    /// É¾³ı½Ó¿Ú¶ÔÏó±¾Éí
-    ///@remark ²»ÔÙÊ¹ÓÃ±¾½Ó¿Ú¶ÔÏóÊ±,µ÷ÓÃ¸Ãº¯ÊıÉ¾³ı½Ó¿Ú¶ÔÏó
+    /// åˆ é™¤æ¥å£å¯¹è±¡æœ¬èº«
+    ///@remark ä¸å†ä½¿ç”¨æœ¬æ¥å£å¯¹è±¡æ—¶,è°ƒç”¨è¯¥å‡½æ•°åˆ é™¤æ¥å£å¯¹è±¡
     C_API void Release(CRHMonitorInstance instance);
 
-    /// ³õÊ¼»¯
-    ///@remark ³õÊ¼»¯ÔËĞĞ»·¾³,Ö»ÓĞµ÷ÓÃºó,½Ó¿Ú²Å¿ªÊ¼¹¤×÷
+    /// åˆå§‹åŒ–
+    ///@remark åˆå§‹åŒ–è¿è¡Œç¯å¢ƒ,åªæœ‰è°ƒç”¨å,æ¥å£æ‰å¼€å§‹å·¥ä½œ
     C_API void Init(CRHMonitorInstance instance, const char *ip, unsigned int port);
 
-    /// ÕË»§µÇÂ½
+    /// è´¦æˆ·ç™»é™†
     C_API int ReqUserLogin(CRHMonitorInstance instance, struct CRHMonitorReqUserLoginField *pUserLoginField, int nRequestID);
 
-    // ÕË»§µÇ³ö
+    // è´¦æˆ·ç™»å‡º
     C_API int ReqUserLogout(CRHMonitorInstance instance, struct CRHMonitorUserLogoutField *pUserLogoutField, int nRequestID);
 
-    // ²éÑ¯ËùÓĞ¹ÜÀíµÄÕË»§
+    // æŸ¥è¯¢æ‰€æœ‰ç®¡ç†çš„è´¦æˆ·
     C_API int ReqQryMonitorAccounts(CRHMonitorInstance instance, struct CRHMonitorQryMonitorUser *pQryMonitorUser, int nRequestID);
 
-    /// ²éÑ¯ÕË»§×Ê½ğ
+    /// æŸ¥è¯¢è´¦æˆ·èµ„é‡‘
     C_API int ReqQryInvestorMoney(CRHMonitorInstance instance, struct CRHMonitorQryInvestorMoneyField *pQryInvestorMoneyField, int nRequestID);
 
-    /// ²éÑ¯ÕË»§³Ö²Ö
+    /// æŸ¥è¯¢è´¦æˆ·æŒä»“
     C_API int ReqQryInvestorPosition(CRHMonitorInstance instance, struct CRHMonitorQryInvestorPositionField *pQryInvestorPositionField, int nRequestID);
 
-    // ¸øServer·¢ËÍÇ¿Æ½ÇëÇó
+    // ç»™Serverå‘é€å¼ºå¹³è¯·æ±‚
     C_API int ReqOffsetOrder(CRHMonitorInstance instance, struct CRHMonitorOffsetOrderField *pMonitorOrderField, int nRequestID);
 
-    // ¶©ÔÄÖ÷¶¯ÍÆËÍĞÅÏ¢
+    // è®¢é˜…ä¸»åŠ¨æ¨é€ä¿¡æ¯
     C_API int ReqSubPushInfo(CRHMonitorInstance instance, struct CRHMonitorSubPushInfo *pInfo, int nRequestID);
 
 #ifdef __cplusplus
