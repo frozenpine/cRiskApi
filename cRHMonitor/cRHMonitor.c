@@ -75,14 +75,7 @@ void cOnRspUserLogin(
     struct CRHRspInfoField *pRHRspInfoField,
     int nRequestID)
 {
-    if (NULL != pRHRspInfoField)
-    {
-        if (pRHRspInfoField->ErrorID > 0)
-        {
-            LOGE("User[%s] login failed: %s", riskUser, pRHRspInfoField->ErrorMsg);
-            return;
-        }
-    }
+    CHK_RSP(pRHRspInfoField, "Response user login");
 
     if (NULL != pRspUserLoginField)
     {
