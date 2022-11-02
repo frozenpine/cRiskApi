@@ -8,7 +8,7 @@
 #include <thread>
 #include <map>
 #include <string>
-#ifdef _WIN32
+#ifdef WIN32
 #include <windows.h>
 #else
 #include <pthread.h>
@@ -38,11 +38,10 @@ static inline unsigned long get_thread_id()
 class fpRHMonitorApi : public CRHMonitorSpi
 {
 public:
-    fpRHMonitorApi(const char *brokerID) : nRequestID(0), remotePort(0), bConnected(false), bLogin(false), bInvestorReady(false)
+    fpRHMonitorApi() : nRequestID(0), remotePort(0), bConnected(false), bLogin(false), bInvestorReady(false)
     {
         createInstance();
 
-        this->brokerID.assign(brokerID);
         memset(&loginInfo, 0, sizeof(loginInfo));
     };
 
