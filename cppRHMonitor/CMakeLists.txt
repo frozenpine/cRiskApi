@@ -24,8 +24,6 @@ set(
 	${PROJECT_SOURCE_DIR}/../libs/rohon
 )
 
-set(ENVLD_LIBRARY_PATH ${LIB_DIRS})
-
 set(
 	PROJECT_HEADERS
 	${PROJECT_SOURCE_DIR}/api.h
