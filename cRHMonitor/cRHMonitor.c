@@ -10,11 +10,12 @@
 
 #ifndef THREAD_ID
 #define THREAD_ID
-static inline unsigned long get_thread_id() {
-#ifdef WIN32
+static inline unsigned long get_thread_id()
+{
+#ifdef _WIN32
     return GetCurrentThreadId();
 #else
-    return thread_self();
+    return pthread_self();
 #endif
 }
 #endif
@@ -29,7 +30,8 @@ static inline unsigned long get_thread_id() {
 #define CHK_RSP(rsp, msg)                                                      \
     do                                                                         \
     {                                                                          \
-        if (NULL == rsp) break;                                                \
+        if (NULL == rsp)                                                       \
+            break;                                                             \
         if ((rsp)->ErrorID > 0)                                                \
         {                                                                      \
             LOGE("%s failed[%d]: %s", (msg), (rsp)->ErrorID, (rsp)->ErrorMsg); \
@@ -39,17 +41,17 @@ static inline unsigned long get_thread_id() {
     } while (false)
 
 // const char* ip = "129.211.138.170";
-const char* ip = "210.22.96.58";
+const char *ip = "210.22.96.58";
 
 // const int port = 20002;
 const int port = 11102;
 
 // const char* riskUser = "rdcesfk";
-const char* riskUser = "rdfk";
+const char *riskUser = "rdfk";
 
-const char* riskPass = "888888";
+const char *riskPass = "888888";
 
-const char* brokerID = "RohonDemo";
+const char *brokerID = "RohonDemo";
 
 static int requestID = 0;
 
@@ -63,15 +65,16 @@ void cOnFrontConnected(CRHMonitorInstance instance)
     memcpy(&login.UserID, riskUser, sizeof(login.UserID) - 1);
     memcpy(&login.Password, riskPass, sizeof(login.Password) - 1);
 
+    LOGI("Request user login: %s", riskUser);
     ReqUserLogin(instance, &login, requestID++);
 }
 
 void cOnRspUserLogin(
     CRHMonitorInstance instance,
-    struct CRHMonitorRspUserLoginField* pRspUserLoginField,
-    struct CRHRspInfoField* pRHRspInfoField,
+    struct CRHMonitorRspUserLoginField *pRspUserLoginField,
+    struct CRHRspInfoField *pRHRspInfoField,
     int nRequestID)
-{   
+{
     if (NULL != pRHRspInfoField)
     {
         if (pRHRspInfoField->ErrorID > 0)
@@ -96,5 +99,8 @@ int main()
 
     Init(instance, ip, port);
 
-    while (true) { ; }
+    while (true)
+    {
+        ;
+    }
 }

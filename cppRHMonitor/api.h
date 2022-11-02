@@ -18,18 +18,19 @@
 
 #ifndef THREAD_ID
 #define THREAD_ID
-static inline unsigned long get_thread_id() {
+static inline unsigned long get_thread_id()
+{
 #ifdef WIN32
     return GetCurrentThreadId();
 #else
-    return thread_self();
+    return pthread_self();
 #endif
 }
 #endif
 
-#define FMTI(fmt) "[TID: %5u] [INFO ] " fmt "\n"
-#define FMTW(fmt) "[TID: %5u] [WARNI] " fmt "\n"
-#define FMTE(fmt) "%s(%d)-<%s> [TID: %5u] [ERROR] " fmt "\n"
+#define FMTI(fmt) "[TID: %5lu] [INFO ] " fmt "\n"
+#define FMTW(fmt) "[TID: %5lu] [WARNI] " fmt "\n"
+#define FMTE(fmt) "%s(%d)-<%s> [TID: %5lu] [ERROR] " fmt "\n"
 #define LOGI(fmt, ...) fprintf(stderr, FMTI(fmt), get_thread_id(), ##__VA_ARGS__)
 #define LOGW(fmt, ...) fprintf(stderr, FMTW(fmt), get_thread_id(), ##__VA_ARGS__)
 #define LOGE(fmt, ...) fprintf(stderr, FMTE(fmt), __FILE__, __LINE__, __FUNCTION__, get_thread_id(), ##__VA_ARGS__)
@@ -37,7 +38,7 @@ static inline unsigned long get_thread_id() {
 class fpRHMonitorApi : public CRHMonitorSpi
 {
 public:
-    fpRHMonitorApi(const char* brokerID) : nRequestID(0), remotePort(0), bConnected(false), bLogin(false), bInvestorReady(false)
+    fpRHMonitorApi(const char *brokerID) : nRequestID(0), remotePort(0), bConnected(false), bLogin(false), bInvestorReady(false)
     {
         createInstance();
 
@@ -53,19 +54,19 @@ protected:
 
 private:
     CRHMonitorApi *pApi;
-    
+
     std::string remoteAddr;
     int remotePort;
     std::string brokerID;
-    
+
     std::atomic_int nRequestID;
-    
+
     std::atomic_bool bConnected;
     std::atomic_bool bLogin;
     std::atomic_bool bInvestorReady;
-    
+
     CRHMonitorReqUserLoginField loginInfo;
-    std::map<std::string, CRHQryInvestorField*> investorsCache;
+    std::map<std::string, CRHQryInvestorField *> investorsCache;
 
     void
     createInstance()
@@ -128,32 +129,32 @@ public:
     virtual void OnFrontDisconnected(int nReason);
 
     ///风控账户登陆响应
-    virtual void OnRspUserLogin(CRHMonitorRspUserLoginField* pRspUserLoginField, CRHRspInfoField* pRHRspInfoField, int nRequestID);
+    virtual void OnRspUserLogin(CRHMonitorRspUserLoginField *pRspUserLoginField, CRHRspInfoField *pRHRspInfoField, int nRequestID);
 
     ///风控账户登出响应
-    virtual void OnRspUserLogout(CRHMonitorUserLogoutField* pRspUserLoginField, CRHRspInfoField* pRHRspInfoField, int nRequestID);
+    virtual void OnRspUserLogout(CRHMonitorUserLogoutField *pRspUserLoginField, CRHRspInfoField *pRHRspInfoField, int nRequestID);
 
     //查询监控账户响应
-    virtual void OnRspQryMonitorAccounts(CRHQryInvestorField* pRspMonitorUser, CRHRspInfoField* pRHRspInfoField, int nRequestID, bool isLast);
+    virtual void OnRspQryMonitorAccounts(CRHQryInvestorField *pRspMonitorUser, CRHRspInfoField *pRHRspInfoField, int nRequestID, bool isLast);
 
-    ///查询账户资金响应 
-    virtual void OnRspQryInvestorMoney(CRHTradingAccountField* pRHTradingAccountField, CRHRspInfoField* pRHRspInfoField, int nRequestID, bool isLast);
+    ///查询账户资金响应
+    virtual void OnRspQryInvestorMoney(CRHTradingAccountField *pRHTradingAccountField, CRHRspInfoField *pRHRspInfoField, int nRequestID, bool isLast);
 
     ///查询账户持仓信息响应
-    virtual void OnRspQryInvestorPosition(CRHMonitorPositionField* pRHMonitorPositionField, CRHRspInfoField* pRHRspInfoField, int nRequestID, bool isLast);
+    virtual void OnRspQryInvestorPosition(CRHMonitorPositionField *pRHMonitorPositionField, CRHRspInfoField *pRHRspInfoField, int nRequestID, bool isLast);
 
     //平仓指令发送失败时的响应
-    virtual void OnRspOffsetOrder(CRHMonitorOffsetOrderField* pMonitorOrderField, CRHRspInfoField* pRHRspInfoField, int nRequestID, bool isLast);
+    virtual void OnRspOffsetOrder(CRHMonitorOffsetOrderField *pMonitorOrderField, CRHRspInfoField *pRHRspInfoField, int nRequestID, bool isLast);
 
     ///报单通知
-    virtual void OnRtnOrder(CRHOrderField* pOrder);
+    virtual void OnRtnOrder(CRHOrderField *pOrder);
 
     ///成交通知
-    virtual void OnRtnTrade(CRHTradeField* pTrade);
+    virtual void OnRtnTrade(CRHTradeField *pTrade);
 
     ///账户资金发生变化回报
-    virtual void OnRtnInvestorMoney(CRHTradingAccountField* pRohonTradingAccountField);
+    virtual void OnRtnInvestorMoney(CRHTradingAccountField *pRohonTradingAccountField);
 
     ///账户某合约持仓回报
-    virtual void OnRtnInvestorPosition(CRHMonitorPositionField* pRohonMonitorPositionField);
+    virtual void OnRtnInvestorPosition(CRHMonitorPositionField *pRohonMonitorPositionField);
 };
